@@ -1,0 +1,30 @@
+.tile__container {
+  border-radius: 8px;
+  padding: 1rem;
+  max-width: 225px;
+  min-height: 137px;
+  background-color: var(--background-color);
+  margin-block-end: 1.5rem;
+
+  @media (max-width: 900px) {
+    max-width: 100%;
+    min-height: 180px;
+  }
+}
+
+.radial-gradient {
+  background-image: url('../../assets/background-header.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+
+  @media (max-width: 700px) {
+    border-radius: 0px;
+    min-height: 100px;
+    margin-block-end: 0;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+}

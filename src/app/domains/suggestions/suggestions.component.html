@@ -1,0 +1,61 @@
+<div class="page__container">
+  <div class="sidebar__container">
+    <product-feedback-app-v2-heading-tile
+      (mobileSideBarClick)="openMobileSideBar()"
+    ></product-feedback-app-v2-heading-tile>
+
+    <product-feedback-app-v2-chiplist-tile
+      class="mobile-hide"
+      [chipList]="chipList"
+      (chipSelected)="onChipClick($event)"
+    >
+    </product-feedback-app-v2-chiplist-tile>
+
+    <product-feedback-app-v2-roadmap-tile
+      class="mobile-hide"
+    ></product-feedback-app-v2-roadmap-tile>
+  </div>
+  <main class="content__container">
+    <product-feedback-app-v2-header class="header">
+      <img
+        class="header__img"
+        src="../../assets/icon-suggestions.svg"
+        alt="suggestion icon"
+      />
+      <h2 class="header__heading">{{ allSuggestions().length }} Suggestions</h2>
+
+      <div class="header__sort" (click)="isMenuOpen = !isMenuOpen">
+        <p class="body-2">Sort by: {{ menuItemSelected.title }}</p>
+        <img
+          *ngIf="menuItemSelected?.sortBy?.order === 'desc'"
+          src="../../assets/icon-arrow-up.svg"
+          alt="up arrow"
+        />
+        @if (menuItemSelected.sortBy?.order === 'asc') {
+        <img src="../../assets/icon-arrow-down.svg" alt="down arrow" />
+        }
+      </div>
+      <product-feedback-app-v2-menu
+        class="menu"
+        *ngIf="isMenuOpen"
+        [menuItems]="menuItems"
+        [itemSelected]="menuItemSelected"
+        (menuItemClicked)="onMenuItemClick($event)"
+      ></product-feedback-app-v2-menu>
+    </product-feedback-app-v2-header>
+
+    <product-feedback-app-v2-suggestions-list
+      [sortBy]="sortBy"
+      [allSuggestions]="allSuggestions()"
+      (upVoteClick)="onUpVoteClick($event)"
+      (suggestionSelectClick)="onSuggestionClick($event)"
+    ></product-feedback-app-v2-suggestions-list>
+  </main>
+</div>
+
+<product-feedback-app-v2-mobile-sidebar
+  *ngIf="showMobileSidebar"
+  class="mobile-sidebar"
+  [chipList]="chipList"
+  (chipSelected)="onChipClick($event)"
+></product-feedback-app-v2-mobile-sidebar>

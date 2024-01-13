@@ -1,0 +1,12 @@
+<product-feedback-app-v2-tile>
+  <div class="chip__container">
+    @for (chip of chipList; track chip.text) {
+    <product-feedback-app-v2-chip
+      class="chip"
+      [text]="chip.text"
+      [active]="chip.active"
+      (chipClick)="chipSelected.emit({chipList, chip})"
+    ></product-feedback-app-v2-chip>
+    }
+  </div>
+</product-feedback-app-v2-tile>

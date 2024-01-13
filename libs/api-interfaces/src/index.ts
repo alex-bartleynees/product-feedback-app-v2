@@ -1,1 +1,9 @@
-export * from './lib/api-interfaces';
+export { SuggestionComment } from './lib/suggestion-comment';
+export { Suggestion } from './lib/suggestion';
+export { User } from './lib/user';
+export { AppConfig } from './lib/app-config';
+export { SuggestionReply } from './lib/suggestion-reply';
+export { SuggestionCommentRequest } from './lib/suggestion-comment-request';
+export { SuggestionCommentReplyRequest } from './lib/suggestion-comment-reply-request';
+export { SuggestionCommentResponse } from './lib/suggestion-comment-response';
+export { SuggestionCommentReplyResponse } from './lib/suggestion-comment-reply-response';

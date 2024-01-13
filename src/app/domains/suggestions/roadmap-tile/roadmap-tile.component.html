@@ -1,0 +1,24 @@
+<product-feedback-app-v2-tile>
+  <div class="roadmap__container">
+    <div class="roadmap__heading-container">
+      <h3 class="roadmap__heading">Roadmap</h3>
+      <a routerLink="road-map" class="roadmap__view-text body-3">View</a>
+    </div>
+    <div class="roadmap__content">
+      <div class="roadmap__item">
+        <p>Planned</p>
+        <span class="number">{{ plannedSuggestions().length }}</span>
+      </div>
+
+      <div class="roadmap__item roadmap__item--in-progress">
+        <p>In-Progress</p>
+        <span class="number">{{ inProgressSuggestions().length }}</span>
+      </div>
+
+      <div class="roadmap__item roadmap__item--live">
+        <p>Live</p>
+        <span class="number">{{ liveSuggestions().length }}</span>
+      </div>
+    </div>
+  </div>
+</product-feedback-app-v2-tile>

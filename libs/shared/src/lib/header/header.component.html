@@ -1,0 +1,13 @@
+<div class="header__container">
+  <div class="header__content">
+    <ng-content></ng-content>
+  </div>
+  <product-feedback-app-v2-button
+    class="header__button"
+    (click)="onAddFeedbackButtonClick()"
+  >
+    <div class="button__content">
+      <img src="../../assets/icon-plus.svg" alt="plus icon" /> Add Feedback
+    </div>
+  </product-feedback-app-v2-button>
+</div>

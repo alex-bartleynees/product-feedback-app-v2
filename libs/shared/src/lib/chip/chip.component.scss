@@ -1,0 +1,50 @@
+.chip__container {
+  background-color: var(--surface-color);
+  border-radius: 8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem;
+  min-width: 56px;
+  height: 30px;
+  color: #4661e6;
+  flex-direction: var(--flex-direction, column);
+  gap: var(--gap, 0);
+}
+
+.chip__container--arrow {
+  height: 40px;
+}
+
+.pointer {
+  cursor: pointer;
+}
+
+.chip__container:hover {
+  background-color: var(--chip-hover-color, #cfd7ff);
+}
+
+.chip-text {
+  font-weight: 600;
+  font-size: 0.813rem;
+  text-transform: capitalize;
+}
+
+.chip--active {
+  background-color: #4661e6;
+  color: var(--background-color);
+}
+
+.arrow--up,
+.arrow--down {
+  background-color: transparent;
+  border: none;
+  color: inherit;
+  cursor: pointer;
+  font-size: inherit;
+  font-weight: inherit;
+  line-height: inherit;
+  padding: 0;
+  text-align: inherit;
+  text-decoration: inherit;
+}

@@ -1,0 +1,9 @@
+<div class="container" [@slideInOut]>
+  <product-feedback-app-v2-chiplist-tile
+    [chipList]="chipList"
+    (chipSelected)="chipSelected.emit($event)"
+  >
+  </product-feedback-app-v2-chiplist-tile>
+
+  <product-feedback-app-v2-roadmap-tile></product-feedback-app-v2-roadmap-tile>
+</div>

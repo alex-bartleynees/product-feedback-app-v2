@@ -1,1 +1,1 @@
-export * from './lib/core-state';
+export * from './lib/stores/suggestions/suggestions.store';

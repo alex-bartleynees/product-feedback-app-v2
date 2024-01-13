@@ -1,0 +1,16 @@
+<product-feedback-app-v2-tile [radial]="true">
+  <div class="heading__container">
+    <h2>Frontend Mentor</h2>
+    <p class="body-2">Feedback Board</p>
+  </div>
+  <button
+    class="mobile__sidebar-btn mobile-show"
+    (click)="onMobileSideBarClick()"
+  >
+    @if (!showMobileSidebar) {
+    <img src="../../assets/icon-hamburger.svg" alt="menu icon" />
+    } @else {
+    <img src="../../assets/icon-close.svg" alt="menu icon" />
+    }
+  </button>
+</product-feedback-app-v2-tile>

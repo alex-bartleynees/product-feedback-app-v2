@@ -1,0 +1,14 @@
+<div class="menu__container">
+  <div
+    class="menu__item"
+    *ngFor="let item of menuItems"
+    (click)="menuItemClicked.emit(item)"
+    [ngClass]="{ 'menu__item--active': itemSelected === item }"
+  >
+    {{ item.title }}
+
+    <ng-container *ngIf="itemSelected === item">
+      <img src="../../../assets//icon-check.svg" alt="check icon" />
+    </ng-container>
+  </div>
+</div>

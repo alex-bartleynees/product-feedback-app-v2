@@ -1,0 +1,17 @@
+<div
+  class="chip__container"
+  (click)="chipClick.emit()"
+  [ngClass]="{
+    'chip--active': active,
+    'chip__container--arrow': showArrow,
+    pointer: usePointer
+  }"
+>
+  @if (showArrow) {
+  <button class="arrow--up" *ngIf="showArrow">
+    <img src="../../../assets/icon-arrow-up.svg" alt="arrow up" />
+  </button>
+  }
+
+  <p class="chip-text">{{ text }}</p>
+</div>

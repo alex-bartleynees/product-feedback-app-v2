@@ -1,0 +1,21 @@
+<div class="select select__container">
+  <div
+    class="select select__dropdown"
+    (click)="openMenu()"
+    [ngClass]="{ 'select--active': isMenuOpen }"
+  >
+    {{ menuItemSelected?.title }}
+    <img
+      src="../../../assets/icon-arrow-down.svg"
+      alt="dropdown arrow"
+      [@arrowRotate]="isMenuOpen ? 'up' : 'down'"
+      class="select select-icon"
+    />
+  </div>
+  <product-feedback-app-v2-menu
+    *ngIf="isMenuOpen"
+    [menuItems]="menuItems"
+    [itemSelected]="menuItemSelected"
+    (menuItemClicked)="onMenuItemClick($event)"
+  ></product-feedback-app-v2-menu>
+</div>
