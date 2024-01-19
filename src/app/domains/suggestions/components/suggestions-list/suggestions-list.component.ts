@@ -15,7 +15,7 @@ import {
   SortPipe,
 } from '@product-feedback-app-v2/shared';
 import { SuggestionListItemComponent } from '../suggestion-list-item/suggestion-list-item.component';
-import { SuggestionsStore } from '@product-feedback-app-v2/core-state';
+import { SuggestionsFacadeService } from '@product-feedback-app-v2/core-state';
 
 @Component({
   selector: 'product-feedback-app-v2-suggestions-list',
@@ -38,7 +38,7 @@ export class SuggestionsListComponent {
   @Output() suggestionSelectClick = new EventEmitter<Suggestion>();
   @Output() addFeedbackButtonClick = new EventEmitter<void>();
 
-  readonly suggestionsStore = inject(SuggestionsStore);
+  readonly suggestionsFacade = inject(SuggestionsFacadeService);
 
   constructor(private router: Router) {}
 

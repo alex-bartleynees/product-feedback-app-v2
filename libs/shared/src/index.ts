@@ -9,3 +9,5 @@ export * from './lib/select/select.component';
 export * from './lib/tile/tile.component';
 export * from './lib/types/chip';
 export * from './lib/types/sort-by';
+export * from './lib/forms/suggestion-form';
+export * from './lib/forms/comment-form';

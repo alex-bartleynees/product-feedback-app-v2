@@ -6,9 +6,11 @@ import {
   Output,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Chip } from '../../../../../libs/shared/src/lib/types/chip';
-import { ChipComponent } from '../../../../../libs/shared/src/lib/chip/chip.component';
-import { TileComponent } from '../../../../../libs/shared/src/lib/tile/tile.component';
+import {
+  Chip,
+  ChipComponent,
+  TileComponent,
+} from '@product-feedback-app-v2/shared';
 
 @Component({
   selector: 'product-feedback-app-v2-chiplist-tile',

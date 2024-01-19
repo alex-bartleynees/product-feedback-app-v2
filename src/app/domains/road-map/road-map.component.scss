@@ -1,0 +1,84 @@
+.heading__container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.25rem;
+}
+
+product-feedback-app-back-button {
+    --button-color: var(--background-color);
+}
+
+.grid__container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    margin-block-start: 3rem;
+    gap: 1rem;
+    padding: 1rem;
+
+    @media (max-width: 700px) {
+        display: block;
+        margin-block-start: 0;
+        padding-block-start: 0;
+    }
+}
+
+.mobile-sub-header {
+    @media (max-width: 700px) {
+    display: flex;
+    justify-content: space-evenly;
+    border-bottom: 1px solid #979797;
+    height: 5rem;
+    align-items: center;
+    }
+}
+
+.mobile__heading {
+    padding-inline: 1rem;
+    padding-block-start: 2rem;
+}
+
+.tab {
+    color: #647196;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    width: 100%;
+    justify-content: center;
+}
+
+.tab__selected {
+    @media (max-width: 700px) {
+        margin-block-start: 4px;
+        color: #3a4374;
+    
+        &--planned {
+            border-bottom: 4px solid #F49F85;
+        }
+    
+        &--inprogress {
+            border-bottom: 4px solid #AD1FEA;
+        }
+    
+        &--live {
+            border-bottom: 4px solid #62BCFA;
+        } 
+    }
+}
+
+.roadmap__heading {
+    color: #3A4374
+
+}
+
+.roadmap__subtitle {
+    color: #647196;
+}
+
+.inprogress-cards {
+    --status-color: #AD1FEA;
+}
+
+.live-cards {
+    --status-color: #62BCFA;
+}

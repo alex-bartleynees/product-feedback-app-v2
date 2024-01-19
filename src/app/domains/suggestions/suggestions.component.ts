@@ -10,10 +10,10 @@ import {
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { Suggestion } from '@product-feedback-app-v2/api-interfaces';
-import { SuggestionsStore } from '@product-feedback-app-v2/core-state';
-import { HeadingTileComponent } from './heading-tile/heading-tile.component';
-import { ChipListTileComponent } from './chiplist-tile/chiplist-tile.component';
-import { RoadMapTileComponent } from './roadmap-tile/roadmap-tile.component';
+import { SuggestionsFacadeService } from '@product-feedback-app-v2/core-state';
+import { HeadingTileComponent } from './components/heading-tile/heading-tile.component';
+import { ChipListTileComponent } from './components/chiplist-tile/chiplist-tile.component';
+import { RoadMapTileComponent } from './components/roadmap-tile/roadmap-tile.component';
 import {
   Chip,
   HeaderComponent,
@@ -21,8 +21,8 @@ import {
   MenuItem,
   SortBy,
 } from '@product-feedback-app-v2/shared';
-import { SuggestionsListComponent } from './suggestions-list/suggestions-list.component';
-import { MobileSidebarComponent } from './mobile-sidebar/mobile-sidebar.component';
+import { SuggestionsListComponent } from './components/suggestions-list/suggestions-list.component';
+import { MobileSidebarComponent } from './components/mobile-sidebar/mobile-sidebar.component';
 
 @Component({
   selector: 'product-feedback-app-v2-suggestions',
@@ -103,8 +103,8 @@ export class SuggestionsComponent implements OnInit, OnDestroy {
   ];
   menuItemSelected: MenuItem = this.menuItems[0];
 
-  private readonly suggestionsStore = inject(SuggestionsStore);
-  allSuggestions = this.suggestionsStore.suggestions;
+  private readonly suggestionsFacade = inject(SuggestionsFacadeService);
+  allSuggestions = this.suggestionsFacade.allSuggestions;
 
   constructor(private router: Router, private renderer: Renderer2) {}
 
@@ -116,7 +116,7 @@ export class SuggestionsComponent implements OnInit, OnDestroy {
     const { chipList, chip } = event;
 
     if (chip.text === 'All') {
-      this.allSuggestions = this.suggestionsStore.suggestions;
+      this.allSuggestions = this.suggestionsFacade.allSuggestions;
       this.resetChipList(chipList, chip);
       return;
     }
@@ -126,7 +126,7 @@ export class SuggestionsComponent implements OnInit, OnDestroy {
   }
 
   filterSuggestions(key: string, chip: Chip): Signal<Suggestion[]> {
-    return this.suggestionsStore.filterSuggestions(
+    return this.suggestionsFacade.filterSuggestions(
       key,
       chip.text.toLowerCase()
     );
@@ -146,19 +146,18 @@ export class SuggestionsComponent implements OnInit, OnDestroy {
   }
 
   onUpVoteClick(suggestion: Suggestion): void {
-    this.suggestionsStore.upVoteSuggestion(suggestion);
+    this.suggestionsFacade.upVoteSuggestion(suggestion);
   }
 
   onSuggestionClick(suggestion: Suggestion): void {
     if (!suggestion.id) {
       return;
     }
-    this.suggestionsStore.selectSuggestion(suggestion.id);
+    this.suggestionsFacade.selectSuggestion(suggestion.id);
     this.router.navigate(['/suggestion-detail', suggestion.id]);
   }
 
   openMobileSideBar() {
-    console.log('click');
     this.showMobileSidebar = !this.showMobileSidebar;
   }
 

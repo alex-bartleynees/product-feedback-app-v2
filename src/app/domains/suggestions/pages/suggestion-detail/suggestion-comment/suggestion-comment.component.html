@@ -1,0 +1,56 @@
+@if (comment) {
+<div class="comment">
+  <div class="comment__user-image">
+    <img class="user__image" [src]="comment.user.image" alt="user image" />
+  </div>
+
+  <div class="comment__content">
+    <div class="user__info">
+      <h4 class="user__name">{{ comment.user.name }}</h4>
+      <p class="user__user-name">&#64;{{ comment.user.username }}</p>
+    </div>
+
+    <p class="reply__button body-3" (click)="showReply = !showReply">Reply</p>
+
+    <div class="comment__text">
+      <p>
+        @if (replyingTo) {
+        <span class="reply__to body-2">&#64;{{ replyingTo }}</span>
+        }
+        {{ comment.content }}
+      </p>
+    </div>
+
+    @if (showReply) {
+    <form
+      class="comment__reply"
+      [formGroup]="commentForm"
+      (ngSubmit)="onCommentReply()"
+    >
+      <textarea formControlName="comment" maxlength="255"></textarea>
+      <product-feedback-app-v2-button
+        ><span class="button__text"
+          >Post Reply</span
+        ></product-feedback-app-v2-button
+      >
+    </form>
+    }
+  </div>
+</div>
+} @if (comment && comment.replies) {
+<div class="comment__replies">
+  <div class="comment__replies-list">
+    @for (reply of comment.replies; track comment.id) {
+    <div class="comment__replies-list-item">
+      <product-feedback-app-v2-suggestion-comment
+        [comment]="reply"
+        [parentComment]="comment"
+        [replyingTo]="reply.replyingTo"
+        [currentUser]="currentUser"
+        (newReply)="onNewReply($event)"
+      ></product-feedback-app-v2-suggestion-comment>
+    </div>
+    }
+  </div>
+</div>
+}

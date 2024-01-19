@@ -12,10 +12,11 @@
       class="select select-icon"
     />
   </div>
+  @if (isMenuOpen) {
   <product-feedback-app-v2-menu
-    *ngIf="isMenuOpen"
     [menuItems]="menuItems"
     [itemSelected]="menuItemSelected"
     (menuItemClicked)="onMenuItemClick($event)"
   ></product-feedback-app-v2-menu>
+  }
 </div>

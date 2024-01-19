@@ -7,9 +7,9 @@ import {
 } from '@angular/core';
 import { animate, style, transition, trigger } from '@angular/animations';
 import { CommonModule } from '@angular/common';
-import { Chip } from '../../../../../libs/shared/src/lib/types/chip';
 import { ChipListTileComponent } from '../chiplist-tile/chiplist-tile.component';
 import { RoadMapTileComponent } from '../roadmap-tile/roadmap-tile.component';
+import { Chip } from '@product-feedback-app-v2/shared';
 
 @Component({
   selector: 'product-feedback-app-v2-mobile-sidebar',

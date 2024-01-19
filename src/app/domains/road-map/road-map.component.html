@@ -1,0 +1,92 @@
+<product-feedback-app-v2-header class="header">
+  <div class="heading__container">
+    <product-feedback-app-v2-back-button />
+    <h1>Roadmap</h1>
+  </div>
+</product-feedback-app-v2-header>
+
+@if (allSuggestions) {
+<article class="mobile-sub-header">
+  <div
+    #plannedTab
+    class="tab tab__selected tab__selected--planned"
+    (click)="tabSelected('planned', plannedTab)"
+  >
+    <h3 class="mobile-show">Planned ({{ suggestions().planned.length }})</h3>
+  </div>
+  <div
+    #inProgressTab
+    class="tab"
+    (click)="tabSelected('inprogress', inProgressTab)"
+  >
+    <h3 class="mobile-show">
+      In-Progress ({{ suggestions().inProgress.length }})
+    </h3>
+  </div>
+  <div #liveTab class="tab" (click)="tabSelected('live', liveTab)">
+    <h3 class="mobile-show">Live ({{ suggestions().live.length }})</h3>
+  </div>
+</article>
+
+<div class="mobile__heading mobile-show">
+  @if (selectedTabName === 'planned') {
+  <h3 class="roadmap__heading">Planned ({{ suggestions().planned.length }})</h3>
+  <p class="body-2 roadmap__subtitle">Ideas prioritized for research</p>
+  } @if (selectedTabName === 'inprogress') {
+  <h3 class="roadmap__heading">
+    In-Progress ({{ suggestions().inProgress.length }})
+  </h3>
+  <p class="body-2 roadmap__subtitle">Currently being developed</p>
+  } @if (selectedTabName === 'live') {
+  <h3 class="roadmap__heading">Live ({{ suggestions().live.length }})</h3>
+  <p class="body-2 roadmap__subtitle">Released features</p>
+  }
+</div>
+
+<section class="grid__container">
+  @if ((isMobile && selectedTabName === 'planned') || !isMobile) {
+  <div>
+    <h3 class="roadmap__heading mobile-hide">
+      Planned ({{ suggestions().planned.length }})
+    </h3>
+    <p class="body-2 roadmap__subtitle mobile-hide">
+      Ideas prioritized for research
+    </p>
+    @for (suggestion of suggestions().planned; track suggestion.id) {
+    <product-feedback-app-v2-road-map-card
+      [suggestion]="suggestion"
+    ></product-feedback-app-v2-road-map-card>
+    }
+  </div>
+  } @if ((isMobile && selectedTabName === 'inprogress') || !isMobile) {
+  <div>
+    <h3 class="roadmap__heading mobile-hide">
+      In-Progress ({{ suggestions().inProgress.length }})
+    </h3>
+    <p class="body-2 roadmap__subtitle mobile-hide">
+      Currently being developed
+    </p>
+    @for (suggestion of suggestions().inProgress; track suggestion.id) {
+    <product-feedback-app-v2-road-map-card
+      class="inprogress-cards"
+      [suggestion]="suggestion"
+    ></product-feedback-app-v2-road-map-card>
+    }
+  </div>
+  } @if ((isMobile && selectedTabName === 'live') || !isMobile) {
+  <div>
+    <h3 class="roadmap__heading mobile-hide">
+      Live ({{ suggestions().live.length }})
+    </h3>
+
+    <p class="body-2 roadmap__subtitle mobile-hide">Released features</p>
+    @for (suggestion of suggestions().live; track suggestion.id) {
+    <product-feedback-app-v2-road-map-card
+      class="live-cards"
+      [suggestion]="suggestion"
+    ></product-feedback-app-v2-road-map-card>
+    }
+  </div>
+  }
+</section>
+}

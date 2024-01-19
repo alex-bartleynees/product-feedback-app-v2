@@ -1,1 +1,2 @@
-export * from './lib/stores/suggestions/suggestions.store';
+export * from './lib/facades/suggestions-facade';
+export * from './lib/facades/users-facade';

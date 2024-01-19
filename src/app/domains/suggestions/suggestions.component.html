@@ -26,22 +26,20 @@
 
       <div class="header__sort" (click)="isMenuOpen = !isMenuOpen">
         <p class="body-2">Sort by: {{ menuItemSelected.title }}</p>
-        <img
-          *ngIf="menuItemSelected?.sortBy?.order === 'desc'"
-          src="../../assets/icon-arrow-up.svg"
-          alt="up arrow"
-        />
-        @if (menuItemSelected.sortBy?.order === 'asc') {
+        @if (menuItemSelected.sortBy?.order === 'desc') {
+        <img src="../../assets/icon-arrow-up.svg" alt="up arrow" />
+        } @if (menuItemSelected.sortBy?.order === 'asc') {
         <img src="../../assets/icon-arrow-down.svg" alt="down arrow" />
         }
       </div>
+      @if (isMenuOpen) {
       <product-feedback-app-v2-menu
         class="menu"
-        *ngIf="isMenuOpen"
         [menuItems]="menuItems"
         [itemSelected]="menuItemSelected"
         (menuItemClicked)="onMenuItemClick($event)"
       ></product-feedback-app-v2-menu>
+      }
     </product-feedback-app-v2-header>
 
     <product-feedback-app-v2-suggestions-list
@@ -53,9 +51,10 @@
   </main>
 </div>
 
+@if (showMobileSidebar) {
 <product-feedback-app-v2-mobile-sidebar
-  *ngIf="showMobileSidebar"
   class="mobile-sidebar"
   [chipList]="chipList"
   (chipSelected)="onChipClick($event)"
 ></product-feedback-app-v2-mobile-sidebar>
+}

@@ -1,0 +1,111 @@
+<div class="container">
+  <div class="navigation__container">
+    <product-feedback-app-v2-back-button> </product-feedback-app-v2-back-button>
+  </div>
+
+  <div class="suggestion__container">
+    <div class="suggestion__icon">
+      @if (editMode) {
+      <img
+        src="../../assets/icon-edit-feedback.svg"
+        alt="edit suggestion icon"
+        class="suggestion__icon--edit"
+      />
+      } @else {
+      <img src="../../assets/icon-new-feedback.svg" alt="new suggestion icon" />
+      }
+    </div>
+    <div class="suggestion__header">
+      <h1 class="suggestion__heading">
+        {{ editTitle ? editTitle : 'Create New Feedback' }}
+      </h1>
+    </div>
+
+    <form
+      appFormSubmit
+      class="suggestion__form"
+      [formGroup]="suggestionForm"
+      (ngSubmit)="onSubmit()"
+    >
+      <div class="form__group">
+        <label for="suggestion-title" class="form__label"
+          ><h4>Feedback Title</h4>
+        </label>
+        <p>Add a short, descriptive headline</p>
+        <input
+          formControlName="title"
+          type="text"
+          id="suggestion-title"
+          class="form__input"
+        />
+      </div>
+      <div class="form__group">
+        <label for="suggestion-description" class="form__label"
+          ><h4>Category</h4></label
+        >
+        <p>Choose a category for your feedback</p>
+        <product-feedback-app-v2-select
+          [suggestionForm]="suggestionForm"
+          [menuItems]="menuItems"
+          [menuItemSelected]="{
+            title: this.selectedSuggestion?.category ?? ''
+          }"
+          [control]="'category'"
+        ></product-feedback-app-v2-select>
+      </div>
+
+      @if (editMode) {
+      <div class="form__group">
+        <label for="suggestion-description" class="form__label"
+          ><h4>Update Status</h4></label
+        >
+        <p>Change feature state</p>
+        <product-feedback-app-v2-select
+          [suggestionForm]="suggestionForm"
+          [menuItems]="statusItems"
+          [menuItemSelected]="{ title: this.selectedSuggestion?.status ?? '' }"
+          [control]="'status'"
+        ></product-feedback-app-v2-select>
+      </div>
+      }
+
+      <div class="form__group">
+        <label for="suggestion-description" class="form__label"
+          ><h4>Feedback Detail</h4></label
+        >
+        <p>
+          Include any specific comments on what should be improved, added, etc.
+        </p>
+        <textarea
+          formControlName="description"
+          id="suggestion-description"
+          class="form__input"
+          rows="5"
+          cols="50"
+        ></textarea>
+      </div>
+
+      <div class="suggestion-buttons">
+        @if (editMode) {
+        <product-feedback-app-v2-button
+          class="button__delete"
+          (click)="onDeleteButtonClick($event)"
+        >
+          Delete</product-feedback-app-v2-button
+        >
+        }
+        <div class="buttons__right">
+          <product-feedback-app-v2-button
+            class="button__cancel"
+            (click)="onCancelButtonClick($event)"
+          >
+            Cancel</product-feedback-app-v2-button
+          >
+          <product-feedback-app-v2-button class="button__feedback">{{
+            editMode ? 'Save Changes' : 'Add Feedback'
+          }}</product-feedback-app-v2-button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

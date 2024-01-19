@@ -1,0 +1,59 @@
+.card__container {
+    background-color: var(--background-color);
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin-block: 2rem;
+    padding: 1rem 2rem;
+    gap: 1rem;
+    min-height: 272px;
+    position: relative;
+    border-top: 6px solid var(--status-color, #F49F85);
+    border-radius: 6px;
+}
+
+.category-chip {
+    --chip-hover-color: var(--surface-color);
+  }
+  
+.upvote-chip {
+    --flex-direction: row;
+    --gap: 0.5rem;
+}
+
+.card__bottom-row {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    justify-content: space-between;
+}
+
+.card__content {
+    color: #647196
+}
+
+.card__status {
+    color: #647196;
+    margin-inline-start: 2rem;
+}
+
+.card__status::before {
+    content: "";
+    position: absolute;
+    background-color: var(--status-color, #F49F85);
+    border-radius: 50%;
+    width: 10px;
+    height: 10px;
+    top: 22px;
+    left: 33px;
+}
+
+.card__heading {
+    color: #3A4374;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.card__heading:hover {
+    color: #4661E6;
+}

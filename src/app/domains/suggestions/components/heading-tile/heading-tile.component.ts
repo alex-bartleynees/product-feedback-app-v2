@@ -5,7 +5,7 @@ import {
   EventEmitter,
   Output,
 } from '@angular/core';
-import { TileComponent } from '../../../../../libs/shared/src/lib/tile/tile.component';
+import { TileComponent } from '../../../../../../libs/shared/src/lib/tile/tile.component';
 
 @Component({
   selector: 'product-feedback-app-v2-heading-tile',

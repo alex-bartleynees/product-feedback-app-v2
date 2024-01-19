@@ -5,7 +5,7 @@ suggestion.id) {
   (upVoteClick)="upVoteClick.emit(suggestion)"
   (suggestionSelectClick)="suggestionSelectClick.emit(suggestion)"
 ></product-feedback-app-v2-suggestion-list-item>
-} @if (suggestionsStore.error()) {
+} @if (suggestionsFacade.loadError()) {
 <div class="suggestion-list__container">
   <img src="../../assets/illustration-empty.svg" alt="illustration empty" />
   <h1 class="suggestion-list__heading">There is no feedback yet.</h1>
