@@ -2,6 +2,7 @@ import { Injectable, inject, computed, Signal } from '@angular/core';
 import { SuggestionsStore } from '../stores/suggestions/suggestions.store';
 import {
   Suggestion,
+  SuggestionCommentReplyRequest,
   SuggestionCommentRequest,
 } from '@product-feedback-app-v2/api-interfaces';
 import { patchState } from '@ngrx/signals';
@@ -66,9 +67,9 @@ export class SuggestionsFacadeService {
     this.store.addCommentToSuggestion(comment);
   }
 
-  //   addReplyToComment(reply: SuggestionCommentReplyRequest) {
-  //     this.store.createCommentReply(reply );
-  //   }
+  addReplyToComment(reply: SuggestionCommentReplyRequest) {
+    this.store.createCommentReply(reply);
+  }
 
   deleteSuggestion(id: number): void {
     this.store.deleteSuggestion(id);

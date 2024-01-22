@@ -10,7 +10,9 @@
       <p class="user__user-name">&#64;{{ comment.user.username }}</p>
     </div>
 
-    <p class="reply__button body-3" (click)="showReply = !showReply">Reply</p>
+    <p class="reply__button body-3" (click)="showReply.set(!showReply())">
+      Reply
+    </p>
 
     <div class="comment__text">
       <p>
@@ -21,11 +23,12 @@
       </p>
     </div>
 
-    @if (showReply) {
+    @if (showReply()) {
     <form
       class="comment__reply"
       [formGroup]="commentForm"
       (ngSubmit)="onCommentReply()"
+      controlErrorContainer
     >
       <textarea formControlName="comment" maxlength="255"></textarea>
       <product-feedback-app-v2-button

@@ -8,7 +8,10 @@ import {
 } from '@ngrx/signals';
 import {
   Suggestion,
+  SuggestionComment,
+  SuggestionCommentReplyRequest,
   SuggestionCommentRequest,
+  SuggestionReply,
 } from '@product-feedback-app-v2/api-interfaces';
 import { SuggestionService } from '@product-feedback-app-v2/core-data';
 import { rxMethod } from '@ngrx/signals/rxjs-interop';
@@ -131,19 +134,13 @@ export const SuggestionsStore = signalStore(
           tap((id) => {
             patchState(state, (state) => ({
               suggestions: state.suggestions.filter(
-                (suggestion) => suggestion.id === id
+                (suggestion) => suggestion.id !== id
               ),
             }));
           }),
           concatMap((id) => suggestionService.delete(id)),
           tapResponse({
-            next: (response) => {
-              patchState(state, (state) => ({
-                suggestions: state.suggestions.filter(
-                  (suggestion) => suggestion.id === response
-                ),
-              }));
-            },
+            next: () => {},
             error: (error: string) => state.setError(error),
           })
         )
@@ -169,6 +166,49 @@ export const SuggestionsStore = signalStore(
                     suggestions: state.suggestions.map((suggestion) =>
                       suggestion.id === updatedSuggestion.id
                         ? updatedSuggestion
+                        : suggestion
+                    ),
+                  };
+                }
+
+                return state;
+              });
+            },
+            error: (error: string) => state.setError(error),
+          })
+        )
+      ),
+      createCommentReply: rxMethod<SuggestionCommentReplyRequest>(
+        pipe(
+          switchMap((reply) => suggestionService.addReply(reply)),
+          tapResponse({
+            next: (response) => {
+              patchState(state, (state) => {
+                const parentSuggestion = state.suggestions.find(
+                  (suggestion) => suggestion.id === response.suggestionId
+                );
+                const comment = parentSuggestion?.comments?.find(
+                  (comment) => comment.id === response.suggestionCommentId
+                );
+                if (parentSuggestion?.comments && comment) {
+                  const updatedReplies: SuggestionReply[] = [
+                    ...(comment?.replies ?? []),
+                    response,
+                  ];
+                  const updatedComment: SuggestionComment = {
+                    ...comment,
+                    replies: updatedReplies,
+                  };
+                  const index = parentSuggestion.comments.indexOf(comment);
+                  const updatedComments: SuggestionComment[] = [
+                    ...parentSuggestion.comments,
+                  ];
+                  updatedComments[index] = updatedComment;
+                  console.log(parentSuggestion);
+                  return {
+                    suggestions: state.suggestions.map((suggestion) =>
+                      suggestion.id === parentSuggestion.id
+                        ? { ...parentSuggestion, comments: updatedComments }
                         : suggestion
                     ),
                   };

@@ -43,7 +43,7 @@
   <div class="comment__form-content">
     <textarea formControlName="comment" maxlength="255"></textarea>
     <p class="comment__remaining body-2">
-      {{ 255 - commentForm.comment.value.length }} characters left
+      {{ 255 - commentForm.comment.value?.length }} characters left
     </p>
     <product-feedback-app-v2-button class="button__submit"
       ><span class="button__text"

@@ -1,9 +1,15 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  OnInit,
+  Signal,
+} from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import {
   Suggestion,
+  SuggestionCommentReplyRequest,
   SuggestionCommentRequest,
   SuggestionReply,
   User,
@@ -16,6 +22,8 @@ import {
   BackButtonComponent,
   ButtonComponent,
   CommentForm,
+  ControlErrorsDirective,
+  FormSubmitDirective,
 } from '@product-feedback-app-v2/shared';
 import { SuggestionListItemComponent } from '../../components/suggestion-list-item/suggestion-list-item.component';
 import { SuggestionCommentComponent } from './suggestion-comment/suggestion-comment.component';
@@ -32,13 +40,15 @@ import { SuggestionCommentComponent } from './suggestion-comment/suggestion-comm
     ButtonComponent,
     SuggestionListItemComponent,
     SuggestionCommentComponent,
+    ControlErrorsDirective,
+    FormSubmitDirective,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SuggestionDetailComponent implements OnInit {
   selectedSuggestion = this.suggestionsFacade.selectedSuggestion;
   commentForm = new CommentForm();
-  currentUser: User = this.usersFacade.currentUser();
+  currentUser: Signal<User> = this.usersFacade.currentUser;
 
   constructor(
     private suggestionsFacade: SuggestionsFacadeService,
@@ -73,27 +83,28 @@ export class SuggestionDetailComponent implements OnInit {
     };
 
     this.suggestionsFacade.addCommentToSuggestion(comment);
-    this.commentForm.comment.setValue('');
+    this.commentForm.comment.setValue(null);
+    this.commentForm.comment.reset();
   }
 
   onNewReply(reply: SuggestionReply): void {
     if (
       !this.selectedSuggestion()?.id ||
       !reply.user.id ||
-      !this.currentUser.id
+      !this.currentUser().id
     ) {
       return;
     }
 
-    // const suggestionReplyRequest: SuggestionCommentReplyRequest = {
-    //   suggestionId: this.selectedSuggestion()?.id ?? 0,
-    //   suggestionCommentId: reply.suggestionCommentId,
-    //   content: reply.content,
-    //   replyingTo: reply.replyingTo,
-    //   userId: this.currentUser.id,
-    // };
+    const suggestionReplyRequest: SuggestionCommentReplyRequest = {
+      suggestionId: this.selectedSuggestion()?.id ?? 0,
+      suggestionCommentId: reply.suggestionCommentId,
+      content: reply.content,
+      replyingTo: reply.replyingTo,
+      userId: this.currentUser().id ?? 0,
+    };
 
-    // this.suggestionsFacade.addReplyToComment(suggestionReplyRequest);
+    this.suggestionsFacade.addReplyToComment(suggestionReplyRequest);
   }
 
   onEditFeedbackClick(): void {

@@ -157,6 +157,7 @@ export class SuggestionEditComponent implements OnInit, OnDestroy {
     if (!this.id) {
       return;
     }
+
     event.preventDefault();
     this.suggestionService.deleteSuggestion(this.id);
     this.router.navigate(['/']);

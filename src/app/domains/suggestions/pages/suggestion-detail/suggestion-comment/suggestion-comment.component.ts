@@ -4,6 +4,8 @@ import {
   EventEmitter,
   Input,
   Output,
+  Signal,
+  signal,
 } from '@angular/core';
 
 import { CommonModule } from '@angular/common';
@@ -12,7 +14,13 @@ import {
   User,
   SuggestionReply,
 } from '@product-feedback-app-v2/api-interfaces';
-import { ButtonComponent, CommentForm } from '@product-feedback-app-v2/shared';
+import {
+  ButtonComponent,
+  CommentForm,
+  ControlErrorContainerDirective,
+  ControlErrorsDirective,
+  FormSubmitDirective,
+} from '@product-feedback-app-v2/shared';
 import { ReactiveFormsModule } from '@angular/forms';
 
 @Component({
@@ -20,19 +28,26 @@ import { ReactiveFormsModule } from '@angular/forms';
   templateUrl: './suggestion-comment.component.html',
   styleUrls: ['./suggestion-comment.component.scss'],
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, ButtonComponent],
+  imports: [
+    CommonModule,
+    ReactiveFormsModule,
+    ButtonComponent,
+    ControlErrorsDirective,
+    FormSubmitDirective,
+    ControlErrorContainerDirective,
+  ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SuggestionCommentComponent {
   @Input() comment?: SuggestionComment;
   @Input() parentComment?: SuggestionComment;
   @Input() replyingTo?: string;
-  @Input() currentUser?: User | null;
+  @Input() currentUser?: Signal<User> | null;
 
   @Output() newReply = new EventEmitter<SuggestionReply>();
 
   commentForm = new CommentForm();
-  showReply = false;
+  showReply = signal(false);
 
   onCommentReply() {
     if (!this.comment?.id || !this.commentForm.valid || !this.currentUser) {
@@ -45,10 +60,12 @@ export class SuggestionCommentComponent {
         : this.comment.id,
       content: this.commentForm.comment.value,
       replyingTo: this.comment?.user.username,
-      user: this.currentUser,
+      user: this.currentUser(),
     };
 
     this.newReply.emit(newReply);
+    this.showReply.set(false);
+    this.commentForm.comment.reset();
   }
 
   onNewReply(reply: SuggestionReply) {

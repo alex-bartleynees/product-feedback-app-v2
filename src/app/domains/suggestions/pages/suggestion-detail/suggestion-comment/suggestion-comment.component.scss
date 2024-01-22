@@ -12,6 +12,12 @@
 .user__user-name,
 .comment__text {
   color: #647196;
+ 
+  & p {
+    max-width: 100ch;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
 }
 
 .user__image {
