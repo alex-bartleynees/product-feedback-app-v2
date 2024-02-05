@@ -1,3 +1,4 @@
+@if(selectedSuggestion()) {
 <div class="container">
   <div class="navigation__container">
     <product-feedback-app-v2-back-button> </product-feedback-app-v2-back-button>
@@ -17,14 +18,14 @@
     </div>
     <div class="suggestion__header">
       <h1 class="suggestion__heading">
-        {{ editTitle ? editTitle : 'Create New Feedback' }}
+        {{ editTitle() }}
       </h1>
     </div>
 
     <form
       appFormSubmit
       class="suggestion__form"
-      [formGroup]="suggestionForm"
+      [formGroup]="suggestionForm()"
       (ngSubmit)="onSubmit()"
     >
       <div class="form__group">
@@ -45,10 +46,10 @@
         >
         <p>Choose a category for your feedback</p>
         <product-feedback-app-v2-select
-          [suggestionForm]="suggestionForm"
+          [suggestionForm]="suggestionForm()"
           [menuItems]="menuItems"
           [menuItemSelected]="{
-            title: this.selectedSuggestion?.category ?? ''
+            title: this.selectedSuggestion()!.category
           }"
           [control]="'category'"
         ></product-feedback-app-v2-select>
@@ -61,9 +62,9 @@
         >
         <p>Change feature state</p>
         <product-feedback-app-v2-select
-          [suggestionForm]="suggestionForm"
+          [suggestionForm]="suggestionForm()"
           [menuItems]="statusItems"
-          [menuItemSelected]="{ title: this.selectedSuggestion?.status ?? '' }"
+          [menuItemSelected]="{ title: this.selectedSuggestion()!.status }"
           [control]="'status'"
         ></product-feedback-app-v2-select>
       </div>
@@ -109,3 +110,4 @@
     </form>
   </div>
 </div>
+}

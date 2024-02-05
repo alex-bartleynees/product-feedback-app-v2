@@ -2,6 +2,7 @@ import { computed, inject } from '@angular/core';
 import {
   patchState,
   signalStore,
+  withComputed,
   withHooks,
   withMethods,
   withState,
@@ -223,6 +224,16 @@ export const SuggestionsStore = signalStore(
       ),
     };
   }),
+  withComputed(({ suggestions, selectedId }) => ({
+    selectedSuggestion: computed(() => {
+      console.log(selectedId());
+      console.log(suggestions());
+      return suggestions().find((suggestion) => {
+        console.log(suggestion);
+        return suggestion.id === selectedId();
+      });
+    }),
+  })),
   withHooks({
     onInit(store) {
       store.load();

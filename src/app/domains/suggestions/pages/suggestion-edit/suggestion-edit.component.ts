@@ -4,6 +4,7 @@ import {
   Component,
   OnDestroy,
   OnInit,
+  computed,
 } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Suggestion, User } from '@product-feedback-app-v2/api-interfaces';
@@ -39,9 +40,15 @@ import { ReactiveFormsModule } from '@angular/forms';
 export class SuggestionEditComponent implements OnInit, OnDestroy {
   editMode = false;
   id?: number;
-  suggestionForm = new SuggestionForm();
-  selectedSuggestion = this.suggestionService.selectedSuggestion();
-  editTitle?: string;
+  suggestionForm = computed(
+    () => new SuggestionForm(this.selectedSuggestion())
+  );
+  editTitle = computed(() =>
+    this.editMode
+      ? `Editing '${this.selectedSuggestion()?.title}`
+      : 'Create New Feedback'
+  );
+  selectedSuggestion = this.suggestionService.selectedSuggestion;
   currentUser: User = this.usersFacade.currentUser();
 
   menuItems: MenuItem[] = [
@@ -103,12 +110,6 @@ export class SuggestionEditComponent implements OnInit, OnDestroy {
       this.editMode = true;
       this.suggestionService.selectSuggestion(+id);
     }
-
-    if (this.editMode) {
-      this.editTitle = `Editing '${this.selectedSuggestion?.title}'`;
-      this.suggestionForm = new SuggestionForm(this.selectedSuggestion);
-      this.changeDetectorRef.markForCheck();
-    }
   }
 
   ngOnDestroy(): void {
@@ -117,28 +118,29 @@ export class SuggestionEditComponent implements OnInit, OnDestroy {
   }
 
   onSubmit() {
-    if (!this.suggestionForm.valid) {
+    if (!this.suggestionForm().valid) {
       return;
     }
+
     if (this.editMode && this.selectedSuggestion) {
       const suggestion: Suggestion = {
         id: this.id,
-        title: this.suggestionForm.title.value,
-        category: this.suggestionForm.category.value,
-        upvotes: this.selectedSuggestion?.upvotes,
-        status: this.suggestionForm.statusControl.value,
-        description: this.suggestionForm.description.value,
-        comments: this.selectedSuggestion.comments,
+        title: this.suggestionForm().title.value,
+        category: this.suggestionForm().category.value,
+        upvotes: this.selectedSuggestion()!.upvotes,
+        status: this.suggestionForm().statusControl.value,
+        description: this.suggestionForm().description.value,
+        comments: this.selectedSuggestion()!.comments,
       };
 
       this.suggestionService.updateSuggestion(suggestion);
     } else {
       const suggestion: Suggestion = {
-        title: this.suggestionForm.title.value,
-        category: this.suggestionForm.category.value,
+        title: this.suggestionForm().title.value,
+        category: this.suggestionForm().category.value,
         upvotes: 0,
         status: '',
-        description: this.suggestionForm.description.value,
+        description: this.suggestionForm().description.value,
         comments: [],
       };
 

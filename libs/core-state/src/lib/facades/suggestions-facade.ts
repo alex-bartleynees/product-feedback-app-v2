@@ -15,11 +15,9 @@ export class SuggestionsFacadeService {
   loaded = this.store.loaded;
   loadError = this.store.error;
   allSuggestions = this.store.suggestions;
-  selectedSuggestion = computed(() =>
-    this.store
-      .suggestions()
-      .find((sugggestion) => sugggestion.id === this.store.selectedId())
-  );
+  selectedSuggestion = computed(() => {
+    return this.store.selectedSuggestion();
+  });
 
   plannedSuggestions = computed(() =>
     this.store
