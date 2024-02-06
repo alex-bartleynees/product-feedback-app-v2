@@ -24,13 +24,11 @@ import { withError } from '../utilities/with-error';
 type SuggestionsState = {
   suggestions: Suggestion[];
   selectedId: number;
-  filter: { category: string; prop: string };
 };
 
 const initialState: SuggestionsState = {
   suggestions: [],
   selectedId: 0,
-  filter: { category: '', prop: '' },
 };
 
 export const SuggestionsStore = signalStore(
@@ -226,10 +224,7 @@ export const SuggestionsStore = signalStore(
   }),
   withComputed(({ suggestions, selectedId }) => ({
     selectedSuggestion: computed(() => {
-      console.log(selectedId());
-      console.log(suggestions());
       return suggestions().find((suggestion) => {
-        console.log(suggestion);
         return suggestion.id === selectedId();
       });
     }),
