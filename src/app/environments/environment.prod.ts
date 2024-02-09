@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  apiEndpoint: 'api/',
+  apiEndpoint: 'https://suggestions-api.azurewebsites.net/api/',
 };
