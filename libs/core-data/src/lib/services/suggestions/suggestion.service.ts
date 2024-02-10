@@ -32,6 +32,7 @@ export class SuggestionService {
     if (!suggestion.id) {
       throw new Error('Suggestion must have an id');
     }
+
     return this.http
       .put<Suggestion>(this.getUrlForId(suggestion.id), suggestion)
       .pipe(catchError((error) => throwError(() => error)));

@@ -203,7 +203,6 @@ export const SuggestionsStore = signalStore(
                     ...parentSuggestion.comments,
                   ];
                   updatedComments[index] = updatedComment;
-                  console.log(parentSuggestion);
                   return {
                     suggestions: state.suggestions.map((suggestion) =>
                       suggestion.id === parentSuggestion.id
