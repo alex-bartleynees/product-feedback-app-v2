@@ -48,7 +48,7 @@
           [suggestionForm]="suggestionForm()"
           [menuItems]="menuItems"
           [menuItemSelected]="{
-            title: this.selectedSuggestion()!.category
+            title: this.selectedSuggestion()?.category ?? ''
           }"
           [control]="'category'"
         ></product-feedback-app-v2-select>
