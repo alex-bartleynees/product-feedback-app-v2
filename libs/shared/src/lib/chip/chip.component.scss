@@ -20,8 +20,10 @@
   cursor: pointer;
 }
 
-.chip__container:hover {
-  background-color: var(--chip-hover-color, #cfd7ff);
+@media (hover: hover) {
+  .chip__container:hover {
+    background-color: var(--chip-hover-color, #cfd7ff);
+  }
 }
 
 .chip-text {
