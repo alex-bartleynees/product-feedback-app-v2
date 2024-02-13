@@ -7,7 +7,7 @@ import {
   SuggestionCommentRequest,
   SuggestionCommentResponse,
 } from '@product-feedback-app-v2/api-interfaces';
-import { catchError, Observable, throwError } from 'rxjs';
+import { catchError, Observable, retry, throwError } from 'rxjs';
 import { APP_CONFIG } from '@product-feedback-app-v2/app-config';
 
 @Injectable({
@@ -21,11 +21,13 @@ export class SuggestionService {
 
   suggestionsModel = 'suggestions';
   commentModel = 'comment';
+  retryConfig = { count: 3, delay: 1000, resetOnSuccess: true };
 
   all(): Observable<Suggestion[]> {
-    return this.http
-      .get<Suggestion[]>(this.getUrl(this.suggestionsModel))
-      .pipe(catchError((error) => throwError(() => error)));
+    return this.http.get<Suggestion[]>(this.getUrl(this.suggestionsModel)).pipe(
+      retry(this.retryConfig),
+      catchError((error) => throwError(() => error))
+    );
   }
 
   update(suggestion: Suggestion): Observable<Suggestion> {
