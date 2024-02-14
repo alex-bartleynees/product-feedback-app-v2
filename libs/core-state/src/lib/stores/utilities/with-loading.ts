@@ -7,10 +7,10 @@ import {
 
 export const withLoading = () =>
   signalStoreFeature(
-    withState({ loaded: false }),
+    withState({ loading: false }),
     withMethods((state) => ({
       setLoading(value: boolean) {
-        patchState(state, { loaded: value });
+        patchState(state, { loading: value });
       },
     }))
   );

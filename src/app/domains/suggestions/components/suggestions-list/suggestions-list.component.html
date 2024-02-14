@@ -19,4 +19,9 @@ suggestion.id) {
     </div>
   </product-feedback-app-v2-button>
 </div>
+} @else if (suggestionsFacade.loading()) {
+<div class="container">
+  <div class="spinner"></div>
+  <p>Please wait... Initializing database...</p>
+</div>
 }

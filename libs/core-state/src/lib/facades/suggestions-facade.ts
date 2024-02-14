@@ -12,7 +12,7 @@ import { patchState } from '@ngrx/signals';
 })
 export class SuggestionsFacadeService {
   private readonly store = inject(SuggestionsStore);
-  loaded = this.store.loaded;
+  loading = this.store.loading;
   loadError = this.store.error;
   allSuggestions = this.store.suggestions;
   selectedSuggestion = computed(() => {
