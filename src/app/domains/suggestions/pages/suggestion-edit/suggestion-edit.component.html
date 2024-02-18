@@ -5,7 +5,7 @@
 
   <div class="suggestion__container">
     <div class="suggestion__icon">
-      @if (editMode) {
+      @if (editMode()) {
       <img
         src="../../assets/icon-edit-feedback.svg"
         alt="edit suggestion icon"
@@ -48,13 +48,15 @@
           [suggestionForm]="suggestionForm()"
           [menuItems]="menuItems"
           [menuItemSelected]="{
-            title: this.selectedSuggestion()?.category ?? ''
+            title: this.editMode()
+              ? this.selectedSuggestion()?.category ?? ''
+              : ''
           }"
           [control]="'category'"
         ></product-feedback-app-v2-select>
       </div>
 
-      @if (editMode) {
+      @if (editMode()) {
       <div class="form__group">
         <label for="suggestion-description" class="form__label"
           ><h4>Update Status</h4></label
@@ -86,7 +88,7 @@
       </div>
 
       <div class="suggestion-buttons">
-        @if (editMode) {
+        @if (editMode()) {
         <product-feedback-app-v2-button
           class="button__delete"
           (click)="onDeleteButtonClick($event)"
@@ -102,7 +104,7 @@
             Cancel</product-feedback-app-v2-button
           >
           <product-feedback-app-v2-button class="button__feedback">{{
-            editMode ? 'Save Changes' : 'Add Feedback'
+            editMode() ? 'Save Changes' : 'Add Feedback'
           }}</product-feedback-app-v2-button>
         </div>
       </div>

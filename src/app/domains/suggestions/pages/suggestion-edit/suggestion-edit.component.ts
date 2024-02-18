@@ -1,10 +1,10 @@
 import {
   ChangeDetectionStrategy,
-  ChangeDetectorRef,
   Component,
   OnDestroy,
   OnInit,
   computed,
+  signal,
 } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Suggestion, User } from '@product-feedback-app-v2/api-interfaces';
@@ -38,13 +38,15 @@ import { ReactiveFormsModule } from '@angular/forms';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SuggestionEditComponent implements OnInit, OnDestroy {
-  editMode = false;
+  editMode = signal(false);
   id?: number;
-  suggestionForm = computed(
-    () => new SuggestionForm(this.selectedSuggestion())
+  suggestionForm = computed(() =>
+    this.editMode()
+      ? new SuggestionForm(this.selectedSuggestion())
+      : new SuggestionForm()
   );
   editTitle = computed(() =>
-    this.editMode
+    this.editMode()
       ? `Editing '${this.selectedSuggestion()?.title}`
       : 'Create New Feedback'
   );
@@ -99,7 +101,6 @@ export class SuggestionEditComponent implements OnInit, OnDestroy {
     private router: Router,
     private route: ActivatedRoute,
     private suggestionService: SuggestionsFacadeService,
-    private changeDetectorRef: ChangeDetectorRef,
     private usersFacade: UsersFacade
   ) {}
 
@@ -107,7 +108,7 @@ export class SuggestionEditComponent implements OnInit, OnDestroy {
     const id = this.route.snapshot.paramMap.get('id');
     if (id) {
       this.id = +id;
-      this.editMode = true;
+      this.editMode.set(true);
       this.suggestionService.selectSuggestion(+id);
     }
   }
@@ -122,7 +123,7 @@ export class SuggestionEditComponent implements OnInit, OnDestroy {
       return;
     }
 
-    if (this.editMode && this.selectedSuggestion) {
+    if (this.editMode() && this.selectedSuggestion) {
       const suggestion: Suggestion = {
         id: this.id,
         title: this.suggestionForm().title.value,
