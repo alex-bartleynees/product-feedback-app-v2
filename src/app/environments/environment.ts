@@ -4,7 +4,8 @@
 
 export const environment = {
   production: false,
-  apiEndpoint: 'http://localhost:5185/api/',
+  apiEndpoint:
+    'https://suggestionsapi.calmisland-859a0406.australiaeast.azurecontainerapps.io/api/',
 };
 
 /*

@@ -59,7 +59,9 @@ export class RoadMapComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.renderer.addClass(document.body, 'suggestions');
+    if (typeof window !== 'undefined') {
+      this.renderer.addClass(document.body, 'suggestions');
+    }
   }
 
   ngAfterViewInit(): void {
@@ -79,6 +81,8 @@ export class RoadMapComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.renderer.removeClass(document.body, 'suggestions');
+    if (typeof window !== 'undefined') {
+      this.renderer.removeClass(document.body, 'suggestions');
+    }
   }
 }

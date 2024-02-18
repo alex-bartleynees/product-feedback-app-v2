@@ -109,7 +109,9 @@ export class SuggestionsComponent implements OnInit, OnDestroy {
   constructor(private router: Router, private renderer: Renderer2) {}
 
   ngOnInit(): void {
-    this.renderer.addClass(document.body, 'suggestions');
+    if (typeof window !== 'undefined') {
+      this.renderer.addClass(document.body, 'suggestions');
+    }
   }
 
   onChipClick(event: { chipList: Chip[]; chip: Chip }): void {
@@ -162,6 +164,8 @@ export class SuggestionsComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.renderer.removeClass(document.body, 'suggestions');
+    if (typeof window !== 'undefined') {
+      this.renderer.removeClass(document.body, 'suggestions');
+    }
   }
 }

@@ -23,6 +23,13 @@
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0"
   },
+  "optionalDependencies": {
+    "@nx/nx-darwin-arm64": "17.2.8",
+    "@nx/nx-darwin-x64": "17.2.8",
+    "@nx/nx-linux-x64-gnu": "17.2.8",
+    "@nx/nx-win32-x64-msvc": "17.2.8",
+    "@nrwl/nx-linux-arm64-gnu": "15.9.3"
+  },
   "devDependencies": {
     "@angular-devkit/build-angular": "17.1.0",
     "@angular-devkit/core": "17.1.0",
