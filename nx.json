@@ -63,5 +63,6 @@
     }
   },
   "defaultProject": "product-feedback-app-v2",
-  "nxCloudAccessToken": "MzZkNjNmZjAtOGI5MC00MTNkLWEyYzYtM2UyYmVjOTg2OTc4fHJlYWQtd3JpdGU="
+  "nxCloudAccessToken": "MzZkNjNmZjAtOGI5MC00MTNkLWEyYzYtM2UyYmVjOTg2OTc4fHJlYWQtd3JpdGU=",
+  "neverConnectToCloud": true
 }
