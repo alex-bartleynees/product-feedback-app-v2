@@ -2,11 +2,11 @@ version: '3'
 services:
   nodejs:
     build: ./
-    image: product-feedback-app
+    image: suggestions.azurecr.io/product-feedback-app
     container_name: product-feedback-app
   nginx:
     build: ./nginx
-    image: tiotobing/nginx
+    image: suggestions.azurecr.io/tiotobing/nginx
     container_name: nginx
     ports:
       - 8080:80
