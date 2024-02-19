@@ -19,6 +19,5 @@ WORKDIR /app
 COPY --from=build app/dist/product-feedback-app-v2/ ./
 # Install PM2 globally
 RUN npm install --global pm2
-RUN pwd && ls
 CMD ["pm2-runtime", "server/server.mjs"]
 EXPOSE 4000
