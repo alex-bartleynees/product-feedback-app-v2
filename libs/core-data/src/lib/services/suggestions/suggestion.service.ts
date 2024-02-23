@@ -21,7 +21,7 @@ export class SuggestionService {
 
   suggestionsModel = 'suggestions';
   commentModel = 'comment';
-  retryConfig = { count: 3, delay: 1000, resetOnSuccess: true };
+  retryConfig = { count: 10, delay: 100, resetOnSuccess: true };
 
   all(): Observable<Suggestion[]> {
     return this.http.get<Suggestion[]>(this.getUrl(this.suggestionsModel)).pipe(
