@@ -44,9 +44,7 @@ export class SuggestionsFacadeService {
   }
 
   selectSuggestion(suggestionId: number): void {
-    patchState(this.store, () => ({
-      selectedId: suggestionId,
-    }));
+    this.store.selectSuggestion(suggestionId);
   }
 
   upVoteSuggestion(suggestion: Suggestion): void {
@@ -71,5 +69,9 @@ export class SuggestionsFacadeService {
 
   deleteSuggestion(id: number): void {
     this.store.deleteSuggestion(id);
+  }
+
+  unselectSuggestion(): void {
+    this.store.unselectSuggestion();
   }
 }

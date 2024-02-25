@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
+  OnDestroy,
   OnInit,
   Signal,
 } from '@angular/core';
@@ -45,7 +46,7 @@ import { SuggestionCommentComponent } from './suggestion-comment/suggestion-comm
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class SuggestionDetailComponent implements OnInit {
+export class SuggestionDetailComponent implements OnInit, OnDestroy {
   selectedSuggestion = this.suggestionsFacade.selectedSuggestion;
   commentForm = new CommentForm();
   currentUser: Signal<User> = this.usersFacade.currentUser;
@@ -109,5 +110,9 @@ export class SuggestionDetailComponent implements OnInit {
 
   onEditFeedbackClick(): void {
     this.router.navigate(['/suggestion', this.selectedSuggestion()?.id]);
+  }
+
+  ngOnDestroy(): void {
+    this.suggestionsFacade.unselectSuggestion();
   }
 }

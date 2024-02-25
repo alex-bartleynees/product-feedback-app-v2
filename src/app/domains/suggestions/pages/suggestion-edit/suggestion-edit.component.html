@@ -65,7 +65,9 @@
         <product-feedback-app-v2-select
           [suggestionForm]="suggestionForm()"
           [menuItems]="statusItems"
-          [menuItemSelected]="{ title: this.selectedSuggestion()!.status }"
+          [menuItemSelected]="{
+            title: this.selectedSuggestion()?.status ?? ''
+          }"
           [control]="'status'"
         ></product-feedback-app-v2-select>
       </div>
