@@ -7,13 +7,14 @@ import {
   SuggestionCommentRequest,
   SuggestionCommentResponse,
 } from '@product-feedback-app-v2/api-interfaces';
-import { catchError, Observable, retry, throwError } from 'rxjs';
+import { catchError, Observable, of, retry, tap, throwError } from 'rxjs';
 import { APP_CONFIG } from '@product-feedback-app-v2/app-config';
 
 @Injectable({
   providedIn: 'root',
 })
 export class SuggestionService {
+  suggestionsCache = new Map<number, Suggestion>();
   constructor(
     @Inject(APP_CONFIG) private appConfig: AppConfig,
     private http: HttpClient
@@ -31,13 +32,24 @@ export class SuggestionService {
   }
 
   get(id: number): Observable<Suggestion> {
-    return this.http.get<Suggestion>(this.getUrlForId(id));
+    if (this.suggestionsCache.has(id)) {
+      return of(this.suggestionsCache.get(id) as Suggestion);
+    }
+    return this.http.get<Suggestion>(this.getUrlForId(id)).pipe(
+      tap((s) => {
+        if (s.id) {
+          this.suggestionsCache.set(s.id, s);
+        }
+      })
+    );
   }
 
   update(suggestion: Suggestion): Observable<Suggestion> {
     if (!suggestion.id) {
       throw new Error('Suggestion must have an id');
     }
+
+    this.suggestionsCache.delete(suggestion.id);
 
     return this.http
       .put<Suggestion>(this.getUrlForId(suggestion.id), suggestion)
@@ -53,6 +65,9 @@ export class SuggestionService {
   addComment(
     comment: SuggestionCommentRequest
   ): Observable<SuggestionCommentResponse> {
+    if (comment.suggestionId) {
+      this.suggestionsCache.delete(comment.suggestionId);
+    }
     return this.http
       .post<SuggestionCommentResponse>(
         `${this.getUrl(this.commentModel)}`,
@@ -64,6 +79,9 @@ export class SuggestionService {
   addReply(
     comment: SuggestionCommentRequest
   ): Observable<SuggestionCommentReplyResponse> {
+    if (comment.suggestionId) {
+      this.suggestionsCache.delete(comment.suggestionId);
+    }
     return this.http
       .post<SuggestionCommentReplyResponse>(
         `${this.getUrl(this.commentModel)}/reply`,
@@ -73,6 +91,7 @@ export class SuggestionService {
   }
 
   delete(id: number): Observable<number> {
+    this.suggestionsCache.delete(id);
     return this.http
       .delete<number>(this.getUrlForId(id))
       .pipe(catchError((error) => throwError(() => error)));

@@ -8,4 +8,5 @@ export interface Suggestion {
   status: string;
   description: string;
   comments?: SuggestionComment[];
+  commentCount?: number;
 }
