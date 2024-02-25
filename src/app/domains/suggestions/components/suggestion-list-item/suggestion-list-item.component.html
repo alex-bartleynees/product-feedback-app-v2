@@ -22,7 +22,9 @@
   </div>
   <product-feedback-app-v2-comment-icon
     class="comment__icon"
-    [numberOfComments]="suggestion.comments?.length ?? 0"
+    [numberOfComments]="
+      suggestion.commentCount ?? suggestion.comments?.length ?? 0
+    "
   >
   </product-feedback-app-v2-comment-icon>
 </div>
