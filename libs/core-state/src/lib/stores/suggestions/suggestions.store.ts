@@ -2,7 +2,6 @@ import { computed, inject } from '@angular/core';
 import {
   patchState,
   signalStore,
-  withComputed,
   withHooks,
   withMethods,
   withState,
@@ -24,11 +23,13 @@ import { withError } from '../utilities/with-error';
 type SuggestionsState = {
   suggestions: Suggestion[];
   selectedId: number;
+  selectedSuggestion: Suggestion | null;
 };
 
 const initialState: SuggestionsState = {
   suggestions: [],
   selectedId: 0,
+  selectedSuggestion: null,
 };
 
 export const SuggestionsStore = signalStore(
@@ -84,11 +85,24 @@ export const SuggestionsStore = signalStore(
           })
         )
       ),
-      selectSuggestion: (number) => {
-        patchState(state, () => ({
-          selectedId: number,
-        }));
-      },
+      selectSuggestion: rxMethod<number>(
+        pipe(
+          tap((id) => {
+            patchState(state, () => ({
+              selectedId: id,
+            }));
+          }),
+          switchMap((id) => suggestionService.get(id)),
+          tapResponse({
+            next: (response) => {
+              patchState(state, () => ({
+                selectedSuggestion: response,
+              }));
+            },
+            error: (error: string) => state.setError(error),
+          })
+        )
+      ),
       createSuggestion: rxMethod<Suggestion>(
         pipe(
           switchMap((suggestion) => suggestionService.create(suggestion)),
@@ -219,15 +233,14 @@ export const SuggestionsStore = signalStore(
           })
         )
       ),
+      unselectSuggestion: () => {
+        patchState(state, () => ({
+          selectedId: 0,
+          selectedSuggestion: null,
+        }));
+      },
     };
   }),
-  withComputed(({ suggestions, selectedId }) => ({
-    selectedSuggestion: computed(() => {
-      return suggestions().find((suggestion) => {
-        return suggestion.id === selectedId();
-      });
-    }),
-  })),
   withHooks({
     onInit(store) {
       store.load();

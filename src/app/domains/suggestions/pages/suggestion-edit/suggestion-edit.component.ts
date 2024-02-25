@@ -116,6 +116,7 @@ export class SuggestionEditComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.destroy$.next();
     this.destroy$.complete();
+    this.suggestionService.unselectSuggestion();
   }
 
   onSubmit() {

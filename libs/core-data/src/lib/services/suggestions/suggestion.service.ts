@@ -30,6 +30,10 @@ export class SuggestionService {
     );
   }
 
+  get(id: number): Observable<Suggestion> {
+    return this.http.get<Suggestion>(this.getUrlForId(id));
+  }
+
   update(suggestion: Suggestion): Observable<Suggestion> {
     if (!suggestion.id) {
       throw new Error('Suggestion must have an id');

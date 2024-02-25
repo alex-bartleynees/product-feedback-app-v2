@@ -39,7 +39,7 @@ const getForm = () =>
   });
 
 export class SuggestionForm extends FormGroup {
-  constructor(suggestion?: Suggestion) {
+  constructor(suggestion?: Suggestion | null) {
     super(getForm().controls);
 
     if (suggestion) {
