@@ -132,10 +132,8 @@ export const SuggestionsStore = signalStore(
           ),
           tapResponse({
             next: (response) => {
-              patchState(state, (state) => ({
-                suggestions: state.suggestions.map((suggestion) =>
-                  suggestion.id === response.id ? response : suggestion
-                ),
+              patchState(state, () => ({
+                selectedSuggestion: response,
               }));
             },
             error: (error: string) => state.setError(error),
@@ -164,9 +162,7 @@ export const SuggestionsStore = signalStore(
           tapResponse({
             next: (response) => {
               patchState(state, (state) => {
-                const parentSuggestion = state.suggestions.find(
-                  (suggestion) => suggestion.id === response.suggestionId
-                );
+                const parentSuggestion = state.selectedSuggestion;
                 if (parentSuggestion) {
                   const updatedSuggestion = {
                     ...parentSuggestion,
@@ -176,11 +172,7 @@ export const SuggestionsStore = signalStore(
                   };
 
                   return {
-                    suggestions: state.suggestions.map((suggestion) =>
-                      suggestion.id === updatedSuggestion.id
-                        ? updatedSuggestion
-                        : suggestion
-                    ),
+                    selectedSuggestion: updatedSuggestion,
                   };
                 }
 
@@ -197,9 +189,7 @@ export const SuggestionsStore = signalStore(
           tapResponse({
             next: (response) => {
               patchState(state, (state) => {
-                const parentSuggestion = state.suggestions.find(
-                  (suggestion) => suggestion.id === response.suggestionId
-                );
+                const parentSuggestion = state.selectedSuggestion;
                 const comment = parentSuggestion?.comments?.find(
                   (comment) => comment.id === response.suggestionCommentId
                 );
@@ -218,11 +208,10 @@ export const SuggestionsStore = signalStore(
                   ];
                   updatedComments[index] = updatedComment;
                   return {
-                    suggestions: state.suggestions.map((suggestion) =>
-                      suggestion.id === parentSuggestion.id
-                        ? { ...parentSuggestion, comments: updatedComments }
-                        : suggestion
-                    ),
+                    selectedSuggestion: {
+                      ...parentSuggestion,
+                      comments: updatedComments,
+                    },
                   };
                 }
 
