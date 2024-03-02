@@ -80,7 +80,7 @@ export class SuggestionDetailComponent implements OnInit, OnDestroy {
     const comment: SuggestionCommentRequest = {
       suggestionId: this.selectedSuggestion()?.id,
       content: this.commentForm.comment.value,
-      userId: 1,
+      userId: this.currentUser()?.id ?? 0,
     };
 
     this.suggestionsFacade.addCommentToSuggestion(comment);
