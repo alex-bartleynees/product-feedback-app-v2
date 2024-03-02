@@ -89,14 +89,14 @@ export class SuggestionsComponent implements OnInit, OnDestroy {
     {
       title: 'Most Comments',
       sortBy: {
-        key: 'comments',
+        key: 'commentCount',
         order: 'desc',
       },
     },
     {
       title: 'Least Comments',
       sortBy: {
-        key: 'comments',
+        key: 'commentCount',
         order: 'asc',
       },
     },
