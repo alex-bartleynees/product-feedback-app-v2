@@ -42,7 +42,7 @@ export class RoadMapComponent implements OnInit, AfterViewInit, OnDestroy {
 
   selectedTab!: HTMLDivElement;
   selectedTabName = 'planned';
-  isMobile = window.innerWidth <= 700 ? true : false;
+  isMobile = typeof window !== 'undefined' ? window.innerWidth <= 700 : false;
 
   constructor(
     private suggestionsFacade: SuggestionsFacadeService,
