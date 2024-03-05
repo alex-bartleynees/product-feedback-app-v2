@@ -5,32 +5,35 @@ import {
   SuggestionCommentReplyRequest,
   SuggestionCommentRequest,
 } from '@product-feedback-app-v2/api-interfaces';
-import { patchState } from '@ngrx/signals';
+import { SuggestionsSignalService } from '../stores/suggestions/suggestions-signal-service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class SuggestionsFacadeService {
-  private readonly store = inject(SuggestionsStore);
-  loading = this.store.loading;
-  loadError = this.store.error;
-  allSuggestions = this.store.suggestions;
+  private readonly store = inject(SuggestionsSignalService);
+  loading = this.store.state().loading;
+  loadError = this.store.state().error;
+  allSuggestions = computed(() => this.store.state().suggestions());
   selectedSuggestion = computed(() => {
-    return this.store.selectedSuggestion();
+    return this.store.state().selectedSuggestion();
   });
 
   plannedSuggestions = computed(() =>
     this.store
+      .state()
       .suggestions()
       .filter((suggestion) => suggestion.status === 'planned')
   );
   inProgressSuggestions = computed(() =>
     this.store
+      .state()
       .suggestions()
       .filter((suggestion) => suggestion.status === 'in-progress')
   );
   liveSuggestions = computed(() =>
     this.store
+      .state()
       .suggestions()
       .filter((suggestion) => suggestion.status === 'live')
   );
@@ -52,23 +55,23 @@ export class SuggestionsFacadeService {
   }
 
   updateSuggestion(updatedSuggestion: Suggestion): void {
-    this.store.updateSuggestion(updatedSuggestion);
+    // this.store.updateSuggestion(updatedSuggestion);
   }
 
   createSuggestion(suggestion: Suggestion): void {
-    this.store.createSuggestion(suggestion);
+    // this.store.createSuggestion(suggestion);
   }
 
   addCommentToSuggestion(comment: SuggestionCommentRequest): void {
-    this.store.addCommentToSuggestion(comment);
+    // this.store.addCommentToSuggestion(comment);
   }
 
   addReplyToComment(reply: SuggestionCommentReplyRequest) {
-    this.store.createCommentReply(reply);
+    // this.store.createCommentReply(reply);
   }
 
   deleteSuggestion(id: number): void {
-    this.store.deleteSuggestion(id);
+    // this.store.deleteSuggestion(id);
   }
 
   unselectSuggestion(): void {

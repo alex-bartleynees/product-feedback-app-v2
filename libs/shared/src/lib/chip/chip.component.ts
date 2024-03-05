@@ -3,8 +3,8 @@ import {
   ChangeDetectionStrategy,
   Component,
   EventEmitter,
-  Input,
   Output,
+  input,
 } from '@angular/core';
 
 @Component({
@@ -16,10 +16,10 @@ import {
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ChipComponent {
-  @Input() text: string | number = '';
-  @Input() active = false;
-  @Input() showArrow = false;
-  @Input() usePointer = true;
+  text = input<string | number>('');
+  active = input(false);
+  showArrow = input(false);
+  usePointer = input(false);
 
   @Output() chipClick = new EventEmitter<string | number>();
 }

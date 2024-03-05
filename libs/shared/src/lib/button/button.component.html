@@ -1,9 +1,9 @@
 <button
   class="button"
   [ngClass]="{
-    'button--secondary': style === 'secondary',
-    'button--tertiary': style === 'tertiary',
-    'button--warning': style === 'warning'
+    'button--secondary': style() === 'secondary',
+    'button--tertiary': style() === 'tertiary',
+    'button--warning': style() === 'warning'
   }"
 >
   <ng-content></ng-content>

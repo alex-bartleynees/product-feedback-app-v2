@@ -109,6 +109,7 @@ export class SuggestionsComponent implements OnInit, OnDestroy {
   constructor(private router: Router, private renderer: Renderer2) {}
 
   ngOnInit(): void {
+    this.suggestionsFacade.loadSuggestions();
     if (typeof window !== 'undefined') {
       this.renderer.addClass(document.body, 'suggestions');
     }
