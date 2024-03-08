@@ -1,4 +1,4 @@
-const { app } = require('./server.mjs');
+const { app } = require('./server');
 const fs = require('fs');
 
 exports.handler = (event, context, callback) => {
