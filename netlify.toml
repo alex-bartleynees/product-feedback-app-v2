@@ -1,5 +1,5 @@
 [functions]
-  included_files = ["server.ts"]
+  included_files = ["./dist/product-feedback-app-v2/server"]
 
 [[redirects]]
   from = "/static/*"
