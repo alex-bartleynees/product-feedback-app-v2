@@ -1,3 +1,6 @@
+[functions]
+  included_files = ["server.ts"]
+
 [[redirects]]
   from = "/static/*"
   to = "/:splat"
@@ -7,6 +10,3 @@
   from = "/*"
   to = "/.netlify/functions/server"
   status = 200
-
-  [functions]
-  included_files = ["server.ts"]
