@@ -9,15 +9,15 @@ const htmlFile = await readFile(
 export default async (request, context) => {
   const url = request.url;
   console.log(htmlFile);
-  const document = Buffer.from(
-    `${JSON.stringify(
-      Buffer.from(htmlFile, 'utf-8').toString('base64')
-    )}, 'base64')`.toString('utf-8')
-  );
+  // const document = Buffer.from(
+  //   `${JSON.stringify(
+  //     Buffer.from(htmlFile, 'utf-8').toString('base64')
+  //   )}, 'base64')`.toString('utf-8')
+  // );
 
   const html = await renderApplication(bootstrap, {
     url,
-    document,
+    document: htmlFile,
     platformProviders: [
       { provide: 'netlify.request', useValue: request },
       { provide: 'netlify.context', useValue: context },
