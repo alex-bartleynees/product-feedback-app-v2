@@ -1,5 +1,5 @@
 import bootstrap from '../dist/product-feedback-app-v2/server/main.server.mjs';
-import { renderApplication } from '../dist/product-feedback-app-v2/server/main.server.mjs';
+import { renderApplication } from '../dist/product-feedback-app-v2/server/render-utils.server.mjs';
 
 export default async (request, context) => {
   const indexHtml = '../dist/product-feedback-app-v2/browser/index.server.html';
