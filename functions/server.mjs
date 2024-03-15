@@ -1,12 +1,16 @@
+import { readFile } from 'fs';
 import bootstrap from '../dist/product-feedback-app-v2/server/main.server.mjs';
 import { renderApplication } from '../dist/product-feedback-app-v2/server/render-utils.server.mjs';
 
 export default async (request, context) => {
-  const indexHtml = '../dist/product-feedback-app-v2/browser/index.server.html';
+  const htmlFile = await readFile(
+    '../dist/product-feedback-app-v2/browser/index.server.html',
+    'utf-8'
+  );
   const url = request.url;
   const document = Buffer.from(
     `${JSON.stringify(
-      Buffer.from(html, 'utf-8').toString('base64')
+      Buffer.from(htmlFile, 'utf-8').toString('base64')
     )}, 'base64')`.toString('utf-8')
   );
 
