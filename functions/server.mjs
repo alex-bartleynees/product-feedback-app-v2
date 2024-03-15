@@ -5,6 +5,13 @@ const htmlFile = await readFile(
   'dist/product-feedback-app-v2/server/index.server.html',
   'utf-8'
 );
+const staticFiles = getAllFilesIn(
+  join('dist/product-feedback-app-v2/', 'browser')
+).map(
+  (path) =>
+    `/${relative(join('dist/product-feedback-app-v2/', 'browser'), path)}`
+);
+const excludedPaths = [...staticFiles];
 
 export default async (request, context) => {
   const url = request.url;
@@ -30,4 +37,11 @@ export default async (request, context) => {
       'Content-Type': 'text/html',
     },
   });
+};
+
+export const config = {
+  path: '/*',
+  excludedPath: `${JSON.stringify(excludedPaths)}`,
+  generator: '@netlify/functions',
+  name: 'Angular SSR',
 };
