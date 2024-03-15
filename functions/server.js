@@ -5,7 +5,7 @@ export default async (request, context) => {
   console.log(context);
 
   console.log('reading root directory');
-  fs.readdir('../../../', (err, files) => {
+  fs.readdir('../../', (err, files) => {
     files.forEach((file) => {
       console.log(file);
     });
