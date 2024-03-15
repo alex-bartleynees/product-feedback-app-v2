@@ -1,17 +1,7 @@
 import fs from 'fs';
-import { posix, sep, relative } from 'path';
-
-const toPosix = (path) => path.split(sep).join(posix.sep);
-fs.readdir('/', (err, files) => {
-  files.forEach((file) => {
-    console.log(file);
-  });
-});
+import { app } from '../../dist/product-feedback-app-v2/server/server.mjs';
 
 export default async (request, context) => {
-  const { app } = require(`${toPosix(
-    relative(process.cwd(), __dirname)
-  )}/server/server.mjs`);
   console.log('app', app);
   fs.readdir('/', (err, files) => {
     files.forEach((file) => {
