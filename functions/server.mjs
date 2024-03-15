@@ -3,6 +3,7 @@ import { renderApplication } from '../dist/product-feedback-app-v2/server/render
 
 export default async (request, context) => {
   const indexHtml = '../dist/product-feedback-app-v2/browser/index.server.html';
+  const url = request.url;
   const html = await renderApplication(bootstrap, {
     url,
     document: indexHtml,
