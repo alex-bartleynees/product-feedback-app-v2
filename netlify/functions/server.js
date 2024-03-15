@@ -12,7 +12,7 @@ export default async (request, context) => {
   console.log('done reading files');
 
   console.log('reading root directory');
-  fs.readdir('../../', (err, files) => {
+  fs.readdir('../../dist/product-feedback-app-v2/server', (err, files) => {
     files.forEach((file) => {
       console.log(file);
     });
