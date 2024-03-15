@@ -1,5 +1,6 @@
 import { commonEngine } from '../dist/product-feedback-app-v2/server/server.mjs';
 import bootstrap from '../dist/product-feedback-app-v2/server/main.server.mjs';
+import { APP_BASE_HREF } from '@angular/common';
 
 export default async (request, context) => {
   const indexHtml = '../dist/product-feedback-app-v2/browser/index.server.html';
