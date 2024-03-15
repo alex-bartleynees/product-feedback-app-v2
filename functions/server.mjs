@@ -2,7 +2,7 @@ import { readFile } from 'node:fs/promises';
 import bootstrap from '../dist/product-feedback-app-v2/server/main.server.mjs';
 import { renderApplication } from '../dist/product-feedback-app-v2/server/render-utils.server.mjs';
 const htmlFile = await readFile(
-  '../dist/product-feedback-app-v2/server/index.server.html',
+  'dist/product-feedback-app-v2/server/index.server.html',
   'utf-8'
 );
 
