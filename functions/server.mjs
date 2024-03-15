@@ -1,12 +1,10 @@
 import { readFile } from 'node:fs/promises';
 import bootstrap from '../dist/product-feedback-app-v2/server/main.server.mjs';
 import { renderApplication } from '../dist/product-feedback-app-v2/server/render-utils.server.mjs';
+const htmlFile = require('../dist/product-feedback-app-v2/server/index.server.html');
 
 export default async (request, context) => {
-  const htmlFile = await readFile(
-    '../dist/product-feedback-app-v2/server/index.server.html',
-    'utf-8'
-  );
+  const htmlFile = await readFile(htmlFile, 'utf-8');
   const url = request.url;
   const document = Buffer.from(
     `${JSON.stringify(
