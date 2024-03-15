@@ -1,5 +1,8 @@
-import { app } from './server/server.mjs';
+import { posix, relative, sep } from 'path';
+import { app } from `${toPosix(relative(process.cwd(), __dirname))}/server/server.mjs`;
 import fs from 'fs';
+
+const toPosix = (path) => path.split(sep).join(posix.sep)
 
 export default async (request, context) => {
   console.log('app', app);
