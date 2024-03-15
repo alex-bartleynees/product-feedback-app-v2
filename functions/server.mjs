@@ -4,7 +4,7 @@ import { renderApplication } from '../dist/product-feedback-app-v2/server/render
 
 export default async (request, context) => {
   const htmlFile = await readFile(
-    '../dist/product-feedback-app-v2/browser/index.server.html',
+    '../dist/product-feedback-app-v2/server/index.server.html',
     'utf-8'
   );
   const url = request.url;
