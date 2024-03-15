@@ -1,17 +1,10 @@
-const fs = require('fs');
+const app = require('../dist/product-feedback-app-v2/server/server.mjs');
 
 export default async (request, context) => {
   console.log(request);
   console.log(context);
-
-  console.log('reading root directory');
-  fs.readdir('../', (err, files) => {
-    files.forEach((file) => {
-      console.log(file);
-    });
-  });
-  console.log('done reading root directory');
-
-  // const server = app();
+  console.log('app', app);
+  const server = app();
+  console.log(server);
   // return await server(request, context);
 };
