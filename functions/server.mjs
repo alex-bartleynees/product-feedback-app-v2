@@ -16,7 +16,7 @@ export default async (request, context) => {
   // );
 
   const html = await renderApplication(bootstrap, {
-    url,
+    url: '/',
     document: htmlFile,
     platformProviders: [
       { provide: 'netlify.request', useValue: request },
