@@ -1,4 +1,4 @@
-import { app } from './server.js';
+import { app } from './server/server.js';
 import fs from 'fs';
 
 export default async (request, context) => {
