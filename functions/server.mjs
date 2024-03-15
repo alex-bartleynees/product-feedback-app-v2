@@ -1,6 +1,15 @@
 import { readFile } from 'node:fs/promises';
 import bootstrap from '../dist/product-feedback-app-v2/server/main.server.mjs';
 import { renderApplication } from '../dist/product-feedback-app-v2/server/render-utils.server.mjs';
+
+const getAllFilesIn = (dir) =>
+  readdirSync(dir, { withFileTypes: true }).flatMap((dirent) => {
+    if (dirent.isDirectory()) {
+      return getAllFilesIn(join(dir, dirent.name));
+    }
+    return [join(dir, dirent.name)];
+  });
+
 const htmlFile = await readFile(
   'dist/product-feedback-app-v2/server/index.server.html',
   'utf-8'
@@ -21,7 +30,7 @@ export default async (request, context) => {
   //     Buffer.from(htmlFile, 'utf-8').toString('base64')
   //   )}, 'base64')`.toString('utf-8')
   // );
-
+  console.log(excludedPaths);
   const html = await renderApplication(bootstrap, {
     url: '/',
     document: htmlFile,
