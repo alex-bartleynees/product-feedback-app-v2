@@ -1,4 +1,4 @@
-const app = require('../dist/product-feedback-app-v2/server/server.mjs');
+import { app } from '../dist/product-feedback-app-v2/server/server.mjs';
 
 export default async (request, context) => {
   console.log(request);
