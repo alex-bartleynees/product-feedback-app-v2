@@ -8,6 +8,7 @@ const htmlFile = await readFile(
 
 export default async (request, context) => {
   const url = request.url;
+  console.log(htmlFile);
   const document = Buffer.from(
     `${JSON.stringify(
       Buffer.from(htmlFile, 'utf-8').toString('base64')
