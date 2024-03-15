@@ -47,10 +47,3 @@ export default async (request, context) => {
     },
   });
 };
-
-export const config = {
-  path: '/*',
-  excludedPath: `${JSON.stringify(excludedPaths)}`,
-  generator: '@netlify/functions',
-  name: 'Angular SSR',
-};
