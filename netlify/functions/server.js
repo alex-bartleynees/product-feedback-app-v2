@@ -3,24 +3,9 @@ const fs = require('fs');
 export default async (request, context) => {
   console.log(request);
   console.log(context);
-  console.log('reading files');
-  fs.readdir('/', (err, files) => {
-    files.forEach((file) => {
-      console.log(file);
-    });
-  });
-  console.log('done reading files');
 
   console.log('reading root directory');
-  fs.readdir('../../home', (err, files) => {
-    files.forEach((file) => {
-      console.log(file);
-    });
-  });
-  console.log('done reading root directory');
-
-  console.log('reading root directory');
-  fs.readdir('../', (err, files) => {
+  fs.readdir('../../../', (err, files) => {
     files.forEach((file) => {
       console.log(file);
     });
