@@ -1,4 +1,5 @@
 import { readFile } from 'node:fs/promises';
+import { join, relative } from 'node:path';
 import bootstrap from '../dist/product-feedback-app-v2/server/main.server.mjs';
 import { renderApplication } from '../dist/product-feedback-app-v2/server/render-utils.server.mjs';
 
