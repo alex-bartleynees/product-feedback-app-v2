@@ -14,6 +14,20 @@
   status = 200
 
 [[redirects]]
+  # Redirect JavaScript files
+  from = "/*.js"
+  to = "/:splat"
+  status = 301
+  force = true
+
+[[redirects]]
+  # Redirect CSS files
+  from = "/*.css"
+  to = ":/splat"
+  status = 301
+  force = true  
+
+[[redirects]]
   from = "/*"
   to = "/.netlify/functions/server"
   status = 200
