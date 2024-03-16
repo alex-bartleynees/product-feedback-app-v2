@@ -12,17 +12,7 @@
   from = "/media/*"
   to = "/:splat"
   status = 200
-
-[[redirects]]
-  from = "/road-map/*"
-  to = "/:splat"
-  status = 200
-
-[[redirects]]
-  from = "/suggestion/*"
-  to = "/:splat"
-  status = 200
-
+  
 [[redirects]]
   from = "/*"
   to = "/.netlify/functions/server"
