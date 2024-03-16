@@ -12,7 +12,7 @@ const getAllFilesIn = (dir) =>
     return [join(dir, dirent.name)];
   });
 
-const htmlFile = await readFile(
+const document = await readFile(
   'dist/product-feedback-app-v2/server/index.server.html',
   'utf-8'
 );
@@ -25,10 +25,15 @@ const staticFiles = getAllFilesIn(
 const excludedPaths = [...staticFiles];
 
 export default async (request, context) => {
+  console.log(request.url);
   const url = request.url;
-  const document = Buffer.from(htmlFile, 'utf-8').toString('base64');
+  if (excludedPaths.includes(url)) {
+    return new Response('Not Found', {
+      status: 404,
+    });
+  }
   const html = await renderApplication(bootstrap, {
-    url: '/',
+    url: request.url,
     document,
     platformProviders: [
       { provide: 'netlify.request', useValue: request },
