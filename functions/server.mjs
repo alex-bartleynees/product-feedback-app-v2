@@ -72,6 +72,7 @@ function getFileType(url) {
 async function getFile(url) {
   const filePath = splitUrlToGetFile(url);
   const file = join('dist/product-feedback-app-v2/', 'browser', filePath);
+  console.log('file', file);
   return await readFile(file, 'utf-8');
 }
 
