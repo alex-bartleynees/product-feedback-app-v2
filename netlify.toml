@@ -19,6 +19,6 @@
   status = 200
 
 [[redirects]]
-  from = "https://product-feedback-ssr.netlify.app/"
+  from = "index.html"
   to = "/.netlify/functions/server"
   status = 200
