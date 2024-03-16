@@ -25,7 +25,7 @@ const staticFiles = getAllFilesIn(
 const excludedPaths = [...staticFiles];
 
 export default async (request, context) => {
-  console.log(request.url);
+  console.log('request url', request.url);
   const url = request.url;
   if (excludedPaths.includes(url)) {
     return new Response('Not Found', {
@@ -40,7 +40,7 @@ export default async (request, context) => {
       { provide: 'netlify.context', useValue: context },
     ],
   });
-
+  console.log('html', html);
   return new Response(html, {
     status: 200,
     headers: {
