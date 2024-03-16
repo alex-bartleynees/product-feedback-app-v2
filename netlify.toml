@@ -8,13 +8,13 @@
   to = "/:splat"
   status = 200
 
-  [[redirects]]
-  from = "/browser/*"
+[[redirects]]
+  from = "/media/*"
   to = "/:splat"
   status = 200
 
 [[redirects]]
-  from = "/media/*"
+  from = "*.*"
   to = "/:splat"
   status = 200
 
