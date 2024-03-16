@@ -36,7 +36,7 @@ export default async (request, context) => {
     'Content-Type': 'text/plain', // Default content type
     'Cache-Control': 'public, max-age=3600', // Example cache control
   };
-
+  console.log(fileType);
   if (fileType === 'html') {
     headers['Content-Type'] = 'text/html';
   } else if (fileType === 'css') {
@@ -57,6 +57,7 @@ export default async (request, context) => {
 };
 
 function getFileType(url) {
+  console.log(url);
   const parts = url.split('.');
   return parts[parts.length - 1];
 }
