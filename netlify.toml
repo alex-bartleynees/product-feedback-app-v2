@@ -7,7 +7,21 @@
   from = "/assets/*"
   to = "/:splat"
   status = 200
-  force = true
+
+[[redirects]]
+  from = "/media/*"
+  to = "/:splat"
+  status = 200
+
+[[redirects]]
+  from = "/road-map/*"
+  to = "/:splat"
+  status = 200
+
+[[redirects]]
+  from = "/suggestion/*"
+  to = "/:splat"
+  status = 200
 
 [[redirects]]
   from = "/*"
