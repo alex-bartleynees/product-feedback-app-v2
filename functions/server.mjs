@@ -33,7 +33,7 @@ export default async (request, context) => {
     });
   }
   let headers = {
-    'Content-Type': 'text/plain', // Default content type
+    'Content-Type': 'text/html', // Default content type
     'Cache-Control': 'public, max-age=3600', // Example cache control
   };
   console.log(fileType);
