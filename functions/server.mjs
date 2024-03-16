@@ -4,6 +4,7 @@ import { fileURLToPath } from 'node:url';
 import bootstrap from '../dist/product-feedback-app-v2/server/main.server.mjs';
 import { CommonEngine } from '@angular/ssr';
 import { APP_BASE_HREF } from '@angular/common';
+import '@angular/compiler';
 
 export default async (request, context) => {
   const server = express();
