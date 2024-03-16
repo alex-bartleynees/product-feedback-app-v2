@@ -27,16 +27,22 @@ const excludedPaths = [...staticFiles];
 export default async (request, context) => {
   const url = request.url;
   const fileType = getFileType(url);
-  if (excludedPaths.includes(url)) {
-    return new Response('Not Found', {
-      status: 404,
+  const staticFileTypes = ['.html', '.css', '.js', '.png', '.jpg', '.svg'];
+
+  if (fileType && staticFileTypes.includes(fileType)) {
+    return new Response(await getFile(url), {
+      status: 200,
+      headers: {
+        'Content-Type': getFileType(url),
+      },
     });
   }
+
   let headers = {
     'Content-Type': 'text/html', // Default content type
     'Cache-Control': 'public, max-age=3600', // Example cache control
   };
-  console.log(fileType);
+
   if (fileType === 'html') {
     headers['Content-Type'] = 'text/html';
   } else if (fileType === 'css') {
@@ -60,4 +66,9 @@ function getFileType(url) {
   console.log(url);
   const parts = url.split('.');
   return parts[parts.length - 1];
+}
+
+async function getFile(url) {
+  const file = join('dist/product-feedback-app-v2/', 'browser', url);
+  return await readFile(file, 'utf-8');
 }
