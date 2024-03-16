@@ -27,6 +27,7 @@ const excludedPaths = [...staticFiles];
 export default async (request, context) => {
   const url = request.url;
   const fileType = getFileType(url);
+  console.log("fileType", fileType);
   const staticFileTypes = ['.html', '.css', '.js', '.png', '.jpg', '.svg'];
 
   if (fileType && staticFileTypes.includes(fileType)) {
@@ -63,7 +64,7 @@ export default async (request, context) => {
 };
 
 function getFileType(url) {
-  console.log(url);
+  console.log("url", url);
   const parts = url.split('.');
   return parts[parts.length - 1];
 }
