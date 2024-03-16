@@ -25,10 +25,9 @@ export class SuggestionService {
   retryConfig = { count: 10, delay: 100, resetOnSuccess: true };
 
   all(): Observable<Suggestion[]> {
-    return this.http.get<Suggestion[]>(this.getUrl(this.suggestionsModel)).pipe(
-      retry(this.retryConfig),
-      catchError((error) => throwError(() => error))
-    );
+    return this.http
+      .get<Suggestion[]>(this.getUrl(this.suggestionsModel))
+      .pipe(catchError((error) => throwError(() => error)));
   }
 
   get(id: number): Observable<Suggestion> {
