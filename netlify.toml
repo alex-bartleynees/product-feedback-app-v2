@@ -22,3 +22,14 @@
   from = "index.html"
   to = "/.netlify/functions/server"
   status = 200
+
+[[redirects]]
+  from = "https://product-feedback-ssr.netlify.app/"
+  to = "/.netlify/functions/server"
+  status = 200
+
+[[redirects]]
+  from = "https://product-feedback-ssr.netlify.app/index.html"
+  to = "/.netlify/functions/server"
+  status = 200
+
