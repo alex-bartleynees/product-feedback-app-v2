@@ -25,6 +25,11 @@ const staticFiles = getAllFilesIn(
 );
 const excludedPaths = [...staticFiles];
 const browserDistFolder = join('dist/product-feedback-app-v2/', 'browser');
+const documentFilePath = join(
+  'dist/product-feedback-app-v2/',
+  'server',
+  'index.server.html'
+);
 
 export default async (request, context) => {
   const url = request.url;
@@ -62,7 +67,7 @@ export default async (request, context) => {
   const html = await commonEngine.render({
     bootstrap: bootstrap,
     url: request.url,
-    document,
+    documentFilePath: documentFilePath,
     publicPath: browserDistFolder,
   });
   return new Response(html, {
