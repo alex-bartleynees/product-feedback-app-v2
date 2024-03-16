@@ -35,7 +35,6 @@ export default async (request, context) => {
   const html = await renderApplication(bootstrap, {
     url: request.url,
     document,
-    platformProviders: [],
   });
   console.log('html', html);
   return new Response(html, {
