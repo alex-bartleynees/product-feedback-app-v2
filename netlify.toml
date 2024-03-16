@@ -30,5 +30,5 @@
 [[redirects]]
   from = "/*"
   to = "/.netlify/functions/server"
-  status = 301
+  status = 200
   force = true
