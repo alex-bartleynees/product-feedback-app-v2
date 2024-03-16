@@ -34,7 +34,7 @@ export default async (request, context) => {
   }
   const html = await renderApplication(bootstrap, {
     url: request.url,
-    document,
+    document: document.toString(),
   });
   console.log('html', html);
   return new Response(html, {
