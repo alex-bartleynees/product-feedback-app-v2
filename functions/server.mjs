@@ -29,7 +29,10 @@ export default async (request, context) => {
   const fileType = getFileType(url);
   console.log('fileType', fileType);
   const staticFileTypes = ['.html', '.css', '.js', '.png', '.jpg', '.svg'];
-
+  console.log(
+    'file type included in static file types',
+    staticFileTypes.includes(fileType)
+  );
   if (fileType && staticFileTypes.includes(fileType)) {
     return new Response(await getFile(url), {
       status: 200,
@@ -41,7 +44,7 @@ export default async (request, context) => {
 
   let headers = {
     'Content-Type': 'text/html', // Default content type
-    'Cache-Control': 'public, max-age=3600', // Example cache control
+    // 'Cache-Control': 'public, max-age=3600', // Example cache control
   };
 
   if (fileType === 'html') {
