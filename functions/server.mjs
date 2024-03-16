@@ -35,10 +35,7 @@ export default async (request, context) => {
   const html = await renderApplication(bootstrap, {
     url: request.url,
     document,
-    platformProviders: [
-      { provide: 'netlify.request', useValue: request },
-      { provide: 'netlify.context', useValue: context },
-    ],
+    platformProviders: [],
   });
   console.log('html', html);
   return new Response(html, {
