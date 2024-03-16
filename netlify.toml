@@ -4,7 +4,7 @@
   included_files = ["dist/product-feedback-app-v2/**/*", "dist/product-feedback-app-v2/server/index.server.html"]
   
 [[redirects]]
-  from = "/static/*"
+  from = "*.*"
   to = "/:splat"
   status = 200
 
