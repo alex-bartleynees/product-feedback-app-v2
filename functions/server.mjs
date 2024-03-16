@@ -28,7 +28,7 @@ export default async (request, context) => {
   const url = request.url;
   const fileType = getFileType(url);
   console.log('fileType', fileType);
-  const staticFileTypes = ['.html', '.css', '.js', '.png', '.jpg', '.svg'];
+  const staticFileTypes = ['html', 'css', 'js', 'png', 'jpg', 'svg'];
   console.log(
     'file type included in static file types',
     staticFileTypes.includes(fileType)
