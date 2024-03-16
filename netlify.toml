@@ -17,14 +17,14 @@
   # Redirect JavaScript files
   from = "/*.js"
   to = "/:splat"
-  status = 301
+  status = 200
   force = true
 
 [[redirects]]
   # Redirect CSS files
   from = "/*.css"
   to = ":/splat"
-  status = 301
+  status = 200
   force = true  
 
 [[redirects]]
