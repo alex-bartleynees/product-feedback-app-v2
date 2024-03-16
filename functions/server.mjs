@@ -25,23 +25,38 @@ const staticFiles = getAllFilesIn(
 const excludedPaths = [...staticFiles];
 
 export default async (request, context) => {
-  console.log('request url', request.url);
   const url = request.url;
+  const fileType = getFileType(url);
   if (excludedPaths.includes(url)) {
     return new Response('Not Found', {
       status: 404,
     });
   }
+  let headers = {
+    'Content-Type': 'text/plain', // Default content type
+    'Cache-Control': 'public, max-age=3600', // Example cache control
+  };
+
+  if (fileType === 'html') {
+    headers['Content-Type'] = 'text/html';
+  } else if (fileType === 'css') {
+    headers['Content-Type'] = 'text/css';
+  } else if (fileType === 'js') {
+    headers['Content-Type'] = 'application/javascript';
+  }
+
   const html = await renderApplication(bootstrap, {
     url: request.url,
     document,
     platformProviders: [],
   });
-  console.log('html', html);
   return new Response(html, {
     status: 200,
-    headers: {
-      'Content-Type': 'text/html',
-    },
+    headers,
   });
 };
+
+function getFileType(url) {
+  const parts = url.split('.');
+  return parts[parts.length - 1];
+}
