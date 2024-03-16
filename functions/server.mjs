@@ -1,11 +1,9 @@
-
 import { join, dirname, resolve } from 'node:path';
 import express from 'express';
 import { fileURLToPath } from 'node:url';
 import bootstrap from '../dist/product-feedback-app-v2/server/main.server.mjs';
-import { CommonEngine } from '@angular/common/http';
+import { CommonEngine } from '@angular/ssr';
 import { APP_BASE_HREF } from '@angular/common';
-
 
 export default async (request, context) => {
   const server = express();
