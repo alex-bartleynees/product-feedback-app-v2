@@ -4,7 +4,7 @@
   "license": "MIT",
   "scripts": {
     "start": "nx serve",
-    "build": "nx build",
+    "build": "nx build && rm dist/product-feedback-app-v2/browser/index.html",
     "test": "nx test"
   },
   "private": true,
