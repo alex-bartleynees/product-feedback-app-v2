@@ -3,7 +3,6 @@ import { join, relative } from 'node:path';
 import { readdirSync } from 'node:fs';
 import bootstrap from '../dist/product-feedback-app-v2/server/main.server.mjs';
 import { renderApplication } from '../dist/product-feedback-app-v2/server/render-utils.server.mjs';
-import { CommonEngine } from '@angular/ssr';
 
 const getAllFilesIn = (dir) =>
   readdirSync(dir, { withFileTypes: true }).flatMap((dirent) => {
@@ -24,12 +23,6 @@ const staticFiles = getAllFilesIn(
     `/${relative(join('dist/product-feedback-app-v2/', 'browser'), path)}`
 );
 const excludedPaths = [...staticFiles];
-const browserDistFolder = join('dist/product-feedback-app-v2/', 'browser');
-const documentFilePath = join(
-  'dist/product-feedback-app-v2/',
-  'server',
-  'index.server.html'
-);
 
 export default async (request, context) => {
   const url = request.url;
@@ -62,13 +55,10 @@ export default async (request, context) => {
     headers['Content-Type'] = 'application/javascript';
   }
 
-  const commonEngine = new CommonEngine();
-
-  const html = await commonEngine.render({
-    bootstrap: bootstrap,
+  const html = await renderApplication(bootstrap, {
     url: request.url,
-    documentFilePath: documentFilePath,
-    publicPath: browserDistFolder,
+    document,
+    platformProviders: [],
   });
   return new Response(html, {
     status: 200,
