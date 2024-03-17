@@ -5,6 +5,7 @@ import {
   EventEmitter,
   Input,
   Output,
+  input,
 } from '@angular/core';
 
 @Component({
@@ -16,7 +17,7 @@ import {
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ChipComponent {
-  @Input() text: string | number = '';
+  text = input<string | number>('');
   @Input() active = false;
   @Input() showArrow = false;
   @Input() usePointer = true;

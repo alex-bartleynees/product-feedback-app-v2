@@ -78,6 +78,7 @@ export const SuggestionsStore = signalStore(
                   ? updatedSuggestion
                   : suggestion
               ),
+              selectedSuggestion: updatedSuggestion,
             }));
           }),
           concatMap((updatedSuggestion) => {

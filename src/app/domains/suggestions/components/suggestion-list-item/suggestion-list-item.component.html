@@ -1,29 +1,29 @@
-@if (suggestion) {
+@if (suggestion()) {
 <div class="suggestion-item__container">
   <product-feedback-app-v2-chip
     class="chip__upvote"
-    [text]="suggestion.upvotes"
-    (chipClick)="upVoteClick.emit(suggestion)"
+    [text]="suggestion()!.upvotes"
+    (chipClick)="upVoteClick.emit(suggestion()!)"
     [showArrow]="true"
     [usePointer]="false"
   ></product-feedback-app-v2-chip>
   <div
     class="suggestion-item__content"
-    (click)="suggestionSelectClick.emit(suggestion)"
+    (click)="suggestionSelectClick.emit(suggestion()!)"
   >
     <h2 class="suggestion-item__heading">
-      {{ suggestion.title }}
+      {{ suggestion()!.title }}
     </h2>
-    <p class="suggestion-item__text">{{ suggestion.description }}</p>
+    <p class="suggestion-item__text">{{ suggestion()!.description }}</p>
     <product-feedback-app-v2-chip
       class="category-chip"
-      [text]="suggestion.category"
+      [text]="suggestion()!.category"
     ></product-feedback-app-v2-chip>
   </div>
   <product-feedback-app-v2-comment-icon
     class="comment__icon"
     [numberOfComments]="
-      suggestion.commentCount ?? suggestion.comments?.length ?? 0
+      suggestion()!.commentCount ?? suggestion()!.comments?.length ?? 0
     "
   >
   </product-feedback-app-v2-comment-icon>

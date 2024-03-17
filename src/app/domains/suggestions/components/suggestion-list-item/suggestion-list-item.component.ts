@@ -3,8 +3,8 @@ import {
   ChangeDetectionStrategy,
   Component,
   EventEmitter,
-  Input,
   Output,
+  input,
 } from '@angular/core';
 import { Suggestion } from '@product-feedback-app-v2/api-interfaces';
 import {
@@ -21,7 +21,7 @@ import {
   imports: [CommonModule, ChipComponent, CommentIconComponent],
 })
 export class SuggestionListItemComponent {
-  @Input() suggestion?: Suggestion | null;
+  suggestion = input<Suggestion | null>(null);
 
   @Output() upVoteClick = new EventEmitter<Suggestion>();
   @Output() suggestionSelectClick = new EventEmitter<Suggestion>();

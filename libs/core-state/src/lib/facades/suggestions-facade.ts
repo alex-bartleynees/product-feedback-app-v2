@@ -5,7 +5,6 @@ import {
   SuggestionCommentReplyRequest,
   SuggestionCommentRequest,
 } from '@product-feedback-app-v2/api-interfaces';
-import { patchState } from '@ngrx/signals';
 
 @Injectable({
   providedIn: 'root',
