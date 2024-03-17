@@ -6,28 +6,27 @@
 [[redirects]]
   from = "/assets/*"
   to = "/:splat"
-  status = 200
+  status = 304
 
 [[redirects]]
   from = "/media/*"
   to = "/:splat"
-  status = 200
+  status = 304
 
 [[redirects]]
   # Redirect JavaScript files
   from = "/*.js"
   to = "/:splat"
-  status = 200
-  force = true
+  status = 304
 
 [[redirects]]
   # Redirect CSS files
   from = "/*.css"
   to = ":/splat"
-  status = 200
-  force = true  
+  status = 304
 
 [[redirects]]
   from = "/*"
   to = "/.netlify/functions/server"
   status = 200
+  force = true
