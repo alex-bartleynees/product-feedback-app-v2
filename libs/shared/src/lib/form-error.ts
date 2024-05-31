@@ -1,6 +1,5 @@
 import {
   ChangeDetectionStrategy,
-  ChangeDetectorRef,
   Component,
   Input,
   WritableSignal,
@@ -8,7 +7,9 @@ import {
 } from '@angular/core';
 
 @Component({
-  template: `<p class="help is-danger" [class.hide]="_hide">{{ _text() }}</p>`,
+  template: `<p class="help is-danger" [class.hide]="_hide()">
+    {{ _text() }}
+  </p>`,
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })

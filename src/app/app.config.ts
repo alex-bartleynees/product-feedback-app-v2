@@ -1,4 +1,7 @@
-import { ApplicationConfig } from '@angular/core';
+import {
+  ApplicationConfig,
+  provideExperimentalZonelessChangeDetection,
+} from '@angular/core';
 import { provideRouter } from '@angular/router';
 import { appRoutes } from './app.routes';
 import { APP_CONFIG } from '@product-feedback-app-v2/app-config';
@@ -13,6 +16,7 @@ export const appConfig: ApplicationConfig = {
     provideRouter(appRoutes),
     provideHttpClient(withFetch()),
     provideAnimationsAsync(),
+    provideExperimentalZonelessChangeDetection(),
     { provide: APP_CONFIG, useValue: environment },
   ],
 };
