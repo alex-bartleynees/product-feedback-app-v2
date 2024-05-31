@@ -8,11 +8,14 @@ import { APP_CONFIG } from '@product-feedback-app-v2/app-config';
 import { provideHttpClient, withFetch } from '@angular/common/http';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { environment } from './environments/environment';
-import { provideClientHydration } from '@angular/platform-browser';
+import {
+  provideClientHydration,
+  withEventReplay,
+} from '@angular/platform-browser';
 
 export const appConfig: ApplicationConfig = {
   providers: [
-    provideClientHydration(),
+    provideClientHydration(withEventReplay()),
     provideRouter(appRoutes),
     provideHttpClient(withFetch()),
     provideAnimationsAsync(),
