@@ -1,0 +1,17 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: product-feedback-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: product-feedback
+  template:
+    metadata:
+      labels:
+        app: product-feedback
+    spec:
+      containers:
+        - name: nodejs
+          image: creativefree/product-feedback-app:latest

@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  apiEndpoint: 'http://localhost:5185/api/',
+  apiEndpoint: 'http://product-feedback-api.io/api/',
 };
 
 /*
