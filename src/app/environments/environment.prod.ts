@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  apiEndpoint: 'http://product-feedback-api.io/api/',
+  apiEndpoint: 'http://product-feedback-app.io/api/',
 };

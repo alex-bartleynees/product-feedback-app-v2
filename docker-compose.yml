@@ -2,7 +2,7 @@ version: '3'
 services:
   nodejs:
     build: ./
-    image: creativefree/product-feedback-app-v2:latest
+    image: creativefree/product-feedback-app:latest
     container_name: product-feedback-app
   nginx:
     build: ./nginx
