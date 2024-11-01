@@ -15,3 +15,4 @@ spec:
       containers:
         - name: nodejs
           image: creativefree/product-feedback-app:latest
+          imagePullPolicy: 'Always'
