@@ -1,0 +1,71 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: nginx-config
+data:
+  default.conf: |
+    # Cache zone
+    proxy_cache_path /var/cache/nginx levels=1:2 keys_zone=STATIC:10m inactive=7d use_temp_path=off;
+
+    upstream nodejs {
+        server product-feedback-app-service:4000;
+    }
+
+    upstream api {
+        server svc-product-feedback-api:8080;
+    }
+
+    server {
+        listen 80 default_server;
+        http2 on;
+        server_name _;
+
+        # GZIP Configuration
+        gzip on;
+        gzip_min_length 1000;
+        gzip_proxied any;
+        gzip_types 
+            text/plain
+            text/css
+            text/javascript
+            application/javascript
+            application/x-javascript
+            application/json
+            application/xml
+            application/xml+rss
+            image/svg+xml;
+        gzip_vary on;
+        gzip_comp_level 6;
+        gzip_buffers 16 8k;
+        gzip_http_version 1.1;
+
+    location /assets/ {
+        # Rewrite to include product-feedback-app
+        rewrite ^/assets/(.*) /product-feedback-app/assets/$1 break;
+        proxy_pass http://nodejs;
+        proxy_cache STATIC;
+        proxy_cache_valid 1y;
+        add_header Cache-Control "public, max-age=31536000";
+    }
+
+    # Main app location
+    location /product-feedback-app/ {
+        # Remove /product-feedback-app prefix before proxying to Node.js
+        rewrite ^/product-feedback-app/(.*) /$1 break;
+        proxy_pass http://nodejs;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+    }
+
+    # API endpoints
+    location /product-feedback-app/api/ {
+        rewrite ^/product-feedback-app/api/(.*) /api/$1 break;
+        proxy_pass http://api;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+    }
+    }
