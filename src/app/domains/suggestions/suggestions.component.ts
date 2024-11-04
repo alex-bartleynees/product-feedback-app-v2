@@ -23,6 +23,7 @@ import {
 } from '@product-feedback-app-v2/shared';
 import { SuggestionsListComponent } from './components/suggestions-list/suggestions-list.component';
 import { MobileSidebarComponent } from './components/mobile-sidebar/mobile-sidebar.component';
+import { environment } from 'src/app/environments/environment';
 
 @Component({
   selector: 'product-feedback-app-v2-suggestions',
@@ -102,11 +103,15 @@ export class SuggestionsComponent implements OnInit, OnDestroy {
     },
   ];
   menuItemSelected: MenuItem = this.menuItems[0];
+  environment = environment;
 
   private readonly suggestionsFacade = inject(SuggestionsFacadeService);
   allSuggestions = this.suggestionsFacade.allSuggestions;
 
-  constructor(private router: Router, private renderer: Renderer2) {}
+  constructor(
+    private router: Router,
+    private renderer: Renderer2,
+  ) {}
 
   ngOnInit(): void {
     if (typeof window !== 'undefined') {
@@ -130,7 +135,7 @@ export class SuggestionsComponent implements OnInit, OnDestroy {
   filterSuggestions(key: string, chip: Chip): Signal<Suggestion[]> {
     return this.suggestionsFacade.filterSuggestions(
       key,
-      chip.text.toLowerCase()
+      chip.text.toLowerCase(),
     );
   }
 

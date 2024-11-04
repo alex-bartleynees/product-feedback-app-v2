@@ -12,6 +12,7 @@ import {
   provideClientHydration,
   withEventReplay,
 } from '@angular/platform-browser';
+import { APP_BASE_HREF } from '@angular/common';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -21,5 +22,6 @@ export const appConfig: ApplicationConfig = {
     provideAnimationsAsync(),
     // provideExperimentalZonelessChangeDetection(),
     { provide: APP_CONFIG, useValue: environment },
+    { provide: APP_BASE_HREF, useValue: '/product-feedback-app/' },
   ],
 };

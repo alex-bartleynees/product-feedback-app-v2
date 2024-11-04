@@ -5,6 +5,7 @@
 export const environment = {
   production: false,
   apiEndpoint: 'http://product-feedback-app.io/api/',
+  basePath: '',
 };
 
 /*

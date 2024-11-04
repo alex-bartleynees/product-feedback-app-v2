@@ -19,7 +19,7 @@
     <product-feedback-app-v2-header class="header">
       <img
         class="header__img"
-        src="../../assets/icon-suggestions.svg"
+        [src]="environment.basePath + '/assets/icon-suggestions.svg'"
         alt="suggestion icon"
       />
       <h2 class="header__heading">{{ allSuggestions().length }} Suggestions</h2>
@@ -27,18 +27,25 @@
       <div class="header__sort" (click)="isMenuOpen = !isMenuOpen">
         <p class="body-2">Sort by: {{ menuItemSelected.title }}</p>
         @if (menuItemSelected.sortBy?.order === 'desc') {
-        <img src="../../assets/icon-arrow-up.svg" alt="up arrow" />
-        } @if (menuItemSelected.sortBy?.order === 'asc') {
-        <img src="../../assets/icon-arrow-down.svg" alt="down arrow" />
+          <img
+            [src]="environment.basePath + '/assets/icon-arrow-up.svg'"
+            alt="up arrow"
+          />
+        }
+        @if (menuItemSelected.sortBy?.order === 'asc') {
+          <img
+            [src]="environment.basePath + '/assets/icon-arrow-down.svg'"
+            alt="down arrow"
+          />
         }
       </div>
       @if (isMenuOpen) {
-      <product-feedback-app-v2-menu
-        class="menu"
-        [menuItems]="menuItems"
-        [itemSelected]="menuItemSelected"
-        (menuItemClicked)="onMenuItemClick($event)"
-      ></product-feedback-app-v2-menu>
+        <product-feedback-app-v2-menu
+          class="menu"
+          [menuItems]="menuItems"
+          [itemSelected]="menuItemSelected"
+          (menuItemClicked)="onMenuItemClick($event)"
+        ></product-feedback-app-v2-menu>
       }
     </product-feedback-app-v2-header>
 
@@ -52,9 +59,9 @@
 </div>
 
 @if (showMobileSidebar) {
-<product-feedback-app-v2-mobile-sidebar
-  class="mobile-sidebar"
-  [chipList]="chipList"
-  (chipSelected)="onChipClick($event)"
-></product-feedback-app-v2-mobile-sidebar>
+  <product-feedback-app-v2-mobile-sidebar
+    class="mobile-sidebar"
+    [chipList]="chipList"
+    (chipSelected)="onChipClick($event)"
+  ></product-feedback-app-v2-mobile-sidebar>
 }

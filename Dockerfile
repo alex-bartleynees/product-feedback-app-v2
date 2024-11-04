@@ -12,7 +12,7 @@ RUN npm install -g @nrwl/cli
 
 RUN npm ci --legacy-peer-deps
 COPY . /app
-RUN npx nx build --configuration=production
+RUN npx nx build --configuration=production --deploy-url="/product-feedback-app/"
 
 FROM node:18-alpine
 WORKDIR /app
