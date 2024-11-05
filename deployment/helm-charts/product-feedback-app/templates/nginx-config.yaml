@@ -12,7 +12,7 @@ data:
     }
 
     upstream api {
-        server svc-product-feedback-api:8080;
+        server product-feedback-api-svc:8080;
     }
 
     server {
