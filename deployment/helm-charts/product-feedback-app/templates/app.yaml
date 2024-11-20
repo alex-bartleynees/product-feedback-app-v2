@@ -16,3 +16,10 @@ spec:
         - name: nodejs
           image: creativefree/product-feedback-app:latest
           imagePullPolicy: 'Always'
+          resources:
+            requests:
+              memory: "128Mi"
+              cpu: "100m"
+            limits:
+              memory: "256Mi"
+              cpu: "200m"
