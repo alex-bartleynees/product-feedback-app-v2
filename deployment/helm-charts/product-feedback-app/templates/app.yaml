@@ -6,11 +6,13 @@ spec:
   replicas: {{ .Values.replicaCount }}
   selector:
     matchLabels:
-      app: product-feedback
+      app: product-feedback-frontend
+      component: frontend
   template:
     metadata:
       labels:
-        app: product-feedback
+        app: product-feedback-frontend
+        component: frontend
     spec:
       containers:
         - name: nodejs
