@@ -2,7 +2,7 @@ export const environment = {
   production: true,
   apiEndpoint:
     typeof window === 'undefined'
-      ? 'http://product-feedback-api-svc:8080/api/'
-      : 'https://alexbartleynees.com/product-feedback-app/api/',
+      ? 'http://product-feedback-api-svc:5185/api/'
+      : '/product-feedback-api/api/',
   basePath: '/product-feedback-app',
 };
