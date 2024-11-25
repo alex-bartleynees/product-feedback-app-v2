@@ -22,6 +22,7 @@ import {
   FormSubmitDirective,
 } from '@product-feedback-app-v2/shared';
 import { ReactiveFormsModule } from '@angular/forms';
+import { environment } from 'src/app/environments/environment';
 
 @Component({
   selector: 'product-feedback-app-v2-suggestion-comment',
@@ -48,6 +49,7 @@ export class SuggestionCommentComponent {
 
   commentForm = new CommentForm();
   showReply = signal(false);
+  environment = environment;
 
   onCommentReply() {
     if (!this.comment?.id || !this.commentForm.valid || !this.currentUser) {

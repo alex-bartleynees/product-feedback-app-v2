@@ -22,6 +22,7 @@ import {
   UsersFacade,
 } from '@product-feedback-app-v2/core-state';
 import { ReactiveFormsModule } from '@angular/forms';
+import { environment } from 'src/app/environments/environment';
 
 @Component({
   selector: 'product-feedback-app-v2-suggestion-edit',
@@ -43,15 +44,16 @@ export class SuggestionEditComponent implements OnInit, OnDestroy {
   suggestionForm = computed(() =>
     this.editMode()
       ? new SuggestionForm(this.selectedSuggestion())
-      : new SuggestionForm()
+      : new SuggestionForm(),
   );
   editTitle = computed(() =>
     this.editMode()
       ? `Editing '${this.selectedSuggestion()?.title}`
-      : 'Create New Feedback'
+      : 'Create New Feedback',
   );
   selectedSuggestion = this.suggestionService.selectedSuggestion;
   currentUser: User = this.usersFacade.currentUser();
+  environment = environment;
 
   menuItems: MenuItem[] = [
     {
@@ -101,7 +103,7 @@ export class SuggestionEditComponent implements OnInit, OnDestroy {
     private router: Router,
     private route: ActivatedRoute,
     private suggestionService: SuggestionsFacadeService,
-    private usersFacade: UsersFacade
+    private usersFacade: UsersFacade,
   ) {}
 
   ngOnInit(): void {

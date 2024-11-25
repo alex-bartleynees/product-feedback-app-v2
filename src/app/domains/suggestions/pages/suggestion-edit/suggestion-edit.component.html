@@ -6,13 +6,16 @@
   <div class="suggestion__container">
     <div class="suggestion__icon">
       @if (editMode()) {
-      <img
-        src="../../assets/icon-edit-feedback.svg"
-        alt="edit suggestion icon"
-        class="suggestion__icon--edit"
-      />
+        <img
+          [src]="environment.basePath + '/assets/icon-edit-feedback.svg'"
+          alt="edit suggestion icon"
+          class="suggestion__icon--edit"
+        />
       } @else {
-      <img src="../../assets/icon-new-feedback.svg" alt="new suggestion icon" />
+        <img
+          [src]="environment.basePath + '/assets/icon-new-feedback.svg'"
+          alt="new suggestion icon"
+        />
       }
     </div>
     <div class="suggestion__header">
@@ -57,20 +60,20 @@
       </div>
 
       @if (editMode()) {
-      <div class="form__group">
-        <label for="suggestion-description" class="form__label"
-          ><h4>Update Status</h4></label
-        >
-        <p>Change feature state</p>
-        <product-feedback-app-v2-select
-          [suggestionForm]="suggestionForm()"
-          [menuItems]="statusItems"
-          [menuItemSelected]="{
-            title: this.selectedSuggestion()?.status ?? ''
-          }"
-          [control]="'status'"
-        ></product-feedback-app-v2-select>
-      </div>
+        <div class="form__group">
+          <label for="suggestion-description" class="form__label"
+            ><h4>Update Status</h4></label
+          >
+          <p>Change feature state</p>
+          <product-feedback-app-v2-select
+            [suggestionForm]="suggestionForm()"
+            [menuItems]="statusItems"
+            [menuItemSelected]="{
+              title: this.selectedSuggestion()?.status ?? ''
+            }"
+            [control]="'status'"
+          ></product-feedback-app-v2-select>
+        </div>
       }
 
       <div class="form__group">
@@ -91,12 +94,12 @@
 
       <div class="suggestion-buttons">
         @if (editMode()) {
-        <product-feedback-app-v2-button
-          class="button__delete"
-          (click)="onDeleteButtonClick($event)"
-        >
-          Delete</product-feedback-app-v2-button
-        >
+          <product-feedback-app-v2-button
+            class="button__delete"
+            (click)="onDeleteButtonClick($event)"
+          >
+            Delete</product-feedback-app-v2-button
+          >
         }
         <div class="buttons__right">
           <product-feedback-app-v2-button

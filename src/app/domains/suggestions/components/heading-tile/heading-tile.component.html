@@ -8,9 +8,15 @@
     (click)="onMobileSideBarClick()"
   >
     @if (!showMobileSidebar) {
-    <img src="../../assets/icon-hamburger.svg" alt="menu icon" />
+      <img
+        [src]="environment.basePath + '/assets/icon-hamburger.svg'"
+        alt="menu icon'"
+      />
     } @else {
-    <img src="../../assets/icon-close.svg" alt="menu icon" />
+      <img
+        [src]="environment.basePath + '/assets/icon-close.svg'"
+        alt="menu icon"
+      />
     }
   </button>
 </product-feedback-app-v2-tile>

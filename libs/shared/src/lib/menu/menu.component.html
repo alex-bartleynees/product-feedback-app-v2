@@ -1,15 +1,18 @@
 <div class="menu__container">
   @for (item of menuItems; track item.field) {
-  <div
-    class="menu__item"
-    (click)="menuItemClicked.emit(item)"
-    [ngClass]="{ 'menu__item--active': itemSelected === item }"
-  >
-    {{ item.title }}
+    <div
+      class="menu__item"
+      (click)="menuItemClicked.emit(item)"
+      [ngClass]="{ 'menu__item--active': itemSelected === item }"
+    >
+      {{ item.title }}
 
-    @if(itemSelected === item) {
-    <img src="../../assets/icon-check.svg" alt="check icon" />
-    }
-  </div>
+      @if (itemSelected === item) {
+        <img
+          [src]="environment.basePath + '/assets/icon-check.svg'"
+          alt="check icon"
+        />
+      }
+    </div>
   }
 </div>

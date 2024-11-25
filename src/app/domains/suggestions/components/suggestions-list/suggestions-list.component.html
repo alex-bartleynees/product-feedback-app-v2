@@ -1,27 +1,37 @@
-@for (suggestion of allSuggestions | sort : sortBy.key : sortBy.order; track
-suggestion.id) {
-<product-feedback-app-v2-suggestion-list-item
-  [suggestion]="suggestion"
-  (upVoteClick)="upVoteClick.emit(suggestion)"
-  (suggestionSelectClick)="suggestionSelectClick.emit(suggestion)"
-></product-feedback-app-v2-suggestion-list-item>
-} @if (suggestionsFacade.loadError()) {
-<div class="suggestion-list__container">
-  <img src="../../assets/illustration-empty.svg" alt="illustration empty" />
-  <h1 class="suggestion-list__heading">There is no feedback yet.</h1>
-  <div class="suggestion-list__text">
-    <p>Got a suggestion? Found a bug that needs to be squashed?</p>
-    <p>We love hearing about new ideas to improve our app.</p>
-  </div>
-  <product-feedback-app-v2-button (click)="onButtonClick()">
-    <div class="button__content">
-      <img src="../../assets/icon-plus.svg" alt="plus icon" /> Add Feedback
+@for (
+  suggestion of allSuggestions | sort: sortBy.key : sortBy.order;
+  track suggestion.id
+) {
+  <product-feedback-app-v2-suggestion-list-item
+    [suggestion]="suggestion"
+    (upVoteClick)="upVoteClick.emit(suggestion)"
+    (suggestionSelectClick)="suggestionSelectClick.emit(suggestion)"
+  ></product-feedback-app-v2-suggestion-list-item>
+}
+@if (suggestionsFacade.loadError()) {
+  <div class="suggestion-list__container">
+    <img
+      [src]="environment.basePath + '/assets/illustration-empty.svg'"
+      alt="illustration empty"
+    />
+    <h1 class="suggestion-list__heading">There is no feedback yet.</h1>
+    <div class="suggestion-list__text">
+      <p>Got a suggestion? Found a bug that needs to be squashed?</p>
+      <p>We love hearing about new ideas to improve our app.</p>
     </div>
-  </product-feedback-app-v2-button>
-</div>
+    <product-feedback-app-v2-button (click)="onButtonClick()">
+      <div class="button__content">
+        <img
+          [src]="environment.basePath + '/assets/icon-plus.svg'"
+          alt="plus icon"
+        />
+        Add Feedback
+      </div>
+    </product-feedback-app-v2-button>
+  </div>
 } @else if (suggestionsFacade.loading()) {
-<div class="container">
-  <div class="spinner"></div>
-  <p>Please wait... Initializing database...</p>
-</div>
+  <div class="container">
+    <div class="spinner"></div>
+    <p>Please wait... Initializing database...</p>
+  </div>
 }

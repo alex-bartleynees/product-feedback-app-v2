@@ -6,17 +6,17 @@
   >
     {{ menuItemSelected?.title }}
     <img
-      src="../../../assets/icon-arrow-down.svg"
+      [src]="environment.basePath + '/assets/icon-arrow-down.svg'"
       alt="dropdown arrow"
       [@arrowRotate]="isMenuOpen ? 'up' : 'down'"
       class="select select-icon"
     />
   </div>
   @if (isMenuOpen) {
-  <product-feedback-app-v2-menu
-    [menuItems]="menuItems"
-    [itemSelected]="menuItemSelected"
-    (menuItemClicked)="onMenuItemClick($event)"
-  ></product-feedback-app-v2-menu>
+    <product-feedback-app-v2-menu
+      [menuItems]="menuItems"
+      [itemSelected]="menuItemSelected"
+      (menuItemClicked)="onMenuItemClick($event)"
+    ></product-feedback-app-v2-menu>
   }
 </div>

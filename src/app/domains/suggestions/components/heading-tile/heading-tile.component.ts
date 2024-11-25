@@ -6,6 +6,7 @@ import {
   Output,
 } from '@angular/core';
 import { TileComponent } from '../../../../../../libs/shared/src/lib/tile/tile.component';
+import { environment } from 'src/app/environments/environment';
 
 @Component({
   selector: 'product-feedback-app-v2-heading-tile',
@@ -17,6 +18,7 @@ import { TileComponent } from '../../../../../../libs/shared/src/lib/tile/tile.c
 })
 export class HeadingTileComponent {
   showMobileSidebar = false;
+  environment = environment;
   @Output() mobileSideBarClick = new EventEmitter();
 
   onMobileSideBarClick() {

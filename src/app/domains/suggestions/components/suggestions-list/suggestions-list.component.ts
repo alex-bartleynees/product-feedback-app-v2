@@ -16,6 +16,7 @@ import {
 } from '@product-feedback-app-v2/shared';
 import { SuggestionListItemComponent } from '../suggestion-list-item/suggestion-list-item.component';
 import { SuggestionsFacadeService } from '@product-feedback-app-v2/core-state';
+import { environment } from 'src/app/environments/environment';
 
 @Component({
   selector: 'product-feedback-app-v2-suggestions-list',
@@ -39,6 +40,7 @@ export class SuggestionsListComponent {
   @Output() addFeedbackButtonClick = new EventEmitter<void>();
 
   readonly suggestionsFacade = inject(SuggestionsFacadeService);
+  environment = environment;
 
   constructor(private router: Router) {}
 

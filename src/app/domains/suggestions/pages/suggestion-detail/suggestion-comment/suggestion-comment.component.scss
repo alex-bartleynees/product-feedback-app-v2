@@ -3,6 +3,10 @@
   display: flex;
   gap: 2rem;
   position: relative;
+
+  @media (max-width: 700px) {
+    flex-wrap: wrap;
+  }
 }
 
 .user__name {
@@ -12,7 +16,7 @@
 .user__user-name,
 .comment__text {
   color: #647196;
- 
+
   & p {
     max-width: 100ch;
     overflow: hidden;

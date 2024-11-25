@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+import { environment } from 'src/app/environments/environment';
 
 @Component({
   selector: 'product-feedback-app-v2-comment-icon',
@@ -11,4 +12,5 @@ import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 })
 export class CommentIconComponent {
   @Input() numberOfComments?: number;
+  environment = environment;
 }
