@@ -21,17 +21,17 @@ export class SuggestionsFacadeService {
   plannedSuggestions = computed(() =>
     this.store
       .suggestions()
-      .filter((suggestion) => suggestion.status === 'planned')
+      .filter((suggestion) => suggestion.status === 'planned'),
   );
   inProgressSuggestions = computed(() =>
     this.store
       .suggestions()
-      .filter((suggestion) => suggestion.status === 'in-progress')
+      .filter((suggestion) => suggestion.status === 'in-progress'),
   );
   liveSuggestions = computed(() =>
     this.store
       .suggestions()
-      .filter((suggestion) => suggestion.status === 'live')
+      .filter((suggestion) => suggestion.status === 'live'),
   );
 
   filterSuggestions(category: string, prop: string): Signal<Suggestion[]> {

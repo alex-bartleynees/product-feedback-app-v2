@@ -23,7 +23,7 @@ const initialState: UserState = {
 };
 
 export const UserStore = signalStore(
-  { providedIn: 'root' },
+  { providedIn: 'root', protectedState: true },
   withLoading(),
   withError(),
   withState(initialState),
@@ -42,8 +42,8 @@ export const UserStore = signalStore(
               });
             },
             error: (error: string) => state.setError(error),
-          })
-        )
+          }),
+        ),
       ),
     };
   }),
@@ -51,5 +51,5 @@ export const UserStore = signalStore(
     onInit(store) {
       store.load(3);
     },
-  })
+  }),
 );

@@ -33,7 +33,7 @@ const initialState: SuggestionsState = {
 };
 
 export const SuggestionsStore = signalStore(
-  { providedIn: 'root' },
+  { providedIn: 'root', protectedState: true },
   withLoading(),
   withError(),
   withState(initialState),
@@ -52,14 +52,14 @@ export const SuggestionsStore = signalStore(
               });
             },
             error: (error: string) => state.setError(error),
-          })
-        )
+          }),
+        ),
       ),
       filterSuggestions: (category: string, prop: string) => {
         return computed(() =>
           state.suggestions().filter((suggestion) => {
             return suggestion[category as keyof Suggestion] === prop;
-          })
+          }),
         );
       },
       upVoteSuggestion: rxMethod<Suggestion>(
@@ -76,15 +76,15 @@ export const SuggestionsStore = signalStore(
               suggestions: state.suggestions.map((suggestion) =>
                 suggestion.id === updatedSuggestion.id
                   ? updatedSuggestion
-                  : suggestion
+                  : suggestion,
               ),
               selectedSuggestion: updatedSuggestion,
             }));
           }),
           concatMap((updatedSuggestion) => {
             return suggestionService.update(updatedSuggestion);
-          })
-        )
+          }),
+        ),
       ),
       selectSuggestion: rxMethod<number>(
         pipe(
@@ -101,8 +101,8 @@ export const SuggestionsStore = signalStore(
               }));
             },
             error: (error: string) => state.setError(error),
-          })
-        )
+          }),
+        ),
       ),
       createSuggestion: rxMethod<Suggestion>(
         pipe(
@@ -114,8 +114,8 @@ export const SuggestionsStore = signalStore(
               }));
             },
             error: (error: string) => state.setError(error),
-          })
-        )
+          }),
+        ),
       ),
       updateSuggestion: rxMethod<Suggestion>(
         pipe(
@@ -124,12 +124,12 @@ export const SuggestionsStore = signalStore(
               suggestions: state.suggestions.map((suggestion) =>
                 suggestion.id === updatedSuggestion.id
                   ? updatedSuggestion
-                  : suggestion
+                  : suggestion,
               ),
             }));
           }),
           switchMap((updatedSuggestion) =>
-            suggestionService.update(updatedSuggestion)
+            suggestionService.update(updatedSuggestion),
           ),
           tapResponse({
             next: (response) => {
@@ -138,15 +138,15 @@ export const SuggestionsStore = signalStore(
               }));
             },
             error: (error: string) => state.setError(error),
-          })
-        )
+          }),
+        ),
       ),
       deleteSuggestion: rxMethod<number>(
         pipe(
           tap((id) => {
             patchState(state, (state) => ({
               suggestions: state.suggestions.filter(
-                (suggestion) => suggestion.id !== id
+                (suggestion) => suggestion.id !== id,
               ),
             }));
           }),
@@ -154,8 +154,8 @@ export const SuggestionsStore = signalStore(
           tapResponse({
             next: () => {},
             error: (error: string) => state.setError(error),
-          })
-        )
+          }),
+        ),
       ),
       addCommentToSuggestion: rxMethod<SuggestionCommentRequest>(
         pipe(
@@ -181,8 +181,8 @@ export const SuggestionsStore = signalStore(
               });
             },
             error: (error: string) => state.setError(error),
-          })
-        )
+          }),
+        ),
       ),
       createCommentReply: rxMethod<SuggestionCommentReplyRequest>(
         pipe(
@@ -192,7 +192,7 @@ export const SuggestionsStore = signalStore(
               patchState(state, (state) => {
                 const parentSuggestion = state.selectedSuggestion;
                 const comment = parentSuggestion?.comments?.find(
-                  (comment) => comment.id === response.suggestionCommentId
+                  (comment) => comment.id === response.suggestionCommentId,
                 );
                 if (parentSuggestion?.comments && comment) {
                   const updatedReplies: SuggestionReply[] = [
@@ -220,8 +220,8 @@ export const SuggestionsStore = signalStore(
               });
             },
             error: (error: string) => state.setError(error),
-          })
-        )
+          }),
+        ),
       ),
       unselectSuggestion: () => {
         patchState(state, () => ({
@@ -235,5 +235,5 @@ export const SuggestionsStore = signalStore(
     onInit(store) {
       store.load();
     },
-  })
+  }),
 );
