@@ -59,9 +59,6 @@ jobs:
       - name: Package and Push Helm Chart
         run: |
           helm package ./deployment/helm-charts/product-feedback-app
-          echo ${{ secrets.DOCKERHUB_PASSWORD }} | helm registry login registry-1.docker.io \
-            --username ${{ secrets.DOCKERHUB_USERNAME }} \
-            --password-stdin
           helm push product-feedback-app-*.tgz oci://registry-1.docker.io/creativefree
 
       - name: Deploy with Helm
