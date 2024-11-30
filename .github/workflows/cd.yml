@@ -1,0 +1,48 @@
+name: Build and Deploy with Helm
+on:
+  push:
+    branches: [main]
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Build and push Docker image
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          push: true
+          tags: |
+            creativefree/product-feedback-app:latest
+            creativefree/product-feedback-app:${{ steps.tag.outputs.build_id }}
+
+      - name: Install kubectl
+        uses: azure/setup-kubectl@v3
+        with:
+          version: 'latest'
+
+      - name: Install Helm
+        uses: azure/setup-helm@v3
+        with:
+          version: 'latest'
+
+      - name: Add kubernetes configuration
+        run: |
+          mkdir ~/.kube
+          echo "${{ secrets.KUBE_CONFIG }}" > ~/.kube/config
+          chmod 600 ~/.kube/config
+
+      - name: Deploy with Helm
+        run: |
+          helm upgrade product-feedback-app ./deployment/helm-charts/product-feedback-app \
+            --install \
+            --set image.repository=creativefree/product-feedback-app \
+            --set image.tag=${{ steps.tag.outputs.build_id }} \
+            --namespace product-feedback-app
