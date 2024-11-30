@@ -59,7 +59,6 @@ jobs:
       - name: Deploy with Helm
         run: |
           helm upgrade product-feedback-app ./deployment/helm-charts/product-feedback-app \
-            --install \
             --set image.repository=creativefree/product-feedback-app \
             --set image.tag=${{ steps.tag.outputs.build_id }} \
-            --namespace product-feedback-app
+            --namespace product-feedback
