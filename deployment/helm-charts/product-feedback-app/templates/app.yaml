@@ -16,8 +16,8 @@ spec:
     spec:
       containers:
         - name: nodejs
-          image: creativefree/product-feedback-app:latest
-          imagePullPolicy: 'Always'
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: {{ .Values.image.imagePullPolicy }}
           resources:
             requests:
               memory: "128Mi"
