@@ -1,7 +1,6 @@
 import { APP_BASE_HREF } from '@angular/common';
 import { CommonEngine } from '@angular/ssr/node';
 import express from 'express';
-import compression from 'compression';
 import { fileURLToPath } from 'node:url';
 import { dirname, join, resolve } from 'node:path';
 import bootstrap from './src/main.server';
@@ -9,19 +8,6 @@ import bootstrap from './src/main.server';
 // The Express app is exported so that it can be used by serverless Functions.
 export function app(): express.Express {
   const server = express();
-
-  server.use(
-    compression({
-      level: 6,
-      threshold: 1000,
-      filter: (req, res) => {
-        if (req.headers['accept-encoding']?.includes('gzip')) {
-          return compression.filter(req, res);
-        }
-        return false;
-      },
-    }),
-  );
 
   const serverDistFolder = dirname(fileURLToPath(import.meta.url));
   const browserDistFolder = resolve(serverDistFolder, '../browser');
