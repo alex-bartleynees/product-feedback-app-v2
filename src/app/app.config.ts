@@ -20,7 +20,7 @@ export const appConfig: ApplicationConfig = {
     provideRouter(appRoutes),
     provideHttpClient(withFetch()),
     provideAnimationsAsync(),
-    // provideExperimentalZonelessChangeDetection(),
+    provideExperimentalZonelessChangeDetection(),
     { provide: APP_CONFIG, useValue: environment },
     { provide: APP_BASE_HREF, useValue: '/product-feedback-app/' },
   ],
