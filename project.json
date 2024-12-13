@@ -20,7 +20,6 @@
         "styles": ["./src/app/global-styles/main.scss"],
         "scripts": [],
         "server": "src/main.server.ts",
-        "prerender": false,
         "ssr": {
           "entry": "server.ts"
         }
