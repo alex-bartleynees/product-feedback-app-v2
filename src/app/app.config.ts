@@ -11,12 +11,13 @@ import { environment } from './environments/environment';
 import {
   provideClientHydration,
   withEventReplay,
+  withIncrementalHydration,
 } from '@angular/platform-browser';
 import { APP_BASE_HREF } from '@angular/common';
 
 export const appConfig: ApplicationConfig = {
   providers: [
-    provideClientHydration(withEventReplay()),
+    provideClientHydration(withEventReplay(), withIncrementalHydration()),
     provideRouter(appRoutes),
     provideHttpClient(withFetch()),
     provideAnimationsAsync(),
