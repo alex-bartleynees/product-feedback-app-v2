@@ -11,6 +11,7 @@
       "outputs": ["{options.outputPath}"],
       "options": {
         "outputPath": "dist/product-feedback-app-v2",
+        "outputMode": "server",
         "index": "./src/index.html",
         "browser": "./src/main.ts",
         "tsConfig": "./tsconfig.app.json",
