@@ -20,20 +20,19 @@ import { CommonModule } from '@angular/common';
 import { environment } from 'src/app/environments/environment';
 
 @Component({
-  selector: 'product-feedback-app-v2-select',
-  templateUrl: './select.component.html',
-  styleUrls: ['./select.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  standalone: true,
-  imports: [CommonModule, MenuComponent],
-  animations: [
-    trigger('arrowRotate', [
-      state('up', style({ transform: 'rotate(180deg)' })),
-      state('down', style({ transform: 'rotate(0deg)' })),
-      transition('up => down', animate('200ms ease-in')),
-      transition('down => up', animate('200ms ease-out')),
-    ]),
-  ],
+    selector: 'product-feedback-app-v2-select',
+    templateUrl: './select.component.html',
+    styleUrls: ['./select.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    imports: [CommonModule, MenuComponent],
+    animations: [
+        trigger('arrowRotate', [
+            state('up', style({ transform: 'rotate(180deg)' })),
+            state('down', style({ transform: 'rotate(0deg)' })),
+            transition('up => down', animate('200ms ease-in')),
+            transition('down => up', animate('200ms ease-out')),
+        ]),
+    ]
 })
 export class SelectComponent implements OnInit {
   @Input() menuItems: MenuItem[] = [];

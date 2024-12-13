@@ -13,12 +13,11 @@ import {
 } from '@product-feedback-app-v2/shared';
 
 @Component({
-  selector: 'product-feedback-app-v2-suggestion-list-item',
-  templateUrl: './suggestion-list-item.component.html',
-  styleUrls: ['./suggestion-list-item.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  standalone: true,
-  imports: [CommonModule, ChipComponent, CommentIconComponent],
+    selector: 'product-feedback-app-v2-suggestion-list-item',
+    templateUrl: './suggestion-list-item.component.html',
+    styleUrls: ['./suggestion-list-item.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    imports: [CommonModule, ChipComponent, CommentIconComponent]
 })
 export class SuggestionListItemComponent {
   suggestion = input<Suggestion | null>(null);

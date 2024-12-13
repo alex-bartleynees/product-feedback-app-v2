@@ -9,12 +9,11 @@ import { TileComponent } from '../../../../../../libs/shared/src/lib/tile/tile.c
 import { environment } from 'src/app/environments/environment';
 
 @Component({
-  selector: 'product-feedback-app-v2-heading-tile',
-  templateUrl: './heading-tile.component.html',
-  styleUrls: ['./heading-tile.component.scss'],
-  standalone: true,
-  imports: [CommonModule, TileComponent],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    selector: 'product-feedback-app-v2-heading-tile',
+    templateUrl: './heading-tile.component.html',
+    styleUrls: ['./heading-tile.component.scss'],
+    imports: [CommonModule, TileComponent],
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class HeadingTileComponent {
   showMobileSidebar = false;

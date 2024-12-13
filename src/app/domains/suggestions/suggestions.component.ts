@@ -26,21 +26,20 @@ import { MobileSidebarComponent } from './components/mobile-sidebar/mobile-sideb
 import { environment } from 'src/app/environments/environment';
 
 @Component({
-  selector: 'product-feedback-app-v2-suggestions',
-  standalone: true,
-  imports: [
-    CommonModule,
-    HeadingTileComponent,
-    ChipListTileComponent,
-    RoadMapTileComponent,
-    HeaderComponent,
-    MenuComponent,
-    SuggestionsListComponent,
-    MobileSidebarComponent,
-  ],
-  templateUrl: './suggestions.component.html',
-  styleUrl: './suggestions.component.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    selector: 'product-feedback-app-v2-suggestions',
+    imports: [
+        CommonModule,
+        HeadingTileComponent,
+        ChipListTileComponent,
+        RoadMapTileComponent,
+        HeaderComponent,
+        MenuComponent,
+        SuggestionsListComponent,
+        MobileSidebarComponent,
+    ],
+    templateUrl: './suggestions.component.html',
+    styleUrl: './suggestions.component.scss',
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SuggestionsComponent implements OnInit, OnDestroy {
   isMenuOpen = false;

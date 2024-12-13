@@ -10,12 +10,11 @@ import {
 import { environment } from 'src/app/environments/environment';
 
 @Component({
-  selector: 'product-feedback-app-v2-chip',
-  templateUrl: './chip.component.html',
-  styleUrls: ['./chip.component.scss'],
-  imports: [CommonModule],
-  standalone: true,
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    selector: 'product-feedback-app-v2-chip',
+    templateUrl: './chip.component.html',
+    styleUrls: ['./chip.component.scss'],
+    imports: [CommonModule],
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ChipComponent {
   text = input<string | number>('');

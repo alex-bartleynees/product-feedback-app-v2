@@ -19,17 +19,16 @@ import { SuggestionsFacadeService } from '@product-feedback-app-v2/core-state';
 import { environment } from 'src/app/environments/environment';
 
 @Component({
-  selector: 'product-feedback-app-v2-suggestions-list',
-  templateUrl: './suggestions-list.component.html',
-  styleUrls: ['./suggestions-list.component.scss'],
-  standalone: true,
-  imports: [
-    CommonModule,
-    SuggestionListItemComponent,
-    SortPipe,
-    ButtonComponent,
-  ],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    selector: 'product-feedback-app-v2-suggestions-list',
+    templateUrl: './suggestions-list.component.html',
+    styleUrls: ['./suggestions-list.component.scss'],
+    imports: [
+        CommonModule,
+        SuggestionListItemComponent,
+        SortPipe,
+        ButtonComponent,
+    ],
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SuggestionsListComponent {
   @Input() allSuggestions?: Suggestion[];

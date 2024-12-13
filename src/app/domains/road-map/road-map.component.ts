@@ -22,7 +22,6 @@ import {
   selector: 'product-feedback-app-v2-road-map',
   templateUrl: './road-map.component.html',
   styleUrls: ['./road-map.component.scss'],
-  standalone: true,
   imports: [
     CommonModule,
     RoadMapCardComponent,
@@ -46,7 +45,7 @@ export class RoadMapComponent implements OnInit, AfterViewInit, OnDestroy {
 
   constructor(
     private suggestionsFacade: SuggestionsFacadeService,
-    private renderer: Renderer2
+    private renderer: Renderer2,
   ) {}
 
   @HostListener('window:resize', ['$event'])
@@ -72,7 +71,7 @@ export class RoadMapComponent implements OnInit, AfterViewInit, OnDestroy {
     this.renderer.removeClass(this.selectedTab, 'tab__selected');
     this.renderer.removeClass(
       this.selectedTab,
-      `tab__selected--${this.selectedTabName}`
+      `tab__selected--${this.selectedTabName}`,
     );
     this.selectedTab = tabElement;
     this.selectedTabName = tab;

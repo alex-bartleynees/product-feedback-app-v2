@@ -12,12 +12,11 @@ import { ButtonComponent } from '../button/button.component';
 import { environment } from 'src/app/environments/environment';
 
 @Component({
-  selector: 'product-feedback-app-v2-header',
-  templateUrl: './header.component.html',
-  styleUrls: ['./header.component.scss'],
-  imports: [CommonModule, ButtonComponent],
-  standalone: true,
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    selector: 'product-feedback-app-v2-header',
+    templateUrl: './header.component.html',
+    styleUrls: ['./header.component.scss'],
+    imports: [CommonModule, ButtonComponent],
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class HeaderComponent {
   @Input() numberOfSuggestions: number | undefined = 0;
