@@ -1,74 +1,91 @@
-import { APP_BASE_HREF } from '@angular/common';
-import { CommonEngine } from '@angular/ssr/node';
-import express from 'express';
-import { fileURLToPath } from 'node:url';
-import { dirname, join, resolve } from 'node:path';
-import bootstrap from './src/main.server';
-import fastify from 'fastify';
+import {
+  AngularNodeAppEngine,
+  createNodeRequestHandler,
+  isMainModule,
+  writeResponseToNodeResponse,
+} from '@angular/ssr/node';
 import fastifyStatic from '@fastify/static';
+import fastifyCaching from '@fastify/caching';
+import fastify, { FastifyRequest, FastifyReply } from 'fastify';
+import { dirname, resolve } from 'node:path';
+import { fileURLToPath } from 'node:url';
 
-// The Express app is exported so that it can be used by serverless Functions.
 export function app() {
   const server = fastify();
 
+  const angularNodeAppEngine = new AngularNodeAppEngine();
   const serverDistFolder = dirname(fileURLToPath(import.meta.url));
   const browserDistFolder = resolve(serverDistFolder, '../browser');
-  const indexHtml = join(serverDistFolder, 'index.server.html');
 
-  const commonEngine = new CommonEngine();
+  // Register caching plugin
+  server.register(fastifyCaching, {
+    privacy: fastifyCaching.privacy.PUBLIC,
+    expiresIn: 3600,
+    cache: new Map(),
+  });
 
-  server.register(fastifyStatic, { root: browserDistFolder, wildcard: false });
+  // Serve static files with caching
+  server.register(fastifyStatic, {
+    root: browserDistFolder,
+    prefix: '/',
+    decorateReply: false,
+    cacheControl: true,
+    maxAge: 31536000,
+    immutable: true,
+    etag: true,
+    wildcard: false,
+  });
 
-  // Example Express Rest API endpoints
-  // server.get('/api/**', (req, res) => { });
-  // Serve static files from /browser
-  // server.get(
-  //   '*.*',
-  //   express.static(browserDistFolder, {
-  //     maxAge: '1y',
-  //   }),
-  // );
-
-  // All regular routes use the Angular engine
-  server.get('*', async (request, reply) => {
-    const protocol = request.protocol;
-    const originalUrl = request.url;
-    const baseUrl = request.url;
-    const { host } = request.headers;
-
+  // Handle all routes with Angular SSR
+  server.all('*', async (req: FastifyRequest, reply: FastifyReply) => {
     try {
-      const html = await commonEngine.render({
-        bootstrap,
-        documentFilePath: indexHtml,
-        url: `${protocol}://${host}${originalUrl}`,
-        publicPath: browserDistFolder,
-        providers: [{ provide: APP_BASE_HREF, useValue: baseUrl }],
+      // Add cache headers for dynamic routes
+      reply.header('Cache-Control', 'public, max-age=3600');
+
+      // Generate ETag based on URL
+      const etag = `"${Buffer.from(`${req.headers.host}${req.url}`).toString('base64')}"`;
+      reply.header('ETag', etag);
+
+      // Check if client has matching ETag
+      if (req.headers['if-none-match'] === etag) {
+        reply.code(304).send('');
+        return;
+      }
+
+      const response = await angularNodeAppEngine.handle(req.raw, {
+        server: 'fastify',
       });
 
-      reply.type('text/html');
-      return html;
-    } catch (err) {
-      throw err;
+      if (response) {
+        await writeResponseToNodeResponse(response, reply.raw);
+      } else {
+        reply.callNotFound();
+      }
+    } catch (error) {
+      reply.send(error);
     }
+  });
+
+  // Custom 404 handler
+  server.setNotFoundHandler((req: FastifyRequest, reply: FastifyReply) => {
+    reply.code(404).send('This is a server only error');
   });
 
   return server;
 }
 
-async function run(): Promise<void> {
-  const port = process.env['PORT'] || 4000;
-  const host = '0.0.0.0'; // Listen on all available network interfaces
+const server = app();
 
-  // Start up the Fastify server
-  const server = app();
-
-  try {
-    await server.listen({ port: Number(port), host });
-    console.log(`Fastify server listening on http://localhost:${port}`);
-  } catch (err) {
-    server.log.error(err);
-    process.exit(1);
-  }
+if (isMainModule(import.meta.url)) {
+  const port = +(process.env['PORT'] || 4000);
+  server.listen({ port }, () => {
+    console.warn(`Fastify server listening on http://localhost:${port}`);
+  });
 }
 
-run();
+console.warn('Fastify server started');
+
+export const reqHandler = createNodeRequestHandler(async (req, res) => {
+  await server.ready();
+  server.server.emit('request', req, res);
+});
