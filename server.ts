@@ -55,6 +55,8 @@ export function app() {
 
       const response = await angularNodeAppEngine.handle(req.raw, {
         server: 'fastify',
+        documentFilePath: resolve(browserDistFolder, 'index.html'),
+        url: `${req.protocol}://${req.headers.host}/product-feedback-app${req.url}`, // Add the prefix to the URL
       });
 
       if (response) {
