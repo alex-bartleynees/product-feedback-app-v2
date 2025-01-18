@@ -38,7 +38,7 @@ export function app() {
 
   // Handle all routes with Angular SSR
   server.all('*', async (req: FastifyRequest, reply: FastifyReply) => {
-    console.log(req);
+    console.log(req.url);
     try {
       // Add cache headers for dynamic routes
       reply.header('Cache-Control', 'public, max-age=3600');
