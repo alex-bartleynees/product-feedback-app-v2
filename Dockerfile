@@ -6,13 +6,13 @@ WORKDIR /app
 # Copy "package.json" and "package-lock.json" before other files
 COPY ./package*.json /app
 RUN apt-get -y update \
-    && apt-get -y install --yes python3
+  && apt-get -y install --yes python3
 
 RUN npm install -g @nrwl/cli
 
 RUN npm ci --legacy-peer-deps
 COPY . /app
-RUN npx nx build --configuration=production --deploy-url="/product-feedback-app/"
+RUN npx nx build --configuration=production
 
 FROM node:18-alpine
 WORKDIR /app
