@@ -23,6 +23,6 @@ export const appConfig: ApplicationConfig = {
     provideAnimationsAsync(),
     provideExperimentalZonelessChangeDetection(),
     { provide: APP_CONFIG, useValue: environment },
-    { provide: APP_BASE_HREF, useValue: '/product-feedback-app/' },
+    { provide: APP_BASE_HREF, useValue: '/' },
   ],
 };

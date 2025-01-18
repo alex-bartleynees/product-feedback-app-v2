@@ -27,7 +27,7 @@ export function app() {
   // Serve static files with caching
   server.register(fastifyStatic, {
     root: browserDistFolder,
-    prefix: '/product-feedback-app',
+    prefix: '/',
     decorateReply: false,
     cacheControl: true,
     maxAge: 31536000,
