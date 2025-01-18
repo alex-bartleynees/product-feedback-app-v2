@@ -69,6 +69,7 @@ export function app() {
 
   // Custom 404 handler
   server.setNotFoundHandler((req: FastifyRequest, reply: FastifyReply) => {
+    console.log(req.url);
     reply.code(404).send('This is a server only error');
   });
 
