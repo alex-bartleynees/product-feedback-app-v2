@@ -1,4 +1,4 @@
-FROM node:18-bullseye as build
+FROM node:22-bullseye as build
 
 # Set working directory
 WORKDIR /app
@@ -14,7 +14,7 @@ RUN npm ci --legacy-peer-deps
 COPY . /app
 RUN npx nx build --configuration=production
 
-FROM node:18-alpine
+FROM node:22-alpine
 WORKDIR /app
 COPY --from=build app/dist/product-feedback-app-v2/ ./
 CMD ["node", "server/server.mjs"]
