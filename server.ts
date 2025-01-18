@@ -9,6 +9,8 @@ import fastifyCaching from '@fastify/caching';
 import fastify, { FastifyRequest, FastifyReply } from 'fastify';
 import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import fastifyCompress from '@fastify/compress';
+import { constants } from 'zlib';
 
 export function app() {
   const server = fastify();
@@ -16,6 +18,18 @@ export function app() {
   const angularNodeAppEngine = new AngularNodeAppEngine();
   const serverDistFolder = dirname(fileURLToPath(import.meta.url));
   const browserDistFolder = resolve(serverDistFolder, '../browser');
+
+  // Register compression plugin first
+  server.register(fastifyCompress, {
+    encodings: ['gzip', 'deflate', 'br'],
+    threshold: 1024, // Only compress responses above 1KB
+    brotliOptions: {
+      params: {
+        [constants.BROTLI_PARAM_QUALITY]: 4,
+      },
+    },
+    customTypes: /^text\/|^application\/|^image\/svg\+xml/, // Add SVG compression
+  });
 
   // Register caching plugin
   server.register(fastifyCaching, {
@@ -38,7 +52,6 @@ export function app() {
 
   // Handle all routes with Angular SSR
   server.all('*', async (req: FastifyRequest, reply: FastifyReply) => {
-    console.log(req.url);
     try {
       // Add cache headers for dynamic routes
       reply.header('Cache-Control', 'public, max-age=3600');
@@ -69,7 +82,6 @@ export function app() {
 
   // Custom 404 handler
   server.setNotFoundHandler((req: FastifyRequest, reply: FastifyReply) => {
-    console.log(req.url);
     reply.code(404).send('This is a server only error');
   });
 

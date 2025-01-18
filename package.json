@@ -20,6 +20,7 @@
     "@angular/router": "19.0.4",
     "@angular/ssr": "19.0.5",
     "@fastify/caching": "^9.0.3",
+    "@fastify/compress": "^8.0.1",
     "@fastify/static": "^8.0.3",
     "@ngrx/operators": "18.1.1",
     "@ngrx/signals": "18.1.1",
