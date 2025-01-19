@@ -71,6 +71,7 @@ export function app() {
       });
 
       if (response) {
+        reply.type('text/html');
         await writeResponseToNodeResponse(response, reply.raw);
       } else {
         reply.callNotFound();
