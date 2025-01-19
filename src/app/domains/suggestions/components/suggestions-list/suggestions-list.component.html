@@ -2,14 +2,11 @@
   suggestion of allSuggestions | sort: sortBy.key : sortBy.order;
   track suggestion.id
 ) {
-  @defer (hydrate on immediate) {
     <product-feedback-app-v2-suggestion-list-item
       [suggestion]="suggestion"
       (upVoteClick)="upVoteClick.emit(suggestion)"
       (suggestionSelectClick)="suggestionSelectClick.emit(suggestion)"
     ></product-feedback-app-v2-suggestion-list-item>
-  } @placeholder {
-    <div></div>
   }
 }
 @if (suggestionsFacade.loadError()) {
