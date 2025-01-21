@@ -56,16 +56,6 @@ export function app() {
       // Add cache headers for dynamic routes
       reply.header('Cache-Control', 'public, max-age=3600');
 
-      // Generate ETag based on URL
-      const etag = `"${Buffer.from(`${req.headers.host}${req.url}`).toString('base64')}"`;
-      reply.header('ETag', etag);
-
-      // Check if client has matching ETag
-      if (req.headers['if-none-match'] === etag) {
-        reply.code(304).send('');
-        return;
-      }
-
       const response = await angularNodeAppEngine.handle(req.raw, {
         server: 'fastify',
       });
