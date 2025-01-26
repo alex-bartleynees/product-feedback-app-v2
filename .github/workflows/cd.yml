@@ -56,6 +56,13 @@ jobs:
           echo "${{ secrets.KUBE_CONFIG }}" > ~/.kube/config
           chmod 600 ~/.kube/config
 
+      - name: Update values.yaml with build tag
+        run: |
+          sed -i "s/tag: .*/tag: ${{ steps.tag.outputs.build_id }}/" deployment/helm-charts/product-feedback-app/values.yaml
+          git add deployment/helm-charts/product-feedback-app/values.yaml
+          git commit -m "Update image tag to ${{ steps.tag.outputs.build_id }}"
+          git push origin main
+
       - name: Package and Push Helm Chart
         run: |
           helm package ./deployment/helm-charts/product-feedback-app
