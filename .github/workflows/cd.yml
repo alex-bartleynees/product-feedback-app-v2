@@ -61,9 +61,9 @@ jobs:
           helm package ./deployment/helm-charts/product-feedback-app
           helm push product-feedback-app-*.tgz oci://registry-1.docker.io/creativefree
 
-      - name: Deploy with Helm
-        run: |
-          helm upgrade product-feedback-app ./deployment/helm-charts/product-feedback-app \
-            --set image.repository=creativefree/product-feedback-app \
-            --set image.tag=${{ steps.tag.outputs.build_id }} \
-            --namespace product-feedback
+      # - name: Deploy with Helm
+      #   run: |
+      #     helm upgrade product-feedback-app ./deployment/helm-charts/product-feedback-app \
+      #       --set image.repository=creativefree/product-feedback-app \
+      #       --set image.tag=${{ steps.tag.outputs.build_id }} \
+      #       --namespace product-feedback
