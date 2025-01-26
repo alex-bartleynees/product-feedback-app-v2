@@ -56,6 +56,11 @@ jobs:
           echo "${{ secrets.KUBE_CONFIG }}" > ~/.kube/config
           chmod 600 ~/.kube/config
 
+      - name: Set Git user info
+        run: |
+          git config --global user.email ${{secrets.GIT_EMAIL}}
+          git config --global user.name ${{secrets.GIT_NAME}}
+
       - name: Update values.yaml with build tag
         run: |
           sed -i "s/tag: .*/tag: ${{ steps.tag.outputs.build_id }}/" deployment/helm-charts/product-feedback-app/values.yaml
