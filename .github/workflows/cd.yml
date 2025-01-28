@@ -16,13 +16,6 @@ jobs:
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Get Network Info
-        run: |
-          echo "IP Address:"
-          curl -s ifconfig.me
-          echo -e "\nFull route:"
-          curl -s ifconfig.co/json
-
       - name: Login to Docker Hub
         uses: docker/login-action@v3
         with:
@@ -42,21 +35,10 @@ jobs:
             creativefree/product-feedback-app:latest
             creativefree/product-feedback-app:${{ steps.tag.outputs.build_id }}
 
-      - name: Install kubectl
-        uses: azure/setup-kubectl@v3
-        with:
-          version: 'latest'
-
       - name: Install Helm
         uses: azure/setup-helm@v3
         with:
           version: 'latest'
-
-      - name: Add kubernetes configuration
-        run: |
-          mkdir ~/.kube
-          echo "${{ secrets.KUBE_CONFIG }}" > ~/.kube/config
-          chmod 600 ~/.kube/config
 
       - name: Set Git user info
         run: |
@@ -74,10 +56,3 @@ jobs:
         run: |
           helm package ./deployment/helm-charts/product-feedback-app
           helm push product-feedback-app-*.tgz oci://registry-1.docker.io/creativefree
-
-      # - name: Deploy with Helm
-      #   run: |
-      #     helm upgrade product-feedback-app ./deployment/helm-charts/product-feedback-app \
-      #       --set image.repository=creativefree/product-feedback-app \
-      #       --set image.tag=${{ steps.tag.outputs.build_id }} \
-      #       --namespace product-feedback
