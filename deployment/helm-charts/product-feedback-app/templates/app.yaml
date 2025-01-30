@@ -9,7 +9,6 @@ kind: Deployment
 metadata:
   name: {{ .Release.Name }}-product-feedback-app
 spec:
-  replicas: {{ .Values.replicaCount }}
   selector:
     matchLabels:
       app: product-feedback-frontend
