@@ -46,7 +46,7 @@ export function app() {
     cacheControl: true,
     maxAge: 31536000,
     immutable: true,
-    etag: true,
+    etag: false,
     wildcard: false,
   });
 
@@ -54,7 +54,10 @@ export function app() {
   server.all('*', async (req: FastifyRequest, reply: FastifyReply) => {
     try {
       // Add cache headers for dynamic routes
-      reply.header('Cache-Control', 'public, max-age=3600');
+      reply.header(
+        'Cache-Control',
+        'public, max-age=3600, stale-while-revalidate=86400',
+      );
 
       const response = await angularNodeAppEngine.handle(req.raw, {
         server: 'fastify',
@@ -84,9 +87,13 @@ const server = app();
 if (isMainModule(import.meta.url)) {
   const port = +(process.env['PORT'] || 4000);
   const host = process.env['HOST'] || '0.0.0.0';
-  server.listen({ port, host }, () => {
+  try {
+    await server.listen({ port, host });
     console.warn(`Fastify server listening on http://${host}:${port}`);
-  });
+  } catch (err) {
+    console.error('Error starting server:', err);
+    process.exit(1);
+  }
 }
 
 console.warn('Fastify server started');
