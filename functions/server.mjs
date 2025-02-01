@@ -34,19 +34,19 @@ async function getDocument() {
 
 export default async (request, context) => {
   const headers = {
-    'Content-Type': 'text/html',
-    'Cache-Control': 'public, max-age=3600, stale-while-revalidate=86400',
-    'X-Content-Type-Options': 'nosniff',
-    'X-Frame-Options': 'DENY',
-    'Strict-Transport-Security': 'max-age=31536000; includeSubDomains',
+    'content-type': 'text/html; charset=utf-8',
+    'cache-control': 'public, max-age=3600, stale-while-revalidate=86400',
+    'x-content-type-options': 'nosniff',
+    'x-frame-options': 'DENY',
+    'strict-transport-security': 'max-age=31536000; includeSubDomains',
   };
 
   try {
     // Convert Netlify request to Node-like request
     const nodeRequest = {
       method: request.method,
-      url: request.url,
-      headers: Object.fromEntries(request.headers),
+      url: new URL(request.url).pathname,
+      headers: request.headers,
       body: request.body,
     };
 
@@ -60,57 +60,57 @@ export default async (request, context) => {
         __dirname,
         '../dist/product-feedback-app-v2/browser/index.html',
       ),
-      url: request.url,
-      bootstrap: mainServer.default, // Using the default export from main.server.mjs
+      url: nodeRequest.url,
+      bootstrap: mainServer.default,
     });
 
-    if (response) {
-      // Convert the response stream to string
-      const chunks = [];
-      for await (const chunk of response) {
-        chunks.push(Buffer.from(chunk));
-      }
-      const html = Buffer.concat(chunks).toString('utf-8');
-
-      return new Response(html, {
-        status: 200,
-        headers,
-      });
+    if (!response) {
+      return {
+        statusCode: 404,
+        headers: {
+          'content-type': 'text/plain',
+          'cache-control': 'no-store',
+        },
+        body: 'Not Found',
+      };
     }
 
-    // If no response, return 404
-    return new Response('Not Found', {
-      status: 404,
-      headers: {
-        'Content-Type': 'text/plain',
-        'Cache-Control': 'no-store',
-      },
-    });
+    // Convert the response stream to string
+    const chunks = [];
+    for await (const chunk of response) {
+      chunks.push(Buffer.from(chunk));
+    }
+    const html = Buffer.concat(chunks).toString('utf-8');
+
+    return {
+      statusCode: 200,
+      headers,
+      body: html,
+    };
   } catch (error) {
     console.error('SSR Error:', error);
 
     // Attempt to return a fallback client-side only version
     try {
       const fallbackDocument = await getDocument();
-      return new Response(fallbackDocument, {
-        status: 200,
+      return {
+        statusCode: 200,
         headers: {
           ...headers,
-          'Cache-Control': 'no-store',
+          'cache-control': 'no-store',
         },
-      });
+        body: fallbackDocument,
+      };
     } catch (fallbackError) {
-      // If all else fails, return an error page
-      return new Response(
-        '<!DOCTYPE html><html><body><h1>Something went wrong</h1><p>Please try again later.</p></body></html>',
-        {
-          status: 500,
-          headers: {
-            'Content-Type': 'text/html',
-            'Cache-Control': 'no-store',
-          },
+      console.error('Fallback Error:', fallbackError);
+      return {
+        statusCode: 500,
+        headers: {
+          'content-type': 'text/html; charset=utf-8',
+          'cache-control': 'no-store',
         },
-      );
+        body: '<!DOCTYPE html><html><body><h1>Something went wrong</h1><p>Please try again later.</p></body></html>',
+      };
     }
   }
 };
