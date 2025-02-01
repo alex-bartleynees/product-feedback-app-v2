@@ -1,11 +1,8 @@
-import { dirname, resolve } from 'node:path';
-import { fileURLToPath } from 'node:url';
 import { readFile } from 'node:fs/promises';
+import { join } from 'node:path';
 import { AngularAppEngine } from '@angular/ssr';
-import * as serverModule from '../dist/product-feedback-app-v2/server/main.server.mjs';
 
-const serverDistFolder = dirname(fileURLToPath(import.meta.url));
-const browserDistFolder = resolve(serverDistFolder, '../browser');
+const DIST_PATH = '/var/task/dist/product-feedback-app-v2';
 const angularAppEngine = new AngularAppEngine();
 
 let cachedDocument = null;
@@ -15,12 +12,16 @@ async function getDocument() {
   if (cachedDocument) return cachedDocument;
 
   try {
-    const documentPath = resolve(serverDistFolder, '../browser/index.html');
+    const documentPath = join(DIST_PATH, 'browser/index.html');
     console.log('Reading document from:', documentPath);
     cachedDocument = await readFile(documentPath, 'utf-8');
     return cachedDocument;
   } catch (error) {
     console.error('Error reading index.html:', error);
+    console.error('Current directory:', process.cwd());
+    // List directory contents for debugging
+    const dir = await readFile(process.cwd(), { withFileTypes: true });
+    console.log('Directory contents:', dir);
     throw error;
   }
 }
@@ -29,14 +30,14 @@ async function getManifest() {
   if (cachedManifest) return cachedManifest;
 
   try {
-    const manifestPath = resolve(serverDistFolder, 'server.manifest.json');
+    const manifestPath = join(DIST_PATH, 'server/server.manifest.json');
     console.log('Reading manifest from:', manifestPath);
     const manifestContent = await readFile(manifestPath, 'utf-8');
     cachedManifest = JSON.parse(manifestContent);
     return cachedManifest;
   } catch (error) {
     console.error('Error reading manifest:', error);
-    return null;
+    throw error;
   }
 }
 
@@ -48,33 +49,36 @@ export const handler = async (event, context) => {
       headers: event.headers,
     });
 
+    // Load document and manifest
     const [document, manifest] = await Promise.all([
       getDocument(),
       getManifest(),
     ]);
 
-    // Set manifest if available
-    if (manifest) {
-      angularAppEngine.setManifest(manifest);
-    }
+    console.log('Manifest and document loaded successfully');
+
+    // Set the manifest
+    angularAppEngine.setManifest(manifest);
 
     // Create request object
-    const url = new URL(event.path, 'http://dummy-base.com');
+    const url = new URL(event.path, 'http://localhost');
     const request = new Request(url, {
       method: event.httpMethod,
       headers: new Headers(event.headers),
       body: event.body ? event.body : undefined,
     });
 
+    console.log('Attempting SSR for path:', event.path);
+
     // Handle the request
     const result = await angularAppEngine.handle(request, {
       document,
-      documentFilePath: resolve(serverDistFolder, '../browser/index.html'),
+      documentFilePath: join(DIST_PATH, 'browser/index.html'),
       url: event.path,
-      bootstrap: serverModule.default,
     });
 
     if (!result) {
+      console.log('No SSR result, returning 404');
       return {
         statusCode: 404,
         headers: {
@@ -90,6 +94,8 @@ export const handler = async (event, context) => {
       responseText += chunk;
     }
 
+    console.log('SSR successful, response length:', responseText.length);
+
     return {
       statusCode: 200,
       headers: {
@@ -101,15 +107,11 @@ export const handler = async (event, context) => {
   } catch (error) {
     console.error('Error in handler:', error);
     console.error('Stack:', error.stack);
-    console.log('Current directory:', process.cwd());
-    console.log(
-      'Directory contents:',
-      await readFile(process.cwd(), { withFileTypes: true }),
-    );
 
     try {
       // Attempt fallback to static HTML
       const fallbackHtml = await getDocument();
+      console.log('Falling back to static HTML');
       return {
         statusCode: 200,
         headers: {
@@ -128,6 +130,7 @@ export const handler = async (event, context) => {
         body: JSON.stringify({
           error: 'Internal Server Error',
           message: error.message,
+          details: process.cwd(),
         }),
       };
     }
