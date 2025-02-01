@@ -1,120 +1,112 @@
-import { readFile } from 'node:fs/promises';
-import { join } from 'node:path';
-import { AngularNodeAppEngine } from '@angular/ssr/node';
+import { dirname, resolve } from 'node:path';
+import { fileURLToPath } from 'node:url';
+import { getContext } from '@netlify/angular-runtime/context';
+import { AngularAppEngine } from '@angular/ssr';
 
-const engine = new AngularNodeAppEngine();
-let cachedDocument = null;
+const serverDistFolder = dirname(fileURLToPath(import.meta.url));
+const browserDistFolder = resolve(serverDistFolder, '../browser');
+const angularAppEngine = new AngularAppEngine();
 
-// In Netlify Functions, files are deployed to /var/task/
-const DIST_PATH = join('/var/task', 'dist/product-feedback-app-v2');
-
-async function getDocument() {
-  if (cachedDocument) return cachedDocument;
-
-  try {
-    const documentPath = join(DIST_PATH, 'browser/index.html');
-    console.log('Reading document from:', documentPath);
-    cachedDocument = await readFile(documentPath, 'utf-8');
-    return cachedDocument;
-  } catch (error) {
-    console.error('Error reading index.html:', error);
-    throw error;
-  }
-}
-
-// Dynamically import the server module
-async function getServerModule() {
-  try {
-    const serverPath = join(DIST_PATH, 'server/main.server.mjs');
-    console.log('Loading server module from:', serverPath);
-    return await import(serverPath);
-  } catch (error) {
-    console.error('Error loading server module:', error);
-    throw error;
-  }
+async function netlifyAppEngineHandler(request) {
+  const context = getContext();
+  const result = await angularAppEngine.handle(request, context);
+  return result || new Response('Not found', { status: 404 });
 }
 
 export const handler = async (event, context) => {
-  console.log('Request received:', {
-    method: event.httpMethod,
-    path: event.path,
-  });
-
   try {
-    // Load the document and server module
-    const [document, serverModule] = await Promise.all([
-      getDocument(),
-      getServerModule(),
-    ]);
-
-    console.log('Document and server module loaded');
-
-    const nodeRequest = {
+    console.log('Request received:', {
       method: event.httpMethod,
-      url: event.path,
+      path: event.path,
       headers: event.headers,
-      body: event.body,
-    };
-
-    console.log('Attempting SSR with URL:', nodeRequest.url);
-
-    const response = await engine.handle(nodeRequest, {
-      document,
-      documentFilePath: join(DIST_PATH, 'browser/index.html'),
-      url: nodeRequest.url,
-      bootstrap: serverModule.default,
     });
 
-    if (!response) {
-      console.log('No SSR response received');
-      return {
-        statusCode: 404,
-        body: JSON.stringify({ error: 'Not Found' }),
-        headers: {
-          'content-type': 'application/json',
-        },
-      };
-    }
+    // Convert Netlify event to Request
+    const url = new URL(event.rawUrl);
+    const request = new Request(url, {
+      method: event.httpMethod,
+      headers: new Headers(event.headers),
+      body: event.body ? event.body : undefined,
+    });
 
-    console.log('Got SSR response, converting stream...');
-    let responseText = '';
-    for await (const chunk of response) {
-      responseText += chunk;
-    }
+    // Handle the request
+    const response = await netlifyAppEngineHandler(request);
 
-    console.log('Response length:', responseText.length);
+    // Convert Response to Netlify format
+    const responseBody = await response.text();
+    const responseHeaders = Object.fromEntries(response.headers.entries());
 
     return {
-      statusCode: 200,
-      body: responseText,
+      statusCode: response.status,
       headers: {
-        'content-type': 'text/html; charset=utf-8',
-        'cache-control': 'public, max-age=3600',
+        ...responseHeaders,
+        'content-type':
+          response.headers.get('content-type') || 'text/html; charset=utf-8',
+        'cache-control':
+          response.headers.get('cache-control') || 'public, max-age=3600',
       },
+      body: responseBody,
     };
   } catch (error) {
     console.error('Error in handler:', error);
 
-    try {
-      // Attempt fallback to static HTML
-      const fallbackHtml = await getDocument();
-      return {
-        statusCode: 200,
-        body: fallbackHtml,
-        headers: {
-          'content-type': 'text/html; charset=utf-8',
-          'cache-control': 'no-store',
-        },
-      };
-    } catch (fallbackError) {
-      console.error('Fallback failed:', fallbackError);
-      return {
-        statusCode: 500,
-        body: JSON.stringify({ error: 'Internal Server Error' }),
-        headers: {
-          'content-type': 'application/json',
-        },
-      };
-    }
+    return {
+      statusCode: 500,
+      headers: {
+        'content-type': 'application/json',
+      },
+      body: JSON.stringify({
+        error: 'Internal Server Error',
+        message: error.message,
+      }),
+    };
   }
 };
+
+// For local development
+if (process.env.NODE_ENV === 'development') {
+  import('express').then(({ default: express }) => {
+    const app = express();
+
+    // Serve static files
+    app.use(
+      express.static(browserDistFolder, {
+        maxAge: '1y',
+        index: false,
+        redirect: false,
+      }),
+    );
+
+    // Handle all routes with SSR
+    app.all('*', async (req, res) => {
+      try {
+        const url = new URL(req.url, `http://${req.headers.host}`);
+        const request = new Request(url, {
+          method: req.method,
+          headers: new Headers(req.headers),
+          body: req.body,
+        });
+
+        const response = await netlifyAppEngineHandler(request);
+
+        // Set status and headers
+        res.status(response.status);
+        response.headers.forEach((value, key) => {
+          res.setHeader(key, value);
+        });
+
+        // Send response
+        const body = await response.text();
+        res.send(body);
+      } catch (error) {
+        console.error('Error handling request:', error);
+        res.status(500).json({ error: 'Internal Server Error' });
+      }
+    });
+
+    const port = process.env.PORT || 4000;
+    app.listen(port, () => {
+      console.log(`Development server listening on http://localhost:${port}`);
+    });
+  });
+}
