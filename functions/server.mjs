@@ -1,12 +1,17 @@
 import { readFile } from 'node:fs/promises';
 import { fileURLToPath } from 'node:url';
 import { dirname, join } from 'node:path';
-import bootstrap from '../dist/product-feedback-app-v2/server/main.server.mjs';
-import { renderApplication } from '../dist/product-feedback-app-v2/server/render-utils.server.mjs';
+import { AngularNodeAppEngine } from '@angular/ssr/node';
+import { app } from '../dist/product-feedback-app-v2/server/main.server.mjs';
 
+// Get the current directory
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
+// Initialize the Angular engine once
+const engine = new AngularNodeAppEngine();
+
+// Cache the document content
 let cachedDocument = null;
 
 async function getDocument() {
@@ -17,13 +22,13 @@ async function getDocument() {
   try {
     const documentPath = join(
       __dirname,
-      '../dist/product-feedback-app-v2/server/index.server.html',
+      '../dist/product-feedback-app-v2/browser/index.html',
     );
     cachedDocument = await readFile(documentPath, 'utf-8');
     return cachedDocument;
   } catch (error) {
-    console.error('Error reading index.server.html:', error);
-    throw new Error('Failed to read server document');
+    console.error('Error reading index.html:', error);
+    throw new Error('Failed to read browser document');
   }
 }
 
@@ -37,32 +42,70 @@ export default async (request, context) => {
   };
 
   try {
-    const document = await getDocument();
-
-    const renderOptions = {
+    // Convert Netlify request to Node-like request
+    const nodeRequest = {
+      method: request.method,
       url: request.url,
-      document,
-      platformProviders: [],
-      ...((request.headers.get('User-Agent') || '').includes('Googlebot') && {
-        renderPriority: 'high',
-      }),
+      headers: Object.fromEntries(request.headers),
+      body: request.body,
     };
 
-    const html = await renderApplication(bootstrap, renderOptions);
+    // Create a response object
+    let responseBody = '';
+    const nodeResponse = {
+      statusCode: 200,
+      headers: new Map(),
+      write: (chunk) => {
+        responseBody += chunk;
+      },
+      end: () => {},
+      setHeader: (name, value) => {
+        headers[name] = value;
+      },
+    };
 
-    return new Response(html, {
-      status: 200,
-      headers,
+    // Get the document for hydration
+    const document = await getDocument();
+
+    // Render the application
+    const response = await engine.handle(nodeRequest, {
+      document,
+      documentFilePath: join(
+        __dirname,
+        '../dist/product-feedback-app-v2/browser/index.html',
+      ),
+      url: request.url,
+      bootstrap: app,
+    });
+
+    if (response) {
+      // Convert the response stream to string
+      const chunks = [];
+      for await (const chunk of response) {
+        chunks.push(Buffer.from(chunk));
+      }
+      const html = Buffer.concat(chunks).toString('utf-8');
+
+      return new Response(html, {
+        status: 200,
+        headers,
+      });
+    }
+
+    // If no response, return 404
+    return new Response('Not Found', {
+      status: 404,
+      headers: {
+        'Content-Type': 'text/plain',
+        'Cache-Control': 'no-store',
+      },
     });
   } catch (error) {
     console.error('SSR Error:', error);
 
+    // Attempt to return a fallback client-side only version
     try {
-      const fallbackDocument = await readFile(
-        join(__dirname, '../dist/product-feedback-app-v2/browser/index.html'),
-        'utf-8',
-      );
-
+      const fallbackDocument = await getDocument();
       return new Response(fallbackDocument, {
         status: 200,
         headers: {
@@ -71,6 +114,7 @@ export default async (request, context) => {
         },
       });
     } catch (fallbackError) {
+      // If all else fails, return an error page
       return new Response(
         '<!DOCTYPE html><html><body><h1>Something went wrong</h1><p>Please try again later.</p></body></html>',
         {
@@ -84,4 +128,3 @@ export default async (request, context) => {
     }
   }
 };
-
