@@ -1,115 +1,104 @@
 import { readFile } from 'node:fs/promises';
-import { fileURLToPath } from 'node:url';
 import { dirname, join } from 'node:path';
 import { AngularNodeAppEngine } from '@angular/ssr/node';
 import * as mainServer from '../dist/product-feedback-app-v2/server/main.server.mjs';
 
-// Get the current directory
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
-
-// Initialize the Angular engine once
 const engine = new AngularNodeAppEngine();
-
-// Cache the document content
 let cachedDocument = null;
 
 async function getDocument() {
-  if (cachedDocument) {
-    return cachedDocument;
-  }
-
+  if (cachedDocument) return cachedDocument;
+  
   try {
-    const documentPath = join(
-      __dirname,
-      '../dist/product-feedback-app-v2/browser/index.html',
-    );
+    // Use process.cwd() instead of __dirname
+    const documentPath = join(process.cwd(), 'dist/product-feedback-app-v2/browser/index.html');
+    console.log('Reading document from:', documentPath);
     cachedDocument = await readFile(documentPath, 'utf-8');
     return cachedDocument;
   } catch (error) {
     console.error('Error reading index.html:', error);
-    throw new Error('Failed to read browser document');
+    throw error;
   }
 }
 
-export default async (request, context) => {
-  const headers = {
-    'content-type': 'text/html; charset=utf-8',
-    'cache-control': 'public, max-age=3600, stale-while-revalidate=86400',
-    'x-content-type-options': 'nosniff',
-    'x-frame-options': 'DENY',
-    'strict-transport-security': 'max-age=31536000; includeSubDomains',
-  };
+export const handler = async (event, context) => {
+  console.log('Request received:', {
+    method: event.httpMethod,
+    path: event.path,
+    headers: event.headers
+  });
 
   try {
-    // Convert Netlify request to Node-like request
+    const document = await getDocument();
+    console.log('Document loaded, length:', document.length);
+
     const nodeRequest = {
-      method: request.method,
-      url: new URL(request.url).pathname,
-      headers: request.headers,
-      body: request.body,
+      method: event.httpMethod,
+      url: event.path,
+      headers: event.headers,
+      body: event.body
     };
 
-    // Get the document for hydration
-    const document = await getDocument();
-
-    // Render the application using the default export
+    console.log('Attempting SSR with URL:', nodeRequest.url);
     const response = await engine.handle(nodeRequest, {
       document,
-      documentFilePath: join(
-        __dirname,
-        '../dist/product-feedback-app-v2/browser/index.html',
-      ),
+      documentFilePath: join(process.cwd(), 'dist/product-feedback-app-v2/browser/index.html'),
       url: nodeRequest.url,
-      bootstrap: mainServer.default,
+      bootstrap: mainServer.default
     });
 
     if (!response) {
+      console.log('No SSR response received');
       return {
         statusCode: 404,
+        body: JSON.stringify({ error: 'Not Found' }),
         headers: {
-          'content-type': 'text/plain',
-          'cache-control': 'no-store',
-        },
-        body: 'Not Found',
+          'content-type': 'application/json'
+        }
       };
     }
 
-    // Convert the response stream to string
-    const chunks = [];
+    console.log('Got SSR response, converting stream...');
+    let responseText = '';
     for await (const chunk of response) {
-      chunks.push(Buffer.from(chunk));
+      responseText += chunk;
     }
-    const html = Buffer.concat(chunks).toString('utf-8');
+    console.log('Response length:', responseText.length);
 
-    return {
+    const netlifyResponse = {
       statusCode: 200,
-      headers,
-      body: html,
+      body: responseText,
+      headers: {
+        'content-type': 'text/html; charset=utf-8',
+        'cache-control': 'public, max-age=3600'
+      }
     };
-  } catch (error) {
-    console.error('SSR Error:', error);
 
-    // Attempt to return a fallback client-side only version
+    console.log('Sending response with length:', netlifyResponse.body.length);
+    return netlifyResponse;
+
+  } catch (error) {
+    console.error('Error in handler:', error);
+    
     try {
-      const fallbackDocument = await getDocument();
+      // Attempt fallback to static HTML
+      const fallbackHtml = await getDocument();
       return {
         statusCode: 200,
-        headers: {
-          ...headers,
-          'cache-control': 'no-store',
-        },
-        body: fallbackDocument,
-      };
-    } catch (fallbackError) {
-      console.error('Fallback Error:', fallbackError);
-      return {
-        statusCode: 500,
+        body: fallbackHtml,
         headers: {
           'content-type': 'text/html; charset=utf-8',
-          'cache-control': 'no-store',
-        },
-        body: '<!DOCTYPE html><html><body><h1>Something went wrong</h1><p>Please try again later.</p></body></html>',
+          'cache-control': 'no-store'
+        }
+      };
+    } catch (fallbackError) {
+      console.error('Fallback failed:', fallbackError);
+      return {
+        statusCode: 500,
+        body: JSON.stringify({ error: 'Internal Server Error' }),
+        headers: {
+          'content-type': 'application/json'
+        }
       };
     }
   }
