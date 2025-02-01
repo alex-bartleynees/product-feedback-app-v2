@@ -1,6 +1,7 @@
 [functions]
   directory = "functions"
   node_bundler = "esbuild"
+  external_node_modules = ["@netlify/angular-runtime"]
   included_files = ["dist/product-feedback-app-v2/**/*", "dist/product-feedback-app-v2/server/index.server.html", "dist/product-feedback-app-v2/server/angular-app-engine-manifest.mjs"]
   
 [[redirects]]

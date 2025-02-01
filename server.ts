@@ -11,6 +11,10 @@ import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import fastifyCompress from '@fastify/compress';
 import { constants } from 'zlib';
+import { AngularAppEngine } from '@angular/ssr';
+import { getContext } from '@netlify/angular-runtime/context';
+
+const angularAppEngine = new AngularAppEngine();
 
 export function app() {
   const server = fastify();
@@ -97,6 +101,15 @@ if (isMainModule(import.meta.url)) {
 }
 
 console.warn('Fastify server started');
+
+export async function netlifyAppEngineHandler(
+  request: Request,
+): Promise<Response> {
+  const context = getContext();
+
+  const result = await angularAppEngine.handle(request, context);
+  return result || new Response('Not found', { status: 404 });
+}
 
 export const reqHandler = createNodeRequestHandler(async (req, res) => {
   await server.ready();
