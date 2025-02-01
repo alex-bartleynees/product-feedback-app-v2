@@ -12,7 +12,7 @@ async function getDocument() {
   if (cachedDocument) return cachedDocument;
 
   try {
-    const documentPath = join(DIST_PATH, 'browser/index.html');
+    const documentPath = join(DIST_PATH, 'server/index.server.html');
     console.log('Reading document from:', documentPath);
     cachedDocument = await readFile(documentPath, 'utf-8');
     return cachedDocument;
@@ -30,7 +30,10 @@ async function getManifest() {
   if (cachedManifest) return cachedManifest;
 
   try {
-    const manifestPath = join(DIST_PATH, 'server/server.manifest.json');
+    const manifestPath = join(
+      DIST_PATH,
+      'server/angular-app-engine-manifest.mjs',
+    );
     console.log('Reading manifest from:', manifestPath);
     const manifestContent = await readFile(manifestPath, 'utf-8');
     cachedManifest = JSON.parse(manifestContent);
