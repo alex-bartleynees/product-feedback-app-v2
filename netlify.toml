@@ -1,34 +1,34 @@
-# [functions]
-#   directory = "functions"
-#   node_bundler = "esbuild"
-#   included_files = ["dist/product-feedback-app-v2/**/*", "dist/product-feedback-app-v2/server/index.server.html"]
-#   
-# [[redirects]]
-#   from = "/assets/*"
-#   to = "/:splat"
-#   status = 304
-#
-# [[redirects]]
-#   from = "/media/*"
-#   to = "/:splat"
-#   status = 304
-#
-# [[redirects]]
-#   # Redirect JavaScript files
-#   from = "/*.js"
-#   to = "/:splat"
-#   status = 304
-#
-# [[redirects]]
-#   # Redirect CSS files
-#   from = "/*.css"
-#   to = ":/splat"
-#   status = 304
-#
-# [[redirects]]
-#   from = "/*"
-#   to = "/.netlify/functions/server"
-#   status = 200
+[functions]
+  directory = "functions"
+  node_bundler = "esbuild"
+  included_files = ["dist/product-feedback-app-v2/**/*", "dist/product-feedback-app-v2/server/index.server.html", "dist/product-feedback-app-v2/server/angular-app-engine-manifest.mjs"]
+  
+[[redirects]]
+  from = "/assets/*"
+  to = "/:splat"
+  status = 304
+
+[[redirects]]
+  from = "/media/*"
+  to = "/:splat"
+  status = 304
+
+[[redirects]]
+  # Redirect JavaScript files
+  from = "/*.js"
+  to = "/:splat"
+  status = 304
+
+[[redirects]]
+  # Redirect CSS files
+  from = "/*.css"
+  to = ":/splat"
+  status = 304
+
+[[redirects]]
+  from = "/*"
+  to = "/.netlify/functions/server"
+  status = 200
 
 [build]
 command = "npm run build"
