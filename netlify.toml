@@ -2,6 +2,10 @@
   directory = "functions"
   node_bundler = "esbuild"
   included_files = ["dist/product-feedback-app-v2/**/*", "dist/product-feedback-app-v2/server/index.server.html"]
+  external_node_modules = [
+    "@angular/platform-server",
+    "@netlify/angular-runtime"
+  ]
   
 [[redirects]]
   from = "/assets/*"
