@@ -2,7 +2,7 @@ import { readFile } from 'node:fs/promises';
 import { fileURLToPath } from 'node:url';
 import { dirname, join } from 'node:path';
 import { AngularNodeAppEngine } from '@angular/ssr/node';
-import { app } from '../dist/product-feedback-app-v2/server/main.server.mjs';
+import * as mainServer from '../dist/product-feedback-app-v2/server/main.server.mjs';
 
 // Get the current directory
 const __filename = fileURLToPath(import.meta.url);
@@ -50,24 +50,10 @@ export default async (request, context) => {
       body: request.body,
     };
 
-    // Create a response object
-    let responseBody = '';
-    const nodeResponse = {
-      statusCode: 200,
-      headers: new Map(),
-      write: (chunk) => {
-        responseBody += chunk;
-      },
-      end: () => {},
-      setHeader: (name, value) => {
-        headers[name] = value;
-      },
-    };
-
     // Get the document for hydration
     const document = await getDocument();
 
-    // Render the application
+    // Render the application using the default export
     const response = await engine.handle(nodeRequest, {
       document,
       documentFilePath: join(
@@ -75,7 +61,7 @@ export default async (request, context) => {
         '../dist/product-feedback-app-v2/browser/index.html',
       ),
       url: request.url,
-      bootstrap: app,
+      bootstrap: mainServer.default, // Using the default export from main.server.mjs
     });
 
     if (response) {
