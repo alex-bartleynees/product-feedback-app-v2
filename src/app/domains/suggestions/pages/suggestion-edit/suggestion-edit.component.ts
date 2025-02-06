@@ -13,6 +13,8 @@ import { CommonModule } from '@angular/common';
 import {
   BackButtonComponent,
   ButtonComponent,
+  ControlErrorsDirective,
+  FormSubmitDirective,
   MenuItem,
   SelectComponent,
   SuggestionForm,
@@ -25,17 +27,19 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { environment } from 'src/app/environments/environment';
 
 @Component({
-    selector: 'product-feedback-app-v2-suggestion-edit',
-    templateUrl: './suggestion-edit.component.html',
-    styleUrls: ['./suggestion-edit.component.scss'],
-    imports: [
-        CommonModule,
-        ReactiveFormsModule,
-        BackButtonComponent,
-        ButtonComponent,
-        SelectComponent,
-    ],
-    changeDetection: ChangeDetectionStrategy.OnPush
+  selector: 'product-feedback-app-v2-suggestion-edit',
+  templateUrl: './suggestion-edit.component.html',
+  styleUrls: ['./suggestion-edit.component.scss'],
+  imports: [
+    CommonModule,
+    ReactiveFormsModule,
+    BackButtonComponent,
+    ButtonComponent,
+    SelectComponent,
+    FormSubmitDirective,
+    ControlErrorsDirective,
+  ],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SuggestionEditComponent implements OnInit, OnDestroy {
   editMode = signal(false);
