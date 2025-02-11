@@ -15,7 +15,7 @@ import {
 } from '@product-feedback-app-v2/api-interfaces';
 import { SuggestionService } from '@product-feedback-app-v2/core-data';
 import { rxMethod } from '@ngrx/signals/rxjs-interop';
-import { concatMap, map, pipe, switchMap, tap } from 'rxjs';
+import { concatMap, map, pipe, switchMap, tap, mergeMap } from 'rxjs';
 import { withLoading } from '../utilities/with-loading';
 import { tapResponse } from '@ngrx/operators';
 import { withError } from '../utilities/with-error';
@@ -93,7 +93,7 @@ export const SuggestionsStore = signalStore(
               selectedId: id,
             }));
           }),
-          switchMap((id) => suggestionService.get(id)),
+          mergeMap((id) => suggestionService.get(id)),
           tapResponse({
             next: (response) => {
               patchState(state, () => ({
