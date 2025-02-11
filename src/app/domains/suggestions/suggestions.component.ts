@@ -24,7 +24,6 @@ import {
 import { SuggestionsListComponent } from './components/suggestions-list/suggestions-list.component';
 import { MobileSidebarComponent } from './components/mobile-sidebar/mobile-sidebar.component';
 import { environment } from 'src/app/environments/environment';
-import { HoverPrefetchLinkDirective } from 'ngx-hover-preload';
 
 @Component({
   selector: 'product-feedback-app-v2-suggestions',
@@ -37,7 +36,6 @@ import { HoverPrefetchLinkDirective } from 'ngx-hover-preload';
     MenuComponent,
     SuggestionsListComponent,
     MobileSidebarComponent,
-    HoverPrefetchLinkDirective,
   ],
   templateUrl: './suggestions.component.html',
   styleUrl: './suggestions.component.scss',

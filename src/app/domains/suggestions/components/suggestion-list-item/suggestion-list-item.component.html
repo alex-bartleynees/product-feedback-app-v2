@@ -1,5 +1,5 @@
 @if (suggestion()) {
-  <div class="suggestion-item__container">
+  <div class="suggestion-item__container" (mouseover)="onHover()">
     <product-feedback-app-v2-chip
       class="chip__upvote"
       [text]="suggestion()!.upvotes"
