@@ -27,6 +27,7 @@
     "@nx/angular": "20.4.0",
     "@types/compression": "^1.7.5",
     "fastify": "^5.1.0",
+    "ngx-hover-preload": "^0.0.5",
     "rxjs": "~7.8.1",
     "tslib": "^2.6.2"
   },

@@ -2,12 +2,11 @@
   suggestion of allSuggestions | sort: sortBy.key : sortBy.order;
   track suggestion.id
 ) {
-    <product-feedback-app-v2-suggestion-list-item
-      [suggestion]="suggestion"
-      (upVoteClick)="upVoteClick.emit(suggestion)"
-      (suggestionSelectClick)="suggestionSelectClick.emit(suggestion)"
-    ></product-feedback-app-v2-suggestion-list-item>
-  }
+  <product-feedback-app-v2-suggestion-list-item
+    [suggestion]="suggestion"
+    (upVoteClick)="upVoteClick.emit(suggestion)"
+  ></product-feedback-app-v2-suggestion-list-item>
+}
 @if (suggestionsFacade.loadError()) {
   <div class="suggestion-list__container">
     <img

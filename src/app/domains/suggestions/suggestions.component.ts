@@ -24,22 +24,24 @@ import {
 import { SuggestionsListComponent } from './components/suggestions-list/suggestions-list.component';
 import { MobileSidebarComponent } from './components/mobile-sidebar/mobile-sidebar.component';
 import { environment } from 'src/app/environments/environment';
+import { HoverPrefetchLinkDirective } from 'ngx-hover-preload';
 
 @Component({
-    selector: 'product-feedback-app-v2-suggestions',
-    imports: [
-        CommonModule,
-        HeadingTileComponent,
-        ChipListTileComponent,
-        RoadMapTileComponent,
-        HeaderComponent,
-        MenuComponent,
-        SuggestionsListComponent,
-        MobileSidebarComponent,
-    ],
-    templateUrl: './suggestions.component.html',
-    styleUrl: './suggestions.component.scss',
-    changeDetection: ChangeDetectionStrategy.OnPush
+  selector: 'product-feedback-app-v2-suggestions',
+  imports: [
+    CommonModule,
+    HeadingTileComponent,
+    ChipListTileComponent,
+    RoadMapTileComponent,
+    HeaderComponent,
+    MenuComponent,
+    SuggestionsListComponent,
+    MobileSidebarComponent,
+    HoverPrefetchLinkDirective,
+  ],
+  templateUrl: './suggestions.component.html',
+  styleUrl: './suggestions.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SuggestionsComponent implements OnInit, OnDestroy {
   isMenuOpen = false;
@@ -153,14 +155,6 @@ export class SuggestionsComponent implements OnInit, OnDestroy {
 
   onUpVoteClick(suggestion: Suggestion): void {
     this.suggestionsFacade.upVoteSuggestion(suggestion);
-  }
-
-  onSuggestionClick(suggestion: Suggestion): void {
-    if (!suggestion.id) {
-      return;
-    }
-    this.suggestionsFacade.selectSuggestion(suggestion.id);
-    this.router.navigate(['/suggestion-detail', suggestion.id]);
   }
 
   openMobileSideBar() {

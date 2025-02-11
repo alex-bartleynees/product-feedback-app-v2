@@ -2,7 +2,7 @@ import {
   ApplicationConfig,
   provideExperimentalZonelessChangeDetection,
 } from '@angular/core';
-import { provideRouter } from '@angular/router';
+import { provideRouter, withPreloading } from '@angular/router';
 import { appRoutes } from './app.routes';
 import { APP_CONFIG } from '@product-feedback-app-v2/app-config';
 import { provideHttpClient, withFetch } from '@angular/common/http';
@@ -14,11 +14,16 @@ import {
   withIncrementalHydration,
 } from '@angular/platform-browser';
 import { APP_BASE_HREF } from '@angular/common';
+import {
+  hoverPrefetchProviders,
+  HoverPreloadStrategy,
+} from 'ngx-hover-preload';
 
 export const appConfig: ApplicationConfig = {
   providers: [
     provideClientHydration(withEventReplay(), withIncrementalHydration()),
-    provideRouter(appRoutes),
+    provideRouter(appRoutes, withPreloading(HoverPreloadStrategy)),
+    hoverPrefetchProviders,
     provideHttpClient(withFetch()),
     provideAnimationsAsync(),
     provideExperimentalZonelessChangeDetection(),
