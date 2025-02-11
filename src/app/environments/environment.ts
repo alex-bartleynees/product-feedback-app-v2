@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  apiEndpoint: 'http://product-feedback-app.io/api/',
+  apiEndpoint: 'https://alexbartleynees.com/product-feedback-api/api/',
   basePath: '',
 };
 
