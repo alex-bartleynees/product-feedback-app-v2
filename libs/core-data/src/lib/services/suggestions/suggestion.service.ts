@@ -17,7 +17,7 @@ export class SuggestionService {
   suggestionsCache = new Map<number, Suggestion>();
   constructor(
     @Inject(APP_CONFIG) private appConfig: AppConfig,
-    private http: HttpClient
+    private http: HttpClient,
   ) {}
 
   suggestionsModel = 'suggestions';
@@ -39,7 +39,7 @@ export class SuggestionService {
         if (s.id) {
           this.suggestionsCache.set(s.id, s);
         }
-      })
+      }),
     );
   }
 
@@ -62,7 +62,7 @@ export class SuggestionService {
   }
 
   addComment(
-    comment: SuggestionCommentRequest
+    comment: SuggestionCommentRequest,
   ): Observable<SuggestionCommentResponse> {
     if (comment.suggestionId) {
       this.suggestionsCache.delete(comment.suggestionId);
@@ -70,13 +70,13 @@ export class SuggestionService {
     return this.http
       .post<SuggestionCommentResponse>(
         `${this.getUrl(this.commentModel)}`,
-        comment
+        comment,
       )
       .pipe(catchError((error) => throwError(() => error)));
   }
 
   addReply(
-    comment: SuggestionCommentRequest
+    comment: SuggestionCommentRequest,
   ): Observable<SuggestionCommentReplyResponse> {
     if (comment.suggestionId) {
       this.suggestionsCache.delete(comment.suggestionId);
@@ -84,7 +84,7 @@ export class SuggestionService {
     return this.http
       .post<SuggestionCommentReplyResponse>(
         `${this.getUrl(this.commentModel)}/reply`,
-        comment
+        comment,
       )
       .pipe(catchError((error) => throwError(() => error)));
   }
