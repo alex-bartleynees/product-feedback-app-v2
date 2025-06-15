@@ -13,7 +13,6 @@
         "main": "libs/app-config/src/index.ts",
         "tsConfig": "libs/app-config/tsconfig.lib.json",
         "assets": ["libs/app-config/*.md"],
-        "generatePackageJson": true,
         "format": ["cjs"]
       }
     },

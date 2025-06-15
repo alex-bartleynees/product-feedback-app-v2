@@ -13,7 +13,6 @@
         "main": "libs/api-interfaces/src/index.ts",
         "tsConfig": "libs/api-interfaces/tsconfig.lib.json",
         "assets": ["libs/api-interfaces/*.md"],
-        "generatePackageJson": true,
         "format": ["cjs"]
       }
     },

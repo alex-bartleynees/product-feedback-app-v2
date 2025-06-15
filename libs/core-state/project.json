@@ -13,7 +13,6 @@
         "main": "libs/core-state/src/index.ts",
         "tsConfig": "libs/core-state/tsconfig.lib.json",
         "assets": ["libs/core-state/*.md"],
-        "generatePackageJson": true,
         "format": ["cjs"]
       }
     },
