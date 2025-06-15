@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+
 import {
   AfterViewInit,
   ChangeDetectionStrategy,
@@ -23,11 +23,10 @@ import {
   templateUrl: './road-map.component.html',
   styleUrls: ['./road-map.component.scss'],
   imports: [
-    CommonModule,
     RoadMapCardComponent,
     HeaderComponent,
-    BackButtonComponent,
-  ],
+    BackButtonComponent
+],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class RoadMapComponent implements OnInit, AfterViewInit, OnDestroy {

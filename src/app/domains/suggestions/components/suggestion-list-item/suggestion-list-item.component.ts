@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+
 import {
   ChangeDetectionStrategy,
   Component,
@@ -24,12 +24,11 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
   styleUrls: ['./suggestion-list-item.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [
-    CommonModule,
     ChipComponent,
     CommentIconComponent,
     RouterLink,
-    HoverPrefetchLinkDirective,
-  ],
+    HoverPrefetchLinkDirective
+],
 })
 export class SuggestionListItemComponent {
   suggestion = input<Suggestion | null>(null);

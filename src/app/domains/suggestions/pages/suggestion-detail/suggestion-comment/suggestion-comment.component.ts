@@ -8,7 +8,7 @@ import {
   signal,
 } from '@angular/core';
 
-import { CommonModule } from '@angular/common';
+
 import {
   SuggestionComment,
   User,
@@ -29,13 +29,12 @@ import { environment } from 'src/app/environments/environment';
     templateUrl: './suggestion-comment.component.html',
     styleUrls: ['./suggestion-comment.component.scss'],
     imports: [
-        CommonModule,
-        ReactiveFormsModule,
-        ButtonComponent,
-        ControlErrorsDirective,
-        FormSubmitDirective,
-        ControlErrorContainerDirective,
-    ],
+    ReactiveFormsModule,
+    ButtonComponent,
+    ControlErrorsDirective,
+    FormSubmitDirective,
+    ControlErrorContainerDirective
+],
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SuggestionCommentComponent {

@@ -7,7 +7,7 @@ import {
   Signal,
   inject,
 } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { Router } from '@angular/router';
 import { Suggestion } from '@product-feedback-app-v2/api-interfaces';
 import { SuggestionsFacadeService } from '@product-feedback-app-v2/core-state';
@@ -28,15 +28,14 @@ import { environment } from 'src/app/environments/environment';
 @Component({
   selector: 'product-feedback-app-v2-suggestions',
   imports: [
-    CommonModule,
     HeadingTileComponent,
     ChipListTileComponent,
     RoadMapTileComponent,
     HeaderComponent,
     MenuComponent,
     SuggestionsListComponent,
-    MobileSidebarComponent,
-  ],
+    MobileSidebarComponent
+],
   templateUrl: './suggestions.component.html',
   styleUrl: './suggestions.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,

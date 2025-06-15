@@ -5,7 +5,7 @@ import {
   Input,
   Output,
 } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import {
   Chip,
   ChipComponent,
@@ -16,7 +16,7 @@ import {
     selector: 'product-feedback-app-v2-chiplist-tile',
     templateUrl: './chiplist-tile.component.html',
     styleUrls: ['./chiplist-tile.component.scss'],
-    imports: [CommonModule, ChipComponent, TileComponent],
+    imports: [ChipComponent, TileComponent],
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ChipListTileComponent {

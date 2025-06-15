@@ -8,7 +8,7 @@ import {
 } from '@angular/core';
 import { Router } from '@angular/router';
 import { Suggestion } from '@product-feedback-app-v2/api-interfaces';
-import { CommonModule } from '@angular/common';
+
 import {
   ButtonComponent,
   SortBy,
@@ -23,11 +23,10 @@ import { environment } from '../../../../environments/environment';
   templateUrl: './suggestions-list.component.html',
   styleUrls: ['./suggestions-list.component.scss'],
   imports: [
-    CommonModule,
     SuggestionListItemComponent,
     SortPipe,
-    ButtonComponent,
-  ],
+    ButtonComponent
+],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SuggestionsListComponent {

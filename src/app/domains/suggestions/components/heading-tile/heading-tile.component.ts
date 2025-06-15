@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+
 import {
   ChangeDetectionStrategy,
   Component,
@@ -12,7 +12,7 @@ import { environment } from 'src/app/environments/environment';
     selector: 'product-feedback-app-v2-heading-tile',
     templateUrl: './heading-tile.component.html',
     styleUrls: ['./heading-tile.component.scss'],
-    imports: [CommonModule, TileComponent],
+    imports: [TileComponent],
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class HeadingTileComponent {

@@ -1,6 +1,6 @@
 import {
   ApplicationConfig,
-  provideExperimentalZonelessChangeDetection,
+  provideZonelessChangeDetection,
 } from '@angular/core';
 import { provideRouter, withPreloading } from '@angular/router';
 import { appRoutes } from './app.routes';
@@ -26,7 +26,7 @@ export const appConfig: ApplicationConfig = {
     hoverPrefetchProviders,
     provideHttpClient(withFetch()),
     provideAnimationsAsync(),
-    provideExperimentalZonelessChangeDetection(),
+    provideZonelessChangeDetection(),
     { provide: APP_CONFIG, useValue: environment },
     { provide: APP_BASE_HREF, useValue: '/' },
   ],

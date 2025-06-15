@@ -9,7 +9,7 @@ import {
 import { ActivatedRoute, Router } from '@angular/router';
 import { Suggestion, User } from '@product-feedback-app-v2/api-interfaces';
 import { Subject } from 'rxjs';
-import { CommonModule } from '@angular/common';
+
 import {
   BackButtonComponent,
   ButtonComponent,
@@ -31,14 +31,13 @@ import { environment } from 'src/app/environments/environment';
   templateUrl: './suggestion-edit.component.html',
   styleUrls: ['./suggestion-edit.component.scss'],
   imports: [
-    CommonModule,
     ReactiveFormsModule,
     BackButtonComponent,
     ButtonComponent,
     SelectComponent,
     FormSubmitDirective,
-    ControlErrorsDirective,
-  ],
+    ControlErrorsDirective
+],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SuggestionEditComponent implements OnInit, OnDestroy {

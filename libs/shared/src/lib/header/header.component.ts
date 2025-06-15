@@ -7,7 +7,7 @@ import {
 } from '@angular/core';
 import { Router } from '@angular/router';
 import { MenuItem } from '../menu/menu.component';
-import { CommonModule } from '@angular/common';
+
 import { ButtonComponent } from '../button/button.component';
 import { environment } from 'src/app/environments/environment';
 
@@ -15,7 +15,7 @@ import { environment } from 'src/app/environments/environment';
     selector: 'product-feedback-app-v2-header',
     templateUrl: './header.component.html',
     styleUrls: ['./header.component.scss'],
-    imports: [CommonModule, ButtonComponent],
+    imports: [ButtonComponent],
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class HeaderComponent {

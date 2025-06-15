@@ -6,7 +6,7 @@ import {
   Output,
 } from '@angular/core';
 import { animate, style, transition, trigger } from '@angular/animations';
-import { CommonModule } from '@angular/common';
+
 import { ChipListTileComponent } from '../chiplist-tile/chiplist-tile.component';
 import { RoadMapTileComponent } from '../roadmap-tile/roadmap-tile.component';
 import { Chip } from '@product-feedback-app-v2/shared';
@@ -16,7 +16,7 @@ import { Chip } from '@product-feedback-app-v2/shared';
     templateUrl: './mobile-sidebar.component.html',
     styleUrls: ['./mobile-sidebar.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush,
-    imports: [CommonModule, ChipListTileComponent, RoadMapTileComponent],
+    imports: [ChipListTileComponent, RoadMapTileComponent],
     animations: [
         trigger('slideInOut', [
             transition(':enter', [
