@@ -1,5 +1,5 @@
 export const environment = {
   production: true,
-  apiEndpoint: 'https://alexbartleynees.com/product-feedback-api/api/',
+  apiEndpoint: 'https://api-product-feedback.alexbartleynees.com/api',
   basePath: '',
 };
