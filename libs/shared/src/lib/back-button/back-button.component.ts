@@ -1,6 +1,5 @@
 import { Location } from '@angular/common';
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
-import { environment } from 'src/app/environments/environment';
 
 @Component({
     selector: 'product-feedback-app-v2-back-button',
@@ -11,8 +10,6 @@ import { environment } from 'src/app/environments/environment';
 })
 export class BackButtonComponent {
   private location = inject(Location);
-
-  environment = environment;
 
   onBackClick() {
     this.location.back();

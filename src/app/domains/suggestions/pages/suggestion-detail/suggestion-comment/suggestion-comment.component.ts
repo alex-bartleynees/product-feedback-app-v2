@@ -22,7 +22,7 @@ import {
   FormSubmitDirective,
 } from '@product-feedback-app-v2/shared';
 import { ReactiveFormsModule } from '@angular/forms';
-import { environment } from 'src/app/environments/environment';
+import { environment } from '../../../../../environments/environment';
 
 @Component({
     selector: 'product-feedback-app-v2-suggestion-comment',

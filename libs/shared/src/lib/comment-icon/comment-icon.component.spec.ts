@@ -8,7 +8,7 @@ describe('CommentIconComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [CommentIconComponent],
+      imports: [CommentIconComponent],
     }).compileComponents();
   });
 

@@ -7,7 +7,7 @@ import {
   SuggestionCommentRequest,
   SuggestionCommentResponse,
 } from '@product-feedback-app-v2/api-interfaces';
-import { catchError, Observable, of, retry, tap, throwError } from 'rxjs';
+import { catchError, Observable, of, tap, throwError } from 'rxjs';
 import { APP_CONFIG } from '@product-feedback-app-v2/app-config';
 
 @Injectable({

@@ -7,7 +7,6 @@ import {
   Output,
   input,
 } from '@angular/core';
-import { environment } from 'src/app/environments/environment';
 
 @Component({
     selector: 'product-feedback-app-v2-chip',
@@ -18,7 +17,6 @@ import { environment } from 'src/app/environments/environment';
 })
 export class ChipComponent {
   text = input<string | number>('');
-  environment = environment;
   @Input() active = false;
   @Input() showArrow = false;
   @Input() usePointer = true;

@@ -152,7 +152,9 @@ export const SuggestionsStore = signalStore(
           }),
           concatMap((id) => suggestionService.delete(id)),
           tapResponse({
-            next: () => {},
+            next: () => {
+              // Success - suggestion deleted, no additional action needed
+            },
             error: (error: string) => state.setError(error),
           }),
         ),

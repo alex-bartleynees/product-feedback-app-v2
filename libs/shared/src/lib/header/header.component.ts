@@ -3,7 +3,6 @@ import { Router } from '@angular/router';
 import { MenuItem } from '../menu/menu.component';
 
 import { ButtonComponent } from '../button/button.component';
-import { environment } from 'src/app/environments/environment';
 
 @Component({
     selector: 'product-feedback-app-v2-header',
@@ -19,7 +18,6 @@ export class HeaderComponent {
   @Input() menuItemSelected?: MenuItem;
   @Output() openMenu = new EventEmitter();
   @Output() addFeedbackButtonClick = new EventEmitter<void>();
-  environment = environment;
 
   onAddFeedbackButtonClick() {
     this.router.navigate(['/suggestion']);

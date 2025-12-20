@@ -17,7 +17,6 @@ import {
 import { SuggestionForm } from '../forms/suggestion-form';
 import { MenuComponent, MenuItem } from '../menu/menu.component';
 import { CommonModule } from '@angular/common';
-import { environment } from 'src/app/environments/environment';
 
 @Component({
     selector: 'product-feedback-app-v2-select',
@@ -42,7 +41,6 @@ export class SelectComponent implements OnInit {
   @Output() menuItemClick = new EventEmitter<void>();
 
   isMenuOpen = false;
-  environment = environment;
 
   @HostListener('document:click', ['$event'])
   onDocumentClick(event: MouseEvent) {

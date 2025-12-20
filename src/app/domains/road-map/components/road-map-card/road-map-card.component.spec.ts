@@ -1,3 +1,6 @@
+import { APP_CONFIG } from '@product-feedback-app-v2/app-config';
+import { provideHttpClient } from '@angular/common/http';
+import { provideRouter } from '@angular/router';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { RoadMapCardComponent } from './road-map-card.component';
@@ -8,7 +11,12 @@ describe('RoadMapCardComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [RoadMapCardComponent],
+      imports: [RoadMapCardComponent],
+      providers: [
+        provideRouter([]),
+        provideHttpClient(),
+        { provide: APP_CONFIG, useValue: { apiEndpoint: 'http://test' } },
+      ],
     }).compileComponents();
   });
 

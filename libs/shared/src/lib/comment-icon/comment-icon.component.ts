@@ -1,6 +1,5 @@
 
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
-import { environment } from 'src/app/environments/environment';
 
 @Component({
     selector: 'product-feedback-app-v2-comment-icon',
@@ -11,5 +10,4 @@ import { environment } from 'src/app/environments/environment';
 })
 export class CommentIconComponent {
   @Input() numberOfComments?: number;
-  environment = environment;
 }

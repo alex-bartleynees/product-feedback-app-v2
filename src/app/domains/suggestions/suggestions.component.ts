@@ -23,7 +23,7 @@ import {
 } from '@product-feedback-app-v2/shared';
 import { SuggestionsListComponent } from './components/suggestions-list/suggestions-list.component';
 import { MobileSidebarComponent } from './components/mobile-sidebar/mobile-sidebar.component';
-import { environment } from 'src/app/environments/environment';
+import { environment } from '../../environments/environment';
 
 @Component({
   selector: 'product-feedback-app-v2-suggestions',

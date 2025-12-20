@@ -1,7 +1,14 @@
 {
   "name": "@product-feedback-app-v2/core-state",
   "version": "0.0.1",
-  "dependencies": {},
+  "dependencies": {
+    "@angular/core": "21.0.6",
+    "@product-feedback-app-v2/api-interfaces": "0.0.1",
+    "@ngrx/signals": "^21.0.0",
+    "@product-feedback-app-v2/core-data": "0.0.1",
+    "rxjs": "~7.8.1",
+    "@ngrx/operators": "^21.0.0"
+  },
   "type": "commonjs",
   "main": "./index.cjs"
 }

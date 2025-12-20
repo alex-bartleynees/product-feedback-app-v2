@@ -1,4 +1,4 @@
-/* eslint-disable */
+ 
 export default {
   displayName: 'core-state',
   preset: '../../jest.preset.js',
