@@ -1,11 +1,5 @@
 import { CommonModule } from '@angular/common';
-import {
-  ChangeDetectionStrategy,
-  Component,
-  OnDestroy,
-  OnInit,
-  Signal,
-} from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnDestroy, OnInit, Signal, inject } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import {
@@ -46,16 +40,14 @@ import { SuggestionCommentComponent } from './suggestion-comment/suggestion-comm
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SuggestionDetailComponent implements OnInit, OnDestroy {
+  private suggestionsFacade = inject(SuggestionsFacadeService);
+  private route = inject(ActivatedRoute);
+  private router = inject(Router);
+  private usersFacade = inject(UsersFacade);
+
   selectedSuggestion = this.suggestionsFacade.selectedSuggestion;
   commentForm = new CommentForm();
   currentUser: Signal<User> = this.usersFacade.currentUser;
-
-  constructor(
-    private suggestionsFacade: SuggestionsFacadeService,
-    private route: ActivatedRoute,
-    private router: Router,
-    private usersFacade: UsersFacade
-  ) {}
 
   ngOnInit(): void {
     const id = this.route.snapshot.paramMap.get('id');

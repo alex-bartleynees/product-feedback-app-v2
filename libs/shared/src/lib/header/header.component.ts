@@ -1,10 +1,4 @@
-import {
-  ChangeDetectionStrategy,
-  Component,
-  EventEmitter,
-  Input,
-  Output,
-} from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output, inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { MenuItem } from '../menu/menu.component';
 
@@ -19,13 +13,13 @@ import { environment } from 'src/app/environments/environment';
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class HeaderComponent {
+  private router = inject(Router);
+
   @Input() numberOfSuggestions: number | undefined = 0;
   @Input() menuItemSelected?: MenuItem;
   @Output() openMenu = new EventEmitter();
   @Output() addFeedbackButtonClick = new EventEmitter<void>();
   environment = environment;
-
-  constructor(private router: Router) {}
 
   onAddFeedbackButtonClick() {
     this.router.navigate(['/suggestion']);

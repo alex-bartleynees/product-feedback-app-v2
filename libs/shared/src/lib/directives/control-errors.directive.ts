@@ -1,15 +1,7 @@
 /* eslint-disable @angular-eslint/directive-selector */
-import {
-  ComponentRef,
-  Directive,
-  Host,
-  Inject,
-  OnInit,
-  Optional,
-  ViewContainerRef,
-} from '@angular/core';
+import { ComponentRef, Directive, OnInit, ViewContainerRef, inject } from '@angular/core';
 import { NgControl } from '@angular/forms';
-import { Observable, Subject, combineLatest, startWith, takeUntil } from 'rxjs';
+import { NEVER, Observable, Subject, combineLatest, startWith, takeUntil } from 'rxjs';
 import { FormSubmitDirective } from './form-submit.directive';
 import { FormErrorComponent } from '../form-error';
 import { FORM_ERRORS, FormErrors } from '../constants/form-errors';
@@ -20,18 +12,20 @@ import { ControlErrorContainerDirective } from './control-error-container.direct
   standalone: true,
 })
 export class ControlErrorsDirective implements OnInit {
+  private vcr = inject(ViewContainerRef);
+  private control = inject(NgControl);
+  private form = inject(FormSubmitDirective, { optional: true, host: true });
+  private errors = inject<FormErrors>(FORM_ERRORS);
+
   ref?: ComponentRef<FormErrorComponent>;
   submit$: Observable<Event>;
   container: ViewContainerRef;
 
-  constructor(
-    private vcr: ViewContainerRef,
-    private control: NgControl,
-    @Optional() controlErrorContainer: ControlErrorContainerDirective,
-    @Optional() @Host() private form: FormSubmitDirective,
-    @Inject(FORM_ERRORS) private errors: FormErrors
-  ) {
-    this.submit$ = this.form && this.form.submit$;
+  constructor() {
+    const vcr = this.vcr;
+    const controlErrorContainer = inject(ControlErrorContainerDirective, { optional: true });
+
+    this.submit$ = this.form?.submit$ ?? NEVER.pipe(startWith(undefined as unknown as Event));
     this.container = controlErrorContainer ? controlErrorContainer.vcr : vcr;
   }
 

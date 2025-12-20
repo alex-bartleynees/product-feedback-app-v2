@@ -41,6 +41,9 @@ import { environment } from 'src/app/environments/environment';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SuggestionsComponent implements OnInit, OnDestroy {
+  private router = inject(Router);
+  private renderer = inject(Renderer2);
+
   isMenuOpen = false;
   showMobileSidebar = false;
   sortBy: SortBy = { key: 'upvotes', order: 'desc' };
@@ -105,11 +108,6 @@ export class SuggestionsComponent implements OnInit, OnDestroy {
 
   private readonly suggestionsFacade = inject(SuggestionsFacadeService);
   allSuggestions = this.suggestionsFacade.allSuggestions;
-
-  constructor(
-    private router: Router,
-    private renderer: Renderer2,
-  ) {}
 
   ngOnInit(): void {
     if (typeof window !== 'undefined') {

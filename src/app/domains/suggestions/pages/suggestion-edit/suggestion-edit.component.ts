@@ -1,11 +1,4 @@
-import {
-  ChangeDetectionStrategy,
-  Component,
-  OnDestroy,
-  OnInit,
-  computed,
-  signal,
-} from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnDestroy, OnInit, computed, signal, inject } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Suggestion, User } from '@product-feedback-app-v2/api-interfaces';
 import { Subject } from 'rxjs';
@@ -41,6 +34,11 @@ import { environment } from 'src/app/environments/environment';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SuggestionEditComponent implements OnInit, OnDestroy {
+  private router = inject(Router);
+  private route = inject(ActivatedRoute);
+  private suggestionService = inject(SuggestionsFacadeService);
+  private usersFacade = inject(UsersFacade);
+
   editMode = signal(false);
   id?: number;
   suggestionForm = computed(() =>
@@ -100,13 +98,6 @@ export class SuggestionEditComponent implements OnInit, OnDestroy {
   ];
 
   private readonly destroy$ = new Subject<void>();
-
-  constructor(
-    private router: Router,
-    private route: ActivatedRoute,
-    private suggestionService: SuggestionsFacadeService,
-    private usersFacade: UsersFacade,
-  ) {}
 
   ngOnInit(): void {
     const id = this.route.snapshot.paramMap.get('id');

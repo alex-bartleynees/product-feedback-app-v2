@@ -1,4 +1,4 @@
-import { Inject, Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import {
   AppConfig,
@@ -14,11 +14,10 @@ import { APP_CONFIG } from '@product-feedback-app-v2/app-config';
   providedIn: 'root',
 })
 export class SuggestionService {
+  private appConfig = inject<AppConfig>(APP_CONFIG);
+  private http = inject(HttpClient);
+
   suggestionsCache = new Map<number, Suggestion>();
-  constructor(
-    @Inject(APP_CONFIG) private appConfig: AppConfig,
-    private http: HttpClient,
-  ) {}
 
   suggestionsModel = 'suggestions';
   commentModel = 'comment';

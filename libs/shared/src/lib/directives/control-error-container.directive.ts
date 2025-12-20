@@ -1,4 +1,4 @@
-import { Directive, ViewContainerRef } from '@angular/core';
+import { Directive, ViewContainerRef, inject } from '@angular/core';
 
 @Directive({
   // eslint-disable-next-line @angular-eslint/directive-selector
@@ -6,5 +6,5 @@ import { Directive, ViewContainerRef } from '@angular/core';
   standalone: true,
 })
 export class ControlErrorContainerDirective {
-  constructor(public vcr: ViewContainerRef) {}
+  vcr = inject(ViewContainerRef);
 }

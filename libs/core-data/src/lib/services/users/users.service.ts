@@ -1,15 +1,14 @@
 import { HttpClient } from '@angular/common/http';
-import { Inject, Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { AppConfig, User } from '@product-feedback-app-v2/api-interfaces';
 import { APP_CONFIG } from '@product-feedback-app-v2/app-config';
 import { Observable } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
 export class UsersService {
-  constructor(
-    @Inject(APP_CONFIG) private appConfig: AppConfig,
-    private http: HttpClient
-  ) {}
+  private appConfig = inject<AppConfig>(APP_CONFIG);
+  private http = inject(HttpClient);
+
 
   usersModel = 'users';
 

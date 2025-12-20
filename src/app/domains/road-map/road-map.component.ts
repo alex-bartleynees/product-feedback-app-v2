@@ -1,16 +1,4 @@
-
-import {
-  AfterViewInit,
-  ChangeDetectionStrategy,
-  Component,
-  ElementRef,
-  HostListener,
-  OnDestroy,
-  OnInit,
-  Renderer2,
-  ViewChild,
-  computed,
-} from '@angular/core';
+import { AfterViewInit, ChangeDetectionStrategy, Component, ElementRef, HostListener, OnDestroy, OnInit, Renderer2, ViewChild, computed, inject } from '@angular/core';
 import { SuggestionsFacadeService } from '@product-feedback-app-v2/core-state';
 import { RoadMapCardComponent } from './components/road-map-card/road-map-card.component';
 import {
@@ -22,14 +10,13 @@ import {
   selector: 'product-feedback-app-v2-road-map',
   templateUrl: './road-map.component.html',
   styleUrls: ['./road-map.component.scss'],
-  imports: [
-    RoadMapCardComponent,
-    HeaderComponent,
-    BackButtonComponent
-],
+  imports: [RoadMapCardComponent, HeaderComponent, BackButtonComponent],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class RoadMapComponent implements OnInit, AfterViewInit, OnDestroy {
+  private suggestionsFacade = inject(SuggestionsFacadeService);
+  private renderer = inject(Renderer2);
+
   @ViewChild('plannedTab') plannedTab!: ElementRef;
   allSuggestions = this.suggestionsFacade.allSuggestions();
   suggestions = computed(() => ({
@@ -42,12 +29,7 @@ export class RoadMapComponent implements OnInit, AfterViewInit, OnDestroy {
   selectedTabName = 'planned';
   isMobile = typeof window !== 'undefined' ? window.innerWidth <= 700 : false;
 
-  constructor(
-    private suggestionsFacade: SuggestionsFacadeService,
-    private renderer: Renderer2,
-  ) {}
-
-  @HostListener('window:resize', ['$event'])
+  @HostListener('window:resize')
   onResize() {
     if (window.innerWidth <= 700) {
       this.isMobile = true;

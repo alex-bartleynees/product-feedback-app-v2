@@ -1,5 +1,5 @@
 import { Location } from '@angular/common';
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { environment } from 'src/app/environments/environment';
 
 @Component({
@@ -10,8 +10,9 @@ import { environment } from 'src/app/environments/environment';
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class BackButtonComponent {
+  private location = inject(Location);
+
   environment = environment;
-  constructor(private location: Location) {}
 
   onBackClick() {
     this.location.back();

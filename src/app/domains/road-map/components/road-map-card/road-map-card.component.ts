@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, inject } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { Suggestion } from '@product-feedback-app-v2/api-interfaces';
 import { SuggestionsFacadeService } from '@product-feedback-app-v2/core-state';
@@ -16,9 +16,9 @@ import {
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class RoadMapCardComponent {
-  @Input() suggestion?: Suggestion;
+  private suggestionsFacade = inject(SuggestionsFacadeService);
 
-  constructor(private suggestionsFacade: SuggestionsFacadeService) {}
+  @Input() suggestion?: Suggestion;
 
   handleUpVoteClick(suggestion: Suggestion) {
     this.suggestionsFacade.upVoteSuggestion(suggestion);

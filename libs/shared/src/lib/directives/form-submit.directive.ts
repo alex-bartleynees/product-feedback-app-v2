@@ -1,4 +1,4 @@
-import { Directive, ElementRef } from '@angular/core';
+import { Directive, ElementRef, inject } from '@angular/core';
 import { fromEvent, shareReplay, tap } from 'rxjs';
 
 @Directive({
@@ -7,7 +7,8 @@ import { fromEvent, shareReplay, tap } from 'rxjs';
   standalone: true,
 })
 export class FormSubmitDirective {
-  constructor(private host: ElementRef<HTMLFormElement>) {}
+  private host = inject<ElementRef<HTMLFormElement>>(ElementRef);
+
 
   submit$ = fromEvent(this.element, 'submit').pipe(
     tap(() => {

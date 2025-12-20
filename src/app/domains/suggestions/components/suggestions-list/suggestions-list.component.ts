@@ -30,6 +30,8 @@ import { environment } from '../../../../environments/environment';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SuggestionsListComponent {
+  private router = inject(Router);
+
   @Input() allSuggestions?: Suggestion[];
   @Input() sortBy: SortBy = { key: 'upvotes', order: 'desc' };
 
@@ -39,8 +41,6 @@ export class SuggestionsListComponent {
 
   readonly suggestionsFacade = inject(SuggestionsFacadeService);
   environment = environment;
-
-  constructor(private router: Router) {}
 
   onButtonClick() {
     this.router.navigate(['/suggestion']);
