@@ -72,7 +72,7 @@ export const SuggestionsStore = signalStore(
             return updatedSuggestion;
           }),
           tap((updatedSuggestion) => {
-            patchState(state, (state) => ({
+            patchState(state, (state: SuggestionsState) => ({
               suggestions: state.suggestions.map((suggestion) =>
                 suggestion.id === updatedSuggestion.id
                   ? updatedSuggestion
@@ -109,7 +109,7 @@ export const SuggestionsStore = signalStore(
           switchMap((suggestion) => suggestionService.create(suggestion)),
           tapResponse({
             next: (response) => {
-              patchState(state, (state) => ({
+              patchState(state, (state: SuggestionsState) => ({
                 suggestions: [response, ...state.suggestions],
               }));
             },
@@ -120,7 +120,7 @@ export const SuggestionsStore = signalStore(
       updateSuggestion: rxMethod<Suggestion>(
         pipe(
           tap((updatedSuggestion) => {
-            patchState(state, (state) => ({
+            patchState(state, (state: SuggestionsState) => ({
               suggestions: state.suggestions.map((suggestion) =>
                 suggestion.id === updatedSuggestion.id
                   ? updatedSuggestion
@@ -144,7 +144,7 @@ export const SuggestionsStore = signalStore(
       deleteSuggestion: rxMethod<number>(
         pipe(
           tap((id) => {
-            patchState(state, (state) => ({
+            patchState(state, (state: SuggestionsState) => ({
               suggestions: state.suggestions.filter(
                 (suggestion) => suggestion.id !== id,
               ),
@@ -164,7 +164,7 @@ export const SuggestionsStore = signalStore(
           switchMap((comment) => suggestionService.addComment(comment)),
           tapResponse({
             next: (response) => {
-              patchState(state, (state) => {
+              patchState(state, (state: SuggestionsState) => {
                 const parentSuggestion = state.selectedSuggestion;
                 if (parentSuggestion) {
                   const updatedSuggestion = {
@@ -191,7 +191,7 @@ export const SuggestionsStore = signalStore(
           switchMap((reply) => suggestionService.addReply(reply)),
           tapResponse({
             next: (response) => {
-              patchState(state, (state) => {
+              patchState(state, (state: SuggestionsState) => {
                 const parentSuggestion = state.selectedSuggestion;
                 const comment = parentSuggestion?.comments?.find(
                   (comment) => comment.id === response.suggestionCommentId,
