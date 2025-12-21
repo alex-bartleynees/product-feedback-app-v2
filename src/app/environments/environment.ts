@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  apiEndpoint: 'https://alexbartleynees.com/product-feedback-api/api/',
+  apiEndpoint: 'http://localhost:5185/api/',
   basePath: '',
 };
 
