@@ -11,6 +11,7 @@ export * from './lib/types/chip';
 export * from './lib/types/sort-by';
 export * from './lib/forms/suggestion-form';
 export * from './lib/forms/comment-form';
+export * from './lib/forms/registration-form';
 export * from './lib/form-error';
 export * from './lib/directives/control-errors.directive';
 export * from './lib/directives/form-submit.directive';

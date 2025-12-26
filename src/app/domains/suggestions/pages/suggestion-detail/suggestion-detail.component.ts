@@ -43,7 +43,7 @@ export class SuggestionDetailComponent implements OnInit, OnDestroy {
   private suggestionsFacade = inject(SuggestionsFacadeService);
   private route = inject(ActivatedRoute);
   private router = inject(Router);
-  private usersFacade = inject(UsersFacade);
+  usersFacade = inject(UsersFacade);
 
   selectedSuggestion = this.suggestionsFacade.selectedSuggestion;
   commentForm = new CommentForm();
@@ -65,13 +65,13 @@ export class SuggestionDetailComponent implements OnInit, OnDestroy {
   }
 
   onSubmitComment(): void {
-    if (!this.selectedSuggestion || !this.commentForm.valid) {
+    if (!this.selectedSuggestion || !this.commentForm.valid || !this.currentUser()?.id) {
       return;
     }
     const comment: SuggestionCommentRequest = {
       suggestionId: this.selectedSuggestion()?.id,
       content: this.commentForm.comment.value,
-      userId: this.currentUser()?.id ?? 0,
+      userId: this.currentUser().id!,
     };
 
     this.suggestionsFacade.addCommentToSuggestion(comment);
@@ -82,8 +82,7 @@ export class SuggestionDetailComponent implements OnInit, OnDestroy {
   onNewReply(reply: SuggestionReply): void {
     if (
       !this.selectedSuggestion()?.id ||
-      !reply.user.id ||
-      !this.currentUser().id
+      !this.currentUser()?.id
     ) {
       return;
     }
@@ -93,7 +92,7 @@ export class SuggestionDetailComponent implements OnInit, OnDestroy {
       suggestionCommentId: reply.suggestionCommentId,
       content: reply.content,
       replyingTo: reply.replyingTo,
-      userId: this.currentUser().id ?? 0,
+      userId: this.currentUser().id!,
     };
 
     this.suggestionsFacade.addReplyToComment(suggestionReplyRequest);

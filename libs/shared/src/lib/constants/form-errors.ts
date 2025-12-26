@@ -18,6 +18,8 @@ export const defaultErrors = {
     actualLength: number;
   }) =>
     `Should be at most ${requiredLength} characters long (actual: ${actualLength})`,
+  email: () => 'Please enter a valid email address',
+  passwordMismatch: () => 'Passwords do not match',
 } as const;
 
 export const FORM_ERRORS = new InjectionToken('FORM_ERRORS', {

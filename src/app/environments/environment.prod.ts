@@ -1,5 +1,6 @@
 export const environment = {
   production: true,
-  apiEndpoint: 'https://api-product-feedback.alexbartleynees.com/api/',
+  apiEndpoint: '/api/',
+  apiEndpointServer: 'http://nginx/api/',
   basePath: '',
 };

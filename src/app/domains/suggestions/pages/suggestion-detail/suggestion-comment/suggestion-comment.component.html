@@ -3,7 +3,7 @@
     <div class="comment__user-image">
       <img
         class="user__image"
-        [src]="environment.basePath + comment.user.image"
+        [src]="comment.user.image"
         alt="user image"
       />
     </div>
@@ -14,9 +14,11 @@
         <p class="user__user-name">&#64;{{ comment.user.username }}</p>
       </div>
 
-      <p class="reply__button body-3" (click)="showReply.set(!showReply())">
-        Reply
-      </p>
+      @if (isAuthenticated) {
+        <p class="reply__button body-3" (click)="showReply.set(!showReply())">
+          Reply
+        </p>
+      }
 
       <div class="comment__text">
         <p>
@@ -55,6 +57,7 @@
             [parentComment]="comment"
             [replyingTo]="reply.replyingTo"
             [currentUser]="currentUser"
+            [isAuthenticated]="isAuthenticated"
             (newReply)="onNewReply($event)"
           ></product-feedback-app-v2-suggestion-comment>
         </div>

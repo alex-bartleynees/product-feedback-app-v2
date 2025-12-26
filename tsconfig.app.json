@@ -3,7 +3,7 @@
   "compilerOptions": {
     "outDir": "./dist/out-tsc",
     "types": ["node"],
-    "module": "preserve",
+    "module": "es2022",
     "moduleResolution": "bundler"
   },
   "files": ["src/main.ts", "src/main.server.ts", "server.ts"],

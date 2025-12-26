@@ -1,0 +1,93 @@
+<div class="container">
+  <div class="navigation__container">
+    <product-feedback-app-v2-back-button></product-feedback-app-v2-back-button>
+  </div>
+
+  <div class="profile__container">
+    <div class="profile__header">
+      <h1 class="profile__heading">Profile</h1>
+    </div>
+
+    <div class="profile__content">
+      <div class="profile__image-section">
+        <div class="profile__image-wrapper">
+          @if (previewUrl()) {
+            <img
+              class="profile__image"
+              [src]="previewUrl()"
+              alt="Preview"
+            />
+          } @else if (currentImageUrl()) {
+            <img
+              class="profile__image"
+              [src]="currentImageUrl()"
+              alt="Profile picture"
+            />
+          } @else {
+            <div class="profile__image-placeholder">
+              <span>No Image</span>
+            </div>
+          }
+        </div>
+
+        <input
+          #fileInput
+          type="file"
+          accept="image/jpeg,image/png,image/gif,image/webp"
+          (change)="onFileSelected($event)"
+          class="file-input"
+        />
+
+        @if (!previewUrl()) {
+          <product-feedback-app-v2-button
+            class="button__select"
+            (click)="onSelectFileClick()"
+          >
+            Choose Image
+          </product-feedback-app-v2-button>
+        }
+
+        @if (previewUrl()) {
+          <div class="preview-actions">
+            <product-feedback-app-v2-button
+              class="button__upload"
+              (click)="onUploadClick()"
+              [attr.disabled]="isUploading() ? true : null"
+            >
+              {{ isUploading() ? 'Uploading...' : 'Upload' }}
+            </product-feedback-app-v2-button>
+            <product-feedback-app-v2-button
+              class="button__cancel"
+              (click)="onCancelPreview()"
+            >
+              Cancel
+            </product-feedback-app-v2-button>
+          </div>
+        }
+      </div>
+
+      @if (errorMessage()) {
+        <div class="message message--error">
+          {{ errorMessage() }}
+        </div>
+      }
+
+      @if (successMessage()) {
+        <div class="message message--success">
+          {{ successMessage() }}
+        </div>
+      }
+
+      <div class="profile__info">
+        <div class="info__group">
+          <label class="info__label">Name</label>
+          <p class="info__value">{{ usersFacade.currentUser().name }}</p>
+        </div>
+        <div class="info__group">
+          <label class="info__label">Username</label>
+          <p class="info__value">{{ usersFacade.currentUser().username }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

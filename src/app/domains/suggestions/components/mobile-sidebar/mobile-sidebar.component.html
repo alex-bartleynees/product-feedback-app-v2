@@ -1,4 +1,21 @@
 <div class="container" [@slideInOut]>
+  @if (usersFacade.isAuthenticated()) {
+    <div class="user-actions">
+      <product-feedback-app-v2-button
+        class="user-action-button"
+        (click)="onProfileClick()"
+      >
+        Profile
+      </product-feedback-app-v2-button>
+      <product-feedback-app-v2-button
+        class="user-action-button user-action-button--logout"
+        (click)="onLogoutClick()"
+      >
+        Logout
+      </product-feedback-app-v2-button>
+    </div>
+  }
+
   <product-feedback-app-v2-chiplist-tile
     [chipList]="chipList"
     (chipSelected)="chipSelected.emit($event)"

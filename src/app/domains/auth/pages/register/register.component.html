@@ -1,0 +1,116 @@
+<div class="container">
+  <div class="navigation__container">
+    <product-feedback-app-v2-back-button></product-feedback-app-v2-back-button>
+  </div>
+
+  <div class="register__container">
+    <div class="register__header">
+      <h1 class="register__heading">Create Account</h1>
+    </div>
+
+    @if (errorMessage()) {
+      <div class="error-banner">
+        {{ errorMessage() }}
+      </div>
+    }
+
+    <form
+      appFormSubmit
+      class="register__form"
+      [formGroup]="registrationForm"
+      (ngSubmit)="onSubmit()"
+    >
+      <div class="form__group">
+        <label for="email" class="form__label">
+          <h4>Email</h4>
+        </label>
+        <p>Enter your email address</p>
+        <input
+          formControlName="email"
+          type="email"
+          id="email"
+          class="form__input"
+          autocomplete="email"
+        />
+      </div>
+
+      <div class="form__group">
+        <label for="username" class="form__label">
+          <h4>Username</h4>
+        </label>
+        <p>Choose a unique username</p>
+        <input
+          formControlName="username"
+          type="text"
+          id="username"
+          class="form__input"
+          autocomplete="username"
+        />
+      </div>
+
+      <div class="form__group">
+        <label for="name" class="form__label">
+          <h4>Full Name</h4>
+        </label>
+        <p>Enter your full name</p>
+        <input
+          formControlName="name"
+          type="text"
+          id="name"
+          class="form__input"
+          autocomplete="name"
+        />
+      </div>
+
+      <div class="form__group">
+        <label for="password" class="form__label">
+          <h4>Password</h4>
+        </label>
+        <p>Must be at least 8 characters</p>
+        <input
+          formControlName="password"
+          type="password"
+          id="password"
+          class="form__input"
+          autocomplete="new-password"
+        />
+      </div>
+
+      <div class="form__group">
+        <label for="confirmPassword" class="form__label">
+          <h4>Confirm Password</h4>
+        </label>
+        <p>Re-enter your password</p>
+        <input
+          formControlName="confirmPassword"
+          type="password"
+          id="confirmPassword"
+          class="form__input"
+          autocomplete="new-password"
+        />
+      </div>
+
+      <div class="register-buttons">
+        <product-feedback-app-v2-button
+          class="button__cancel"
+          (click)="onCancelClick($event)"
+        >
+          Cancel
+        </product-feedback-app-v2-button>
+        <product-feedback-app-v2-button
+          class="button__submit"
+          [attr.disabled]="isSubmitting() ? true : null"
+        >
+          {{ isSubmitting() ? 'Creating...' : 'Create Account' }}
+        </product-feedback-app-v2-button>
+      </div>
+
+      <div class="login-link">
+        <p>
+          Already have an account?
+          <a href="#" (click)="onLoginClick($event)">Log in</a>
+        </p>
+      </div>
+    </form>
+  </div>
+</div>

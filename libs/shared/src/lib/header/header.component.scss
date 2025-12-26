@@ -26,8 +26,30 @@
   gap: 2rem;
 }
 
-.header__button {
+.header__actions {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
   margin-left: auto;
+}
+
+.header__button {
+  &--secondary {
+    ::ng-deep button {
+      background-color: #656ea3;
+
+      &:hover {
+        background-color: #7c8db0;
+      }
+    }
+  }
+
+  &--profile,
+  &--logout {
+    @media (max-width: 700px) {
+      display: none;
+    }
+  }
 }
 
 .button__content {

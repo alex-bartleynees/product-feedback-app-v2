@@ -1,10 +1,12 @@
 <div class="navigation__buttons">
   <product-feedback-app-v2-back-button> </product-feedback-app-v2-back-button>
-  <product-feedback-app-v2-button
-    [style]="'secondary'"
-    (click)="onEditFeedbackClick()"
-    >Edit Feedback</product-feedback-app-v2-button
-  >
+  @if (usersFacade.isAuthenticated()) {
+    <product-feedback-app-v2-button
+      [style]="'secondary'"
+      (click)="onEditFeedbackClick()"
+      >Edit Feedback</product-feedback-app-v2-button
+    >
+  }
 </div>
 
 <product-feedback-app-v2-suggestion-list-item
@@ -26,29 +28,32 @@
     }"
     [comment]="comment"
     [currentUser]="currentUser"
+    [isAuthenticated]="usersFacade.isAuthenticated()"
     (newReply)="onNewReply($event)"
   ></product-feedback-app-v2-suggestion-comment>
   }
 </div>
 
-<form
-  class="comment__form"
-  [formGroup]="commentForm"
-  (ngSubmit)="onSubmitComment()"
->
-  <div class="comment__form-header">
-    <h3 class="comment__form-header-text">Add Comment</h3>
-  </div>
+@if (usersFacade.isAuthenticated()) {
+  <form
+    class="comment__form"
+    [formGroup]="commentForm"
+    (ngSubmit)="onSubmitComment()"
+  >
+    <div class="comment__form-header">
+      <h3 class="comment__form-header-text">Add Comment</h3>
+    </div>
 
-  <div class="comment__form-content">
-    <textarea formControlName="comment" maxlength="255"></textarea>
-    <p class="comment__remaining body-2">
-      {{ 255 - commentForm.comment.value?.length }} characters left
-    </p>
-    <product-feedback-app-v2-button class="button__submit"
-      ><span class="button__text"
-        >Post Comment</span
-      ></product-feedback-app-v2-button
-    >
-  </div>
-</form>
+    <div class="comment__form-content">
+      <textarea formControlName="comment" maxlength="255"></textarea>
+      <p class="comment__remaining body-2">
+        {{ 255 - commentForm.comment.value?.length }} characters left
+      </p>
+      <product-feedback-app-v2-button class="button__submit"
+        ><span class="button__text"
+          >Post Comment</span
+        ></product-feedback-app-v2-button
+      >
+    </div>
+  </form>
+}

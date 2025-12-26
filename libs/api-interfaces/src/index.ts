@@ -7,3 +7,6 @@ export { SuggestionCommentRequest } from './lib/suggestion-comment-request';
 export { SuggestionCommentReplyRequest } from './lib/suggestion-comment-reply-request';
 export { SuggestionCommentResponse } from './lib/suggestion-comment-response';
 export { SuggestionCommentReplyResponse } from './lib/suggestion-comment-reply-response';
+export { BffUserResponse, BffClaim } from './lib/bff-user-response';
+export { UserForCreationDto } from './lib/user-for-creation-dto';
+export { ImageUploadResultDto } from './lib/image-upload-result-dto';

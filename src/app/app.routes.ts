@@ -1,5 +1,6 @@
 import { Route } from '@angular/router';
 import { SuggestionsComponent } from './domains/suggestions/suggestions.component';
+import { authGuard } from './guards/auth.guard';
 
 export const appRoutes: Route[] = [
   {
@@ -15,6 +16,7 @@ export const appRoutes: Route[] = [
   },
   {
     path: 'suggestion',
+    canActivate: [authGuard],
     loadComponent: () =>
       import(
         './domains/suggestions/pages/suggestion-edit/suggestion-edit.component'
@@ -22,6 +24,7 @@ export const appRoutes: Route[] = [
   },
   {
     path: 'suggestion/:id',
+    canActivate: [authGuard],
     loadComponent: () =>
       import(
         './domains/suggestions/pages/suggestion-edit/suggestion-edit.component'
@@ -32,6 +35,21 @@ export const appRoutes: Route[] = [
     loadComponent: () =>
       import('./domains/road-map/road-map.component').then(
         (mod) => mod.RoadMapComponent
+      ),
+  },
+  {
+    path: 'register',
+    loadComponent: () =>
+      import('./domains/auth/pages/register/register.component').then(
+        (mod) => mod.RegisterComponent
+      ),
+  },
+  {
+    path: 'profile',
+    canActivate: [authGuard],
+    loadComponent: () =>
+      import('./domains/auth/pages/profile/profile.component').then(
+        (mod) => mod.ProfileComponent
       ),
   },
 ];

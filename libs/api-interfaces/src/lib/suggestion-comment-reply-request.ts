@@ -3,5 +3,5 @@ export interface SuggestionCommentReplyRequest {
   suggestionCommentId: number;
   content: string;
   replyingTo: string;
-  userId: number;
+  userId: string;
 }

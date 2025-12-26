@@ -4,9 +4,19 @@ services:
     build: ./
     image: creativefree/product-feedback-app:latest
     container_name: product-feedback-app
+    environment:
+      - BFF_API_URL=http://product-feedback-bff:5224
+    networks:
+      - shared-network
   nginx:
     build: ./nginx
     image: creativefree/nginx:latest
     container_name: nginx
     ports:
       - 80:80
+    networks:
+      - shared-network
+
+networks:
+  shared-network:
+    external: true

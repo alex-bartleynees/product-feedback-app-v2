@@ -1,6 +1,9 @@
 {
   "extends": "./tsconfig.json",
-  "include": ["src/**/*.ts"],
+  "include": [
+    "src/**/*.ts",
+    "libs/core-data/src/lib/services/csrf/csrf.service.ts"
+  ],
   "compilerOptions": {
     "types": ["jest", "node"]
   }
