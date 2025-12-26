@@ -23,6 +23,9 @@ spec:
         - name: nodejs
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
           imagePullPolicy: {{ .Values.image.imagePullPolicy }}
+          env:
+            - name: BFF_API_URL
+              value: "http://product-feedback-bff-svc.product-feedback.svc.cluster.local:5224"
           resources:
             requests:
               memory: "128Mi"
