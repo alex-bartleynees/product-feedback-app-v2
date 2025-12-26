@@ -1,6 +1,7 @@
 export const environment = {
   production: true,
   apiEndpoint: '/api/',
-  apiEndpointServer: 'http://nginx/api/',
+  apiEndpointServer:
+    'http://product-feedback-bff-svc.product-feedback.svc.cluster.local:5224/api/',
   basePath: '',
 };
