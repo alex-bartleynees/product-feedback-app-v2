@@ -18,19 +18,22 @@
   <h3 class="comment__heading">
     {{ selectedSuggestion()?.comments?.length }} Comments
   </h3>
-  @for (comment of selectedSuggestion()?.comments; let i = $index; track
-  comment.id) {
-  <product-feedback-app-v2-suggestion-comment
-    [ngClass]="{
-      'comment--border':
-        selectedSuggestion()!.comments!.length > 1 &&
-        i !== selectedSuggestion()!.comments!.length - 1
-    }"
-    [comment]="comment"
-    [currentUser]="currentUser"
-    [isAuthenticated]="usersFacade.isAuthenticated()"
-    (newReply)="onNewReply($event)"
-  ></product-feedback-app-v2-suggestion-comment>
+  @for (
+    comment of selectedSuggestion()?.comments;
+    let i = $index;
+    track comment.id
+  ) {
+    <product-feedback-app-v2-suggestion-comment
+      [ngClass]="{
+        'comment--border':
+          selectedSuggestion()!.comments!.length > 1 &&
+          i !== selectedSuggestion()!.comments!.length - 1,
+      }"
+      [comment]="comment"
+      [currentUser]="currentUser"
+      [isAuthenticated]="usersFacade.isAuthenticated()"
+      (newReply)="onNewReply($event)"
+    ></product-feedback-app-v2-suggestion-comment>
   }
 </div>
 
@@ -49,7 +52,7 @@
       <p class="comment__remaining body-2">
         {{ 255 - commentForm.comment.value?.length }} characters left
       </p>
-      <product-feedback-app-v2-button class="button__submit"
+      <product-feedback-app-v2-button class="button__submit" type="submit"
         ><span class="button__text"
           >Post Comment</span
         ></product-feedback-app-v2-button
