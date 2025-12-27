@@ -1,11 +1,7 @@
 @if (comment) {
   <div class="comment">
     <div class="comment__user-image">
-      <img
-        class="user__image"
-        [src]="comment.user.image"
-        alt="user image"
-      />
+      <img class="user__image" [src]="comment.user.image" alt="user image" />
     </div>
 
     <div class="comment__content">
@@ -37,7 +33,7 @@
           controlErrorContainer
         >
           <textarea formControlName="comment" maxlength="255"></textarea>
-          <product-feedback-app-v2-button
+          <product-feedback-app-v2-button type="submit"
             ><span class="button__text"
               >Post Reply</span
             ></product-feedback-app-v2-button
