@@ -10,7 +10,9 @@ export class AuthService {
   private http = inject(HttpClient);
 
   getUserInfo(): Observable<BffUserResponse> {
-    return this.http.get<BffUserResponse>('/bff/user');
+    return this.http.get<BffUserResponse>('/bff/user', {
+      withCredentials: true,
+    });
   }
 
   login(): void {

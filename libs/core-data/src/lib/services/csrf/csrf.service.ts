@@ -17,11 +17,15 @@ export class CsrfService {
    * This should be called during app initialization.
    */
   fetchCsrfToken(): Observable<AntiforgeryResponse> {
-    return this.http.get<AntiforgeryResponse>('/bff/antiforgery').pipe(
-      tap((response) => {
-        this.csrfToken = response.requestToken;
+    return this.http
+      .get<AntiforgeryResponse>('/bff/antiforgery', {
+        withCredentials: true,
       })
-    );
+      .pipe(
+        tap((response) => {
+          this.csrfToken = response.requestToken;
+        })
+      );
   }
 
   /**

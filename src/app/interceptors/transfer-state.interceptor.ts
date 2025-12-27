@@ -35,8 +35,9 @@ export const transferStateInterceptor: HttpInterceptorFn = (
   const platformId = inject(PLATFORM_ID);
   const transferState = inject(TransferState);
 
-  // Only handle GET requests for API endpoints
-  if (req.method !== 'GET' || !req.url.includes('/api/')) {
+  // Only handle GET requests for API and BFF endpoints
+  const isCacheableUrl = req.url.includes('/api/') || req.url.includes('/bff/');
+  if (req.method !== 'GET' || !isCacheableUrl) {
     return next(req);
   }
 
