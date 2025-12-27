@@ -7,6 +7,7 @@ export class UsersFacade {
 
   currentUser = this.store.currentUser;
   isAuthenticated = this.store.isAuthenticated;
+  loading = this.store.loading;
 
   loadCurrentUser(): void {
     this.store.loadCurrentUser();
