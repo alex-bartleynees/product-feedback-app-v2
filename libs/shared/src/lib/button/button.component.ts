@@ -10,4 +10,5 @@ import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 })
 export class ButtonComponent {
   @Input() style = '';
+  @Input() type: 'button' | 'submit' | 'reset' = 'button';
 }

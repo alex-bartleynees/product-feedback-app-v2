@@ -99,6 +99,7 @@
         </product-feedback-app-v2-button>
         <product-feedback-app-v2-button
           class="button__submit"
+          type="submit"
           [attr.disabled]="isSubmitting() ? true : null"
         >
           {{ isSubmitting() ? 'Creating...' : 'Create Account' }}
