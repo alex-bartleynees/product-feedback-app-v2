@@ -25,7 +25,7 @@ spec:
           imagePullPolicy: {{ .Values.image.imagePullPolicy }}
           env:
             - name: BFF_API_URL
-              value: "http://product-feedback-bff-authgateway-bff-svc.cluster.local:5224"
+              value: "http://product-feedback-bff-authgateway-bff-svc.product-feedback.svc.cluster.local:5224"
           resources:
             requests:
               memory: "128Mi"
