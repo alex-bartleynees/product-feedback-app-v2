@@ -74,13 +74,6 @@
         "buildTarget": "product-feedback-app-v2:build"
       }
     },
-    "lint": {
-      "executor": "@nx/eslint:lint",
-      "outputs": ["{options.outputFile}"],
-      "options": {
-        "lintFilePatterns": ["./src"]
-      }
-    },
     "test": {
       "executor": "nx:run-commands",
       "cache": true,

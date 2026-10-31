@@ -144,6 +144,12 @@
         "libs/core-state/**/*",
         "libs/shared/**/*"
       ]
+    },
+    {
+      "plugin": "@nx/eslint/plugin",
+      "options": {
+        "targetName": "lint"
+      }
     }
   ]
 }
