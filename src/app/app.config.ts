@@ -27,7 +27,7 @@ import {
 } from 'ngx-hover-preload';
 import { transferStateInterceptor } from './interceptors/transfer-state.interceptor';
 import { csrfInterceptor } from './interceptors/csrf.interceptor';
-import { CsrfService } from '../../libs/core-data/src/lib/services/csrf/csrf.service';
+import { CsrfService } from '@product-feedback-app-v2/core-data';
 import { firstValueFrom } from 'rxjs';
 
 /**

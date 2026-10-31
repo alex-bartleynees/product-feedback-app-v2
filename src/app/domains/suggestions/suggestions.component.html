@@ -24,7 +24,13 @@
       />
       <h2 class="header__heading">{{ allSuggestions().length }} Suggestions</h2>
 
-      <div class="header__sort" (click)="isMenuOpen = !isMenuOpen">
+      <div
+        class="header__sort"
+        role="button"
+        tabindex="0"
+        (click)="isMenuOpen = !isMenuOpen"
+        (keydown.enter)="isMenuOpen = !isMenuOpen"
+      >
         <p class="body-2">Sort by: {{ menuItemSelected.title }}</p>
         @if (menuItemSelected.sortBy?.order === 'desc') {
           <img

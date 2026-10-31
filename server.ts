@@ -14,14 +14,20 @@ import { AngularAppEngine } from '@angular/ssr';
 import { getContext } from '@netlify/angular-runtime/context';
 import { requestStorage } from './src/app/request-context';
 
-const angularAppEngine = new AngularAppEngine();
+const angularAppEngine = new AngularAppEngine({
+  // TODO: This is a security-sensitive option. Remove if not needed. For more information, see https://angular.dev/best-practices/security#configuring-trusted-proxy-headers
+  trustProxyHeaders: ['x-forwarded-host', 'x-forwarded-proto'],
+});
 
 export function app() {
   const server = fastify({
     logger: false,
   });
 
-  const angularNodeAppEngine = new AngularNodeAppEngine();
+  const angularNodeAppEngine = new AngularNodeAppEngine({
+    // TODO: This is a security-sensitive option. Remove if not needed. For more information, see https://angular.dev/best-practices/security#configuring-trusted-proxy-headers
+    trustProxyHeaders: ['x-forwarded-host', 'x-forwarded-proto'],
+  });
   const serverDistFolder = dirname(fileURLToPath(import.meta.url));
   const browserDistFolder = resolve(serverDistFolder, '../browser');
 

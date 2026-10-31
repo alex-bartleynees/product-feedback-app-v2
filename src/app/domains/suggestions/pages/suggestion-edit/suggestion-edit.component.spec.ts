@@ -18,10 +18,10 @@ describe('SuggestionEditComponent', () => {
       suggestions: signal([]),
       loading: signal(false),
       error: signal(null),
-      selectSuggestion: () => {},
-      unselectSuggestion: () => {},
-      updateSuggestion: () => {},
-      createSuggestion: () => {},
+      selectSuggestion: jest.fn(),
+      unselectSuggestion: jest.fn(),
+      updateSuggestion: jest.fn(),
+      createSuggestion: jest.fn(),
     };
 
     const mockUsersFacade = {

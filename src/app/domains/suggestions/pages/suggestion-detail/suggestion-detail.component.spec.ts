@@ -17,15 +17,16 @@ describe('SuggestionDetailComponent', () => {
       suggestions: signal([]),
       loading: signal(false),
       error: signal(null),
-      selectSuggestion: () => {},
-      unselectSuggestion: () => {},
-      upVoteSuggestion: () => {},
-      addCommentToSuggestion: () => {},
-      addReplyToComment: () => {},
+      selectSuggestion: jest.fn(),
+      unselectSuggestion: jest.fn(),
+      upVoteSuggestion: jest.fn(),
+      addCommentToSuggestion: jest.fn(),
+      addReplyToComment: jest.fn(),
     };
 
     const mockUsersFacade = {
       currentUser: signal({ id: 1, name: 'Test User', username: 'testuser', image: '' }),
+      isAuthenticated: signal(false),
     };
 
     await TestBed.configureTestingModule({

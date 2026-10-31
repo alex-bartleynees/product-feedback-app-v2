@@ -11,7 +11,13 @@
       </div>
 
       @if (isAuthenticated) {
-        <p class="reply__button body-3" (click)="showReply.set(!showReply())">
+        <p
+          class="reply__button body-3"
+          role="button"
+          tabindex="0"
+          (click)="showReply.set(!showReply())"
+          (keydown.enter)="showReply.set(!showReply())"
+        >
           Reply
         </p>
       }

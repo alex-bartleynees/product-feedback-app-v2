@@ -2,7 +2,10 @@
   @for (item of menuItems; track item.field) {
     <div
       class="menu__item"
+      role="button"
+      tabindex="0"
       (click)="menuItemClicked.emit(item)"
+      (keydown.enter)="menuItemClicked.emit(item)"
       [ngClass]="{ 'menu__item--active': itemSelected === item }"
     >
       {{ item.title }}

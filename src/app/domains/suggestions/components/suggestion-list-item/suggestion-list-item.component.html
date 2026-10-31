@@ -9,7 +9,7 @@
     ></product-feedback-app-v2-chip>
     <a
       class="suggestion-item__content"
-      [routerLink]="['/suggestion-detail', suggestion()?.id]"
+      [routerLink]="['/suggestion-detail', $safeNavigationMigration(suggestion()?.id)]"
     >
       <h2 class="suggestion-item__heading">
         {{ suggestion()!.title }}

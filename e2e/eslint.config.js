@@ -1,15 +1,9 @@
-const { FlatCompat } = require('@eslint/eslintrc');
-const js = require('@eslint/js');
+const playwright = require('eslint-plugin-playwright');
 const baseConfig = require('../eslint.base.config.js');
-
-const compat = new FlatCompat({
-  baseDirectory: __dirname,
-  recommendedConfig: js.configs.recommended,
-});
 
 module.exports = [
   ...baseConfig,
-  ...compat.extends('plugin:playwright/recommended'),
+  playwright.configs['flat/recommended'],
   {
     files: ['**/*.ts', '**/*.tsx', '**/*.js', '**/*.jsx'],
     // Override or add rules here

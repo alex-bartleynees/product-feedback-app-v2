@@ -1,6 +1,9 @@
 <div
   class="chip__container"
+  role="button"
+  tabindex="0"
   (click)="chipClick.emit()"
+  (keydown.enter)="chipClick.emit()"
   [ngClass]="{
     'chip--active': active,
     'chip__container--arrow': showArrow,

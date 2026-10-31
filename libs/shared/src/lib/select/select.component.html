@@ -1,7 +1,10 @@
 <div class="select select__container">
   <div
     class="select select__dropdown"
+    role="button"
+    tabindex="0"
     (click)="openMenu()"
+    (keydown.enter)="openMenu()"
     [ngClass]="{ 'select--active': isMenuOpen }"
   >
     {{ menuItemSelected?.title }}

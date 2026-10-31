@@ -10,20 +10,33 @@
     <div
       #plannedTab
       class="tab tab__selected tab__selected--planned"
+      role="tab"
+      tabindex="0"
       (click)="tabSelected('planned', plannedTab)"
+      (keydown.enter)="tabSelected('planned', plannedTab)"
     >
       <h3 class="mobile-show">Planned ({{ suggestions().planned.length }})</h3>
     </div>
     <div
       #inProgressTab
       class="tab"
+      role="tab"
+      tabindex="0"
       (click)="tabSelected('inprogress', inProgressTab)"
+      (keydown.enter)="tabSelected('inprogress', inProgressTab)"
     >
       <h3 class="mobile-show">
         In-Progress ({{ suggestions().inProgress.length }})
       </h3>
     </div>
-    <div #liveTab class="tab" (click)="tabSelected('live', liveTab)">
+    <div
+      #liveTab
+      class="tab"
+      role="tab"
+      tabindex="0"
+      (click)="tabSelected('live', liveTab)"
+      (keydown.enter)="tabSelected('live', liveTab)"
+    >
       <h3 class="mobile-show">Live ({{ suggestions().live.length }})</h3>
     </div>
   </article>

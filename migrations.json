@@ -1,110 +1,92 @@
 {
   "migrations": [
     {
-      "version": "22.2.0-beta.2",
-      "description": "Convert jest.config.ts files from ESM to CJS syntax (export default -> module.exports, import -> require) for projects using CommonJS resolution to ensure correct loading under Node.js type-stripping.",
-      "implementation": "./src/migrations/update-22-2-0/convert-jest-config-to-cjs",
+      "version": "24.0.0-beta.0",
+      "description": "Finds local executors that declare a custom hasher, which is deprecated and will be removed in Nx 25. Rewriting a hasher as target inputs means reading what its code hashes, so the rewrite is driven by an AI prompt; the generator only reports each hasher.",
+      "implementation": "./dist/src/migrations/update-24-0-0/find-custom-hashers",
+      "prompt": "tools/ai-migrations/nx/24.0.3/move-custom-hashers-to-inputs.md",
+      "documentation": "./dist/src/migrations/update-24-0-0/find-custom-hashers.md",
+      "package": "nx",
+      "name": "24-0-0-move-custom-hashers-to-inputs"
+    },
+    {
+      "version": "24.0.0-beta.3",
+      "description": "Sets affected.legacy to true in nx.json so nx affected keeps selecting whole projects. Nx 24 selects individual affected tasks by default.",
+      "implementation": "./dist/src/migrations/update-24-0-0/enable-legacy-affected",
+      "documentation": "./dist/src/migrations/update-24-0-0/enable-legacy-affected.md",
+      "package": "nx",
+      "name": "24-0-0-enable-legacy-affected"
+    },
+    {
+      "version": "24.0.0-beta.3",
+      "description": "Renames the ultracache target options \"ignoredReads\" and \"ignoredWrites\" to \"ignoreReads\" and \"ignoreWrites\", and renames .nx/workflows/sandboxing-config.yaml to ultracache-config.yaml with its \"exclude-reads\" and \"exclude-writes\" keys renamed to \"ignore-reads\" and \"ignore-writes\".",
+      "implementation": "./dist/src/migrations/update-24-0-0/rename-ultracache-ignore-options",
+      "documentation": "./dist/src/migrations/update-24-0-0/rename-ultracache-ignore-options.md",
+      "package": "nx",
+      "name": "24-0-0-rename-ultracache-ignore-options"
+    },
+    {
+      "version": "24.0.0-beta.3",
+      "description": "Converts targets using the removed `@nx/playwright` executors to inferred tasks; an AI prompt finishes the targets the converter cannot convert safely and validates the project graph.",
+      "implementation": "./dist/src/migrations/update-24-0-0/remove-deprecated-executors",
+      "prompt": "tools/ai-migrations/@nx/playwright/24.0.3/finish-inferred-conversion.md",
+      "documentation": "./dist/src/migrations/update-24-0-0/remove-deprecated-executors.md",
+      "package": "@nx/playwright",
+      "name": "remove-deprecated-executors"
+    },
+    {
+      "version": "24.0.0-beta.3",
+      "description": "Converts targets using the removed `@nx/jest` executors to inferred tasks; an AI prompt finishes the targets the converter cannot convert safely and validates the project graph.",
+      "implementation": "./dist/src/migrations/update-24-0-0/remove-deprecated-executors",
+      "prompt": "tools/ai-migrations/@nx/jest/24.0.3/finish-inferred-conversion.md",
+      "documentation": "./dist/src/migrations/update-24-0-0/remove-deprecated-executors.md",
       "package": "@nx/jest",
-      "name": "convert-jest-config-to-cjs"
+      "name": "remove-deprecated-executors"
     },
     {
-      "version": "22.3.2-beta.0",
-      "requires": { "jest": ">=30.0.0" },
-      "description": "Replace removed matcher aliases in Jest v30 with their corresponding matcher",
-      "implementation": "./src/migrations/update-21-3-0/replace-removed-matcher-aliases",
-      "package": "@nx/jest",
-      "name": "replace-removed-matcher-aliases-v22-3"
+      "version": "24.0.0-beta.3",
+      "description": "Converts targets using the removed `@nx/eslint` executors to inferred tasks; an AI prompt finishes the targets the converter cannot convert safely and validates the project graph.",
+      "implementation": "./dist/src/migrations/update-24-0-0/remove-deprecated-executors",
+      "prompt": "tools/ai-migrations/@nx/eslint/24.0.3/finish-inferred-conversion.md",
+      "documentation": "./dist/src/migrations/update-24-0-0/remove-deprecated-executors.md",
+      "package": "@nx/eslint",
+      "name": "remove-deprecated-executors"
     },
     {
-      "version": "22.3.0-beta.0",
-      "requires": { "@angular/core": ">=21.0.0" },
-      "description": "Updates webpack-based SSR configuration to use preserve module format and bundler module resolution.",
-      "factory": "./src/migrations/update-22-3-0/update-ssr-webpack-config",
+      "version": "24.0.0-beta.5",
+      "description": "Replaces the removed `setParserOptionsProject` generator option with `enableTypedLinting` in the generator defaults of `nx.json` and project configuration, so generators resolve typed linting as before.",
+      "implementation": "./dist/src/migrations/update-24-0-0/replace-set-parser-options-project",
+      "documentation": "./dist/src/migrations/update-24-0-0/replace-set-parser-options-project.md",
+      "package": "@nx/eslint",
+      "name": "update-24-0-0-replace-set-parser-options-project"
+    },
+    {
+      "version": "24.0.0-beta.4",
+      "requires": {
+        "@angular/core": ">=22.1.0 <22.2.0"
+      },
+      "optionalUpdate": true,
+      "description": "Update the Angular packages to 22.2 unless the workspace uses Cypress component testing or webpack Module Federation in an Angular project, which break with the webpack-dev-server and webpack versions Angular 22.2 installs.",
+      "factory": "./dist/src/migrations/update-24-0-0/upgrade-to-angular-22-2",
+      "documentation": "./dist/src/migrations/update-24-0-0/upgrade-to-angular-22-2.md",
       "package": "@nx/angular",
-      "name": "update-ssr-webpack-config-22-2-0"
+      "name": "update-24-0-0-upgrade-to-angular-22-2"
     },
     {
-      "version": "22.3.0-beta.0",
-      "requires": { "@angular/core": ">=21.0.0-rc.3" },
-      "description": "Update 'module' to 'preserve' and 'moduleResolution' to 'bundler' in TypeScript configurations for Angular projects.",
-      "factory": "./src/migrations/update-22-3-0/update-module-resolution",
+      "version": "24.0.0-beta.5",
+      "description": "Sets `readyWhen: { signal: true }` on `@angular/build:dev-server`, `@angular-devkit/build-angular:dev-server`, `@angular-devkit/build-angular:ssr-dev-server` and `@nx/angular:dev-server` targets that get no `readyWhen` from their own configuration or `targetDefaults`, so tasks that depend on them with `waitFor: 'ready'` start once the server is listening.",
+      "implementation": "./dist/src/migrations/update-24-0-0/add-ready-when-signal",
+      "documentation": "./dist/src/migrations/update-24-0-0/add-ready-when-signal.md",
       "package": "@nx/angular",
-      "name": "update-module-resolution-22-2-0"
+      "name": "update-24-0-0-add-ready-when-signal"
     },
     {
-      "version": "22.3.0-beta.0",
-      "requires": { "@angular/core": ">=21.0.0" },
-      "description": "Updates the 'lib' property in tsconfig files to use 'es2022' or a more modern version.",
-      "factory": "./src/migrations/update-22-3-0/update-typescript-lib",
+      "version": "24.0.0-beta.5",
+      "description": "Removes generator defaults for the removed `@nx/angular:scam`, `@nx/angular:scam-directive`, `@nx/angular:scam-pipe`, and `@nx/angular:scam-to-standalone` generators from `nx.json` and project configurations.",
+      "implementation": "./dist/src/migrations/update-24-0-0/remove-scam-generator-defaults",
+      "documentation": "./dist/src/migrations/update-24-0-0/remove-scam-generator-defaults.md",
       "package": "@nx/angular",
-      "name": "update-typescript-lib-22-2-0"
-    },
-    {
-      "version": "22.3.0-beta.0",
-      "requires": { "@angular/core": ">=21.0.0" },
-      "description": "Update 'vitest' unit test runner option to 'vitest-analog' in generator defaults.",
-      "factory": "./src/migrations/update-22-3-0/update-unit-test-runner-option",
-      "package": "@nx/angular",
-      "name": "update-unit-test-runner-option"
-    },
-    {
-      "version": "22.3.0-beta.3",
-      "requires": { "@angular/core": ">=21.0.0" },
-      "description": "Set 'isolatedModules' to 'true' in TypeScript test configurations for Angular projects.",
-      "factory": "./src/migrations/update-22-3-0/set-isolated-modules",
-      "package": "@nx/angular",
-      "name": "set-isolated-modules-22-3-0"
-    },
-    {
-      "version": "22.3.0-beta.3",
-      "requires": { "@angular/core": ">=21.0.0" },
-      "description": "Replace 'jest-preset-angular/setup-jest' imports with the new 'setupZoneTestEnv' function.",
-      "factory": "./src/migrations/update-22-3-0/update-jest-preset-angular-setup",
-      "package": "@nx/angular",
-      "name": "update-jest-preset-angular-setup"
-    },
-    {
-      "version": "21.0.0",
-      "description": "Converts the entire application to block control flow syntax",
-      "factory": "./bundles/control-flow-migration.cjs#migrate",
-      "package": "@angular/core",
-      "name": "control-flow-migration"
-    },
-    {
-      "version": "21.0.0",
-      "description": "Replaces usages of the deprecated Router.getCurrentNavigation method with the Router.currentNavigation signal",
-      "factory": "./bundles/router-current-navigation.cjs#migrate",
-      "optional": true,
-      "package": "@angular/core",
-      "name": "router-current-navigation"
-    },
-    {
-      "version": "21.0.0",
-      "description": "Ensures that the Router.lastSuccessfulNavigation signal is now invoked",
-      "factory": "./bundles/router-last-successful-navigation.cjs#migrate",
-      "package": "@angular/core",
-      "name": "router-last-successful-navigation"
-    },
-    {
-      "version": "21.0.0",
-      "description": "Moves imports of `ApplicationConfig` from `@angular/platform-browser` to `@angular/core`",
-      "factory": "./bundles/application-config-core.cjs#migrate",
-      "package": "@angular/core",
-      "name": "application-config-core"
-    },
-    {
-      "version": "21.0.0",
-      "description": "Adds `BootstrapContext` to `bootstrapApplication` calls in `main.server.ts` to support server rendering.",
-      "factory": "./bundles/add-bootstrap-context-to-server-main.cjs#migrate",
-      "package": "@angular/core",
-      "name": "add-bootstrap-context-to-server-main"
-    },
-    {
-      "version": "21.0.0",
-      "description": "Migrates deprecated bootstrap options to providers.",
-      "factory": "./bundles/bootstrap-options-migration.cjs#migrate",
-      "package": "@angular/core",
-      "name": "bootstrap-options-migration"
+      "name": "update-24-0-0-remove-scam-generator-defaults"
     }
   ]
 }

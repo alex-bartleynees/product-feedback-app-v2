@@ -2,7 +2,7 @@
   "name": "@product-feedback-app-v2/app-config",
   "version": "0.0.1",
   "dependencies": {
-    "@angular/core": "21.0.6",
+    "@angular/core": "22.1.8",
     "@product-feedback-app-v2/api-interfaces": "0.0.1"
   },
   "type": "commonjs",
