@@ -6,11 +6,7 @@
   "implicitDependencies": ["product-feedback-app-v2"],
   "targets": {
     "e2e": {
-      "executor": "@nx/playwright:playwright",
-      "outputs": ["{workspaceRoot}/dist/.playwright/e2e"],
-      "options": {
-        "config": "e2e/playwright.config.ts"
-      }
+      "outputs": ["{workspaceRoot}/dist/.playwright/e2e"]
     },
     "lint": {
       "executor": "@nx/eslint:lint",
