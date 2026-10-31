@@ -6,3 +6,5 @@
 
 /.nx/workspace-data
 .nx/self-healing
+# Helm templates are Go templates, not valid YAML
+/deployment/helm-charts/*/templates

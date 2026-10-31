@@ -9,14 +9,13 @@ import { fromEvent, shareReplay, tap } from 'rxjs';
 export class FormSubmitDirective {
   private host = inject<ElementRef<HTMLFormElement>>(ElementRef);
 
-
   submit$ = fromEvent(this.element, 'submit').pipe(
     tap(() => {
       if (this.element.classList.contains('submitted') === false) {
         this.element.classList.add('submitted');
       }
     }),
-    shareReplay(1)
+    shareReplay(1),
   );
 
   get element() {

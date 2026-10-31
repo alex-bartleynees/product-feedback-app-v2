@@ -12,5 +12,5 @@ export const withLoading = () =>
       setLoading(value: boolean) {
         patchState(state, { loading: value });
       },
-    }))
+    })),
   );

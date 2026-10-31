@@ -3,7 +3,10 @@ import { provideRouter } from '@angular/router';
 import { provideNoopAnimations } from '@angular/platform-browser/animations';
 import { provideHttpClient } from '@angular/common/http';
 import { signal } from '@angular/core';
-import { SuggestionsFacadeService, UsersFacade } from '@product-feedback-app-v2/core-state';
+import {
+  SuggestionsFacadeService,
+  UsersFacade,
+} from '@product-feedback-app-v2/core-state';
 import { APP_CONFIG } from '@product-feedback-app-v2/app-config';
 
 import { SuggestionEditComponent } from './suggestion-edit.component';
@@ -25,7 +28,12 @@ describe('SuggestionEditComponent', () => {
     };
 
     const mockUsersFacade = {
-      currentUser: signal({ id: 1, name: 'Test User', username: 'testuser', image: '' }),
+      currentUser: signal({
+        id: 1,
+        name: 'Test User',
+        username: 'testuser',
+        image: '',
+      }),
     };
 
     await TestBed.configureTestingModule({

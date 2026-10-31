@@ -1,7 +1,20 @@
 /* eslint-disable @angular-eslint/directive-selector */
-import { ComponentRef, Directive, OnInit, ViewContainerRef, inject } from '@angular/core';
+import {
+  ComponentRef,
+  Directive,
+  OnInit,
+  ViewContainerRef,
+  inject,
+} from '@angular/core';
 import { NgControl } from '@angular/forms';
-import { NEVER, Observable, Subject, combineLatest, startWith, takeUntil } from 'rxjs';
+import {
+  NEVER,
+  Observable,
+  Subject,
+  combineLatest,
+  startWith,
+  takeUntil,
+} from 'rxjs';
 import { FormSubmitDirective } from './form-submit.directive';
 import { FormErrorComponent } from '../form-error';
 import { FORM_ERRORS, FormErrors } from '../constants/form-errors';
@@ -23,9 +36,13 @@ export class ControlErrorsDirective implements OnInit {
 
   constructor() {
     const vcr = this.vcr;
-    const controlErrorContainer = inject(ControlErrorContainerDirective, { optional: true });
+    const controlErrorContainer = inject(ControlErrorContainerDirective, {
+      optional: true,
+    });
 
-    this.submit$ = this.form?.submit$ ?? NEVER.pipe(startWith(undefined as unknown as Event));
+    this.submit$ =
+      this.form?.submit$ ??
+      NEVER.pipe(startWith(undefined as unknown as Event));
     this.container = controlErrorContainer ? controlErrorContainer.vcr : vcr;
   }
 

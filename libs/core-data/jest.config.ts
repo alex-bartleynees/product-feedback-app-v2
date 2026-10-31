@@ -1,4 +1,3 @@
- 
 export default {
   displayName: 'core-data',
   preset: '../../jest.preset.js',

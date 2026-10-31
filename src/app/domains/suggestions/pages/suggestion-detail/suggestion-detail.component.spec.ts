@@ -2,7 +2,10 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { provideRouter } from '@angular/router';
 import { provideHttpClient } from '@angular/common/http';
 import { signal } from '@angular/core';
-import { SuggestionsFacadeService, UsersFacade } from '@product-feedback-app-v2/core-state';
+import {
+  SuggestionsFacadeService,
+  UsersFacade,
+} from '@product-feedback-app-v2/core-state';
 import { APP_CONFIG } from '@product-feedback-app-v2/app-config';
 
 import { SuggestionDetailComponent } from './suggestion-detail.component';
@@ -25,7 +28,12 @@ describe('SuggestionDetailComponent', () => {
     };
 
     const mockUsersFacade = {
-      currentUser: signal({ id: 1, name: 'Test User', username: 'testuser', image: '' }),
+      currentUser: signal({
+        id: 1,
+        name: 'Test User',
+        username: 'testuser',
+        image: '',
+      }),
       isAuthenticated: signal(false),
     };
 

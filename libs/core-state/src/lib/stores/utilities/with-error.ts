@@ -12,5 +12,5 @@ export const withError = () =>
       setError(value: string) {
         patchState(state, { error: value });
       },
-    }))
+    })),
   );

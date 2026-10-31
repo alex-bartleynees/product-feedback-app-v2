@@ -5,7 +5,12 @@ import {
   HttpResponse,
   HttpInterceptorFn,
 } from '@angular/common/http';
-import { inject, PLATFORM_ID, makeStateKey, TransferState } from '@angular/core';
+import {
+  inject,
+  PLATFORM_ID,
+  makeStateKey,
+  TransferState,
+} from '@angular/core';
 import { isPlatformBrowser, isPlatformServer } from '@angular/common';
 import { Observable, of } from 'rxjs';
 import { tap } from 'rxjs/operators';
@@ -30,7 +35,7 @@ function normalizeUrl(url: string): string {
  */
 export const transferStateInterceptor: HttpInterceptorFn = (
   req: HttpRequest<unknown>,
-  next: HttpHandlerFn
+  next: HttpHandlerFn,
 ): Observable<HttpEvent<unknown>> => {
   const platformId = inject(PLATFORM_ID);
   const transferState = inject(TransferState);
@@ -64,7 +69,7 @@ export const transferStateInterceptor: HttpInterceptorFn = (
         if (event instanceof HttpResponse) {
           transferState.set(storeKey, event.body);
         }
-      })
+      }),
     );
   }
 

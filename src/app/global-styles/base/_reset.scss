@@ -101,17 +101,18 @@ select {
 
 .mobile-show {
   display: none;
-  
+
   @media (max-width: 700px) {
     display: block !important;
   }
 }
 
-form.submitted input.ng-invalid, form.submitted textarea.ng-invalid:not(.ng-pristine) {
-  outline: 2px solid #D73737!important;
+form.submitted input.ng-invalid,
+form.submitted textarea.ng-invalid:not(.ng-pristine) {
+  outline: 2px solid #d73737 !important;
 }
 
 .is-danger {
-  color: #D73737;
+  color: #d73737;
   margin-block-start: 0.5rem;
 }

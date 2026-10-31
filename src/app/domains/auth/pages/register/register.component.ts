@@ -61,7 +61,9 @@ export class RegisterComponent {
       error: (error: HttpErrorResponse) => {
         this.isSubmitting.set(false);
         if (error.status === 409) {
-          this.errorMessage.set('A user with this email or username already exists.');
+          this.errorMessage.set(
+            'A user with this email or username already exists.',
+          );
         } else {
           this.errorMessage.set('An error occurred. Please try again.');
         }

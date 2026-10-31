@@ -24,7 +24,7 @@ export class CsrfService {
       .pipe(
         tap((response) => {
           this.csrfToken = response.requestToken;
-        })
+        }),
       );
   }
 

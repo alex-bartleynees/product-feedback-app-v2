@@ -1,4 +1,16 @@
-import { AfterViewInit, ChangeDetectionStrategy, Component, ElementRef, HostListener, OnDestroy, OnInit, Renderer2, ViewChild, computed, inject } from '@angular/core';
+import {
+  AfterViewInit,
+  ChangeDetectionStrategy,
+  Component,
+  ElementRef,
+  HostListener,
+  OnDestroy,
+  OnInit,
+  Renderer2,
+  ViewChild,
+  computed,
+  inject,
+} from '@angular/core';
 import { SuggestionsFacadeService } from '@product-feedback-app-v2/core-state';
 import { RoadMapCardComponent } from './components/road-map-card/road-map-card.component';
 import {

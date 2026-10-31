@@ -52,8 +52,8 @@
           [menuItems]="menuItems"
           [menuItemSelected]="{
             title: this.editMode()
-              ? this.selectedSuggestion()?.category ?? ''
-              : ''
+              ? (this.selectedSuggestion()?.category ?? '')
+              : '',
           }"
           [control]="'category'"
         ></product-feedback-app-v2-select>
@@ -69,7 +69,7 @@
             [suggestionForm]="suggestionForm()"
             [menuItems]="statusItems"
             [menuItemSelected]="{
-              title: this.selectedSuggestion()?.status ?? ''
+              title: this.selectedSuggestion()?.status ?? '',
             }"
             [control]="'status'"
           ></product-feedback-app-v2-select>
@@ -108,9 +108,13 @@
           >
             Cancel</product-feedback-app-v2-button
           >
-          <product-feedback-app-v2-button class="button__feedback" type="submit">{{
-            editMode() ? 'Save Changes' : 'Add Feedback'
-          }}</product-feedback-app-v2-button>
+          <product-feedback-app-v2-button
+            class="button__feedback"
+            type="submit"
+            >{{
+              editMode() ? 'Save Changes' : 'Add Feedback'
+            }}</product-feedback-app-v2-button
+          >
         </div>
       </div>
     </form>

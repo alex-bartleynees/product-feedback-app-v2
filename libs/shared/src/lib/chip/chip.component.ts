@@ -9,11 +9,11 @@ import {
 } from '@angular/core';
 
 @Component({
-    selector: 'product-feedback-app-v2-chip',
-    templateUrl: './chip.component.html',
-    styleUrls: ['./chip.component.scss'],
-    imports: [CommonModule],
-    changeDetection: ChangeDetectionStrategy.OnPush
+  selector: 'product-feedback-app-v2-chip',
+  templateUrl: './chip.component.html',
+  styleUrls: ['./chip.component.scss'],
+  imports: [CommonModule],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ChipComponent {
   text = input<string | number>('');

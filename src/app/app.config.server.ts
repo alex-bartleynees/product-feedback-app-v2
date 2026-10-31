@@ -15,7 +15,10 @@ const serverConfig: ApplicationConfig = {
     provideServerRendering(withRoutes(serverRoutes)),
     provideHttpClient(
       withFetch(),
-      withInterceptors([transferStateInterceptor, ssrCookieForwardingInterceptor])
+      withInterceptors([
+        transferStateInterceptor,
+        ssrCookieForwardingInterceptor,
+      ]),
     ),
   ],
 };

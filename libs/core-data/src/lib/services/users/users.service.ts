@@ -14,7 +14,6 @@ export class UsersService {
   private appConfig = inject<AppConfig>(APP_CONFIG);
   private http = inject(HttpClient);
 
-
   usersModel = 'users';
 
   getCurrentUser(id: string): Observable<User> {
@@ -25,7 +24,10 @@ export class UsersService {
     return this.http.post<User>(this.getUrl(this.usersModel), user);
   }
 
-  uploadProfileImage(userId: string, file: File): Observable<ImageUploadResultDto> {
+  uploadProfileImage(
+    userId: string,
+    file: File,
+  ): Observable<ImageUploadResultDto> {
     const formData = new FormData();
     formData.append('file', file);
     return this.http.post<ImageUploadResultDto>(

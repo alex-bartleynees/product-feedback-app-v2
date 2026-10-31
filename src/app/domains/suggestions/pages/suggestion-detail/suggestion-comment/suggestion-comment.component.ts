@@ -8,7 +8,6 @@ import {
   signal,
 } from '@angular/core';
 
-
 import {
   SuggestionComment,
   User,
@@ -24,17 +23,17 @@ import {
 import { ReactiveFormsModule } from '@angular/forms';
 
 @Component({
-    selector: 'product-feedback-app-v2-suggestion-comment',
-    templateUrl: './suggestion-comment.component.html',
-    styleUrls: ['./suggestion-comment.component.scss'],
-    imports: [
+  selector: 'product-feedback-app-v2-suggestion-comment',
+  templateUrl: './suggestion-comment.component.html',
+  styleUrls: ['./suggestion-comment.component.scss'],
+  imports: [
     ReactiveFormsModule,
     ButtonComponent,
     ControlErrorsDirective,
     FormSubmitDirective,
-    ControlErrorContainerDirective
-],
-    changeDetection: ChangeDetectionStrategy.OnPush
+    ControlErrorContainerDirective,
+  ],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SuggestionCommentComponent {
   @Input() comment?: SuggestionComment;

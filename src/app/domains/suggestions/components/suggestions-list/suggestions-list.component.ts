@@ -22,11 +22,7 @@ import { environment } from '../../../../environments/environment';
   selector: 'product-feedback-app-v2-suggestions-list',
   templateUrl: './suggestions-list.component.html',
   styleUrls: ['./suggestions-list.component.scss'],
-  imports: [
-    SuggestionListItemComponent,
-    SortPipe,
-    ButtonComponent
-],
+  imports: [SuggestionListItemComponent, SortPipe, ButtonComponent],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SuggestionsListComponent {

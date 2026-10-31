@@ -15,11 +15,11 @@ export interface MenuItem {
 }
 
 @Component({
-    selector: 'product-feedback-app-v2-menu',
-    templateUrl: './menu.component.html',
-    styleUrls: ['./menu.component.scss'],
-    imports: [CommonModule],
-    changeDetection: ChangeDetectionStrategy.OnPush
+  selector: 'product-feedback-app-v2-menu',
+  templateUrl: './menu.component.html',
+  styleUrls: ['./menu.component.scss'],
+  imports: [CommonModule],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class MenuComponent {
   @Input() menuItems: MenuItem[] = [];

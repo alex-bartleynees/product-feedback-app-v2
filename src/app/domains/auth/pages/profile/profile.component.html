@@ -12,11 +12,7 @@
       <div class="profile__image-section">
         <div class="profile__image-wrapper">
           @if (previewUrl()) {
-            <img
-              class="profile__image"
-              [src]="previewUrl()"
-              alt="Preview"
-            />
+            <img class="profile__image" [src]="previewUrl()" alt="Preview" />
           } @else if (currentImageUrl()) {
             <img
               class="profile__image"

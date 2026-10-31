@@ -1,4 +1,12 @@
-import { ChangeDetectionStrategy, Component, OnDestroy, OnInit, computed, signal, inject } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  OnDestroy,
+  OnInit,
+  computed,
+  signal,
+  inject,
+} from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Suggestion, User } from '@product-feedback-app-v2/api-interfaces';
 import { Subject } from 'rxjs';
@@ -29,8 +37,8 @@ import { environment } from '../../../../environments/environment';
     ButtonComponent,
     SelectComponent,
     FormSubmitDirective,
-    ControlErrorsDirective
-],
+    ControlErrorsDirective,
+  ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SuggestionEditComponent implements OnInit, OnDestroy {

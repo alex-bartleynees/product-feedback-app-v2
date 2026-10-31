@@ -1,4 +1,3 @@
- 
 export default {
   displayName: 'api-interfaces',
   preset: '../../jest.preset.js',

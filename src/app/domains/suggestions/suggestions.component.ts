@@ -34,8 +34,8 @@ import { environment } from '../../environments/environment';
     HeaderComponent,
     MenuComponent,
     SuggestionsListComponent,
-    MobileSidebarComponent
-],
+    MobileSidebarComponent,
+  ],
   templateUrl: './suggestions.component.html',
   styleUrl: './suggestions.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,

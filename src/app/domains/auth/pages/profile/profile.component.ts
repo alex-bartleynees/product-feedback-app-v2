@@ -16,7 +16,12 @@ import {
   ButtonComponent,
 } from '@product-feedback-app-v2/shared';
 
-const ALLOWED_FILE_TYPES = ['image/jpeg', 'image/png', 'image/gif', 'image/webp'];
+const ALLOWED_FILE_TYPES = [
+  'image/jpeg',
+  'image/png',
+  'image/gif',
+  'image/webp',
+];
 const MAX_FILE_SIZE = 5 * 1024 * 1024; // 5MB
 
 @Component({
@@ -59,7 +64,9 @@ export class ProfileComponent {
     }
 
     if (!ALLOWED_FILE_TYPES.includes(file.type)) {
-      this.errorMessage.set('Please select a valid image file (JPEG, PNG, GIF, or WebP).');
+      this.errorMessage.set(
+        'Please select a valid image file (JPEG, PNG, GIF, or WebP).',
+      );
       return;
     }
 

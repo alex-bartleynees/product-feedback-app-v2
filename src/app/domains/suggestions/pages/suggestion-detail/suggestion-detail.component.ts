@@ -1,5 +1,12 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component, OnDestroy, OnInit, Signal, inject } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  OnDestroy,
+  OnInit,
+  Signal,
+  inject,
+} from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import {
@@ -24,20 +31,20 @@ import { SuggestionListItemComponent } from '../../components/suggestion-list-it
 import { SuggestionCommentComponent } from './suggestion-comment/suggestion-comment.component';
 
 @Component({
-    selector: 'product-feedback-app-v2-suggestion-detail',
-    templateUrl: './suggestion-detail.component.html',
-    styleUrls: ['./suggestion-detail.component.scss'],
-    imports: [
-        CommonModule,
-        ReactiveFormsModule,
-        BackButtonComponent,
-        ButtonComponent,
-        SuggestionListItemComponent,
-        SuggestionCommentComponent,
-        ControlErrorsDirective,
-        FormSubmitDirective,
-    ],
-    changeDetection: ChangeDetectionStrategy.OnPush
+  selector: 'product-feedback-app-v2-suggestion-detail',
+  templateUrl: './suggestion-detail.component.html',
+  styleUrls: ['./suggestion-detail.component.scss'],
+  imports: [
+    CommonModule,
+    ReactiveFormsModule,
+    BackButtonComponent,
+    ButtonComponent,
+    SuggestionListItemComponent,
+    SuggestionCommentComponent,
+    ControlErrorsDirective,
+    FormSubmitDirective,
+  ],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SuggestionDetailComponent implements OnInit, OnDestroy {
   private suggestionsFacade = inject(SuggestionsFacadeService);
