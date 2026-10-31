@@ -23,6 +23,9 @@
         "server": "src/main.server.ts",
         "ssr": {
           "entry": "server.ts"
+        },
+        "security": {
+          "allowedHosts": ["product-feedback.alexbartleynees.com", "localhost"]
         }
       },
       "configurations": {
