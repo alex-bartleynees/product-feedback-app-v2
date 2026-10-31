@@ -15,23 +15,26 @@
         "{workspaceRoot}/eslint.config.js"
       ]
     },
-    "@nx/jest:jest": {
-      "cache": true,
-      "inputs": ["default", "^production", "{workspaceRoot}/jest.preset.js"],
-      "options": {
-        "passWithNoTests": true
-      },
-      "configurations": {
-        "ci": {
-          "ci": true,
-          "codeCoverage": true
-        }
-      }
-    },
     "e2e": {
       "cache": true,
       "inputs": ["default", "^production"]
-    }
+    },
+    "test": [
+      {
+        "filter": {
+          "plugin": "@nx/jest/plugin"
+        },
+        "configurations": {
+          "ci": {
+            "ci": true,
+            "coverage": true
+          }
+        },
+        "options": {
+          "passWithNoTests": true
+        }
+      }
+    ]
   },
   "namedInputs": {
     "default": ["{projectRoot}/**/*", "sharedGlobals"],
@@ -128,6 +131,19 @@
         "targetName": "e2e",
         "ciTargetName": "e2e-ci"
       }
+    },
+    {
+      "plugin": "@nx/jest/plugin",
+      "options": {
+        "targetName": "test"
+      },
+      "include": [
+        "libs/api-interfaces/**/*",
+        "libs/app-config/**/*",
+        "libs/core-data/**/*",
+        "libs/core-state/**/*",
+        "libs/shared/**/*"
+      ]
     }
   ]
 }
