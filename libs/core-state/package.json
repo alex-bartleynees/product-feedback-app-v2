@@ -2,7 +2,7 @@
   "name": "@product-feedback-app-v2/core-state",
   "version": "0.0.1",
   "dependencies": {
-    "@angular/core": "22.1.8",
+    "@angular/core": "~22.2.0",
     "@product-feedback-app-v2/api-interfaces": "0.0.1",
     "@ngrx/signals": "^22.0.1",
     "@product-feedback-app-v2/core-data": "0.0.1",
