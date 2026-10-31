@@ -3,7 +3,7 @@ declare module '@netlify/angular-runtime/context' {
     manifest: {
       basePath: string;
       supportedLocales: Record<string, string>;
-      entryPoints: Record<string, () => Promise<any>>;
+      entryPoints: Record<string, () => Promise<unknown>>;
     };
     documentFilePath: string;
   }

@@ -119,15 +119,20 @@ export class SuggestionEditComponent implements OnInit, OnDestroy {
       return;
     }
 
-    if (this.editMode() && this.selectedSuggestion) {
+    if (this.editMode()) {
+      const selectedSuggestion = this.selectedSuggestion();
+      if (!selectedSuggestion) {
+        return;
+      }
+
       const suggestion: Suggestion = {
         id: this.id,
         title: this.suggestionForm().title.value,
         category: this.suggestionForm().category.value,
-        upvotes: this.selectedSuggestion()!.upvotes,
+        upvotes: selectedSuggestion.upvotes,
         status: this.suggestionForm().statusControl.value,
         description: this.suggestionForm().description.value,
-        comments: this.selectedSuggestion()!.comments,
+        comments: selectedSuggestion.comments,
       };
 
       this.suggestionService.updateSuggestion(suggestion);

@@ -1,6 +1,3 @@
-import { APP_CONFIG } from '@product-feedback-app-v2/app-config';
-import { provideHttpClient } from '@angular/common/http';
-import { provideRouter } from '@angular/router';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { HeadingTileComponent } from './heading-tile.component';

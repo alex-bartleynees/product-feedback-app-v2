@@ -43,7 +43,7 @@ export const transferStateInterceptor: HttpInterceptorFn = (
 
   // Create a normalized cache key
   const normalizedUrl = normalizeUrl(req.url);
-  const storeKey = makeStateKey<any>(`http-cache-${normalizedUrl}`);
+  const storeKey = makeStateKey<unknown>(`http-cache-${normalizedUrl}`);
 
   // CLIENT: Check if we have cached data from server
   if (isPlatformBrowser(platformId)) {
