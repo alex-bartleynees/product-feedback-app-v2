@@ -66,6 +66,9 @@
         "development": {
           "buildTarget": "product-feedback-app-v2:build:development"
         }
+      },
+      "readyWhen": {
+        "signal": true
       }
     },
     "extract-i18n": {
