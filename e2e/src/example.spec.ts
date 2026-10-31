@@ -1,8 +1,13 @@
 import { test, expect } from '@playwright/test';
 
-test('has title', async ({ page }) => {
+test('loads the suggestions page', async ({ page }) => {
   await page.goto('/');
 
-  // Expect h1 to contain a substring.
-  expect(await page.locator('h1').innerText()).toContain('Welcome');
+  await expect(page).toHaveTitle('product-feedback-app-v2');
+
+  // The header renders whether or not any suggestions loaded.
+  await expect(page.locator('.header__heading')).toHaveText(
+    /^\d+ Suggestions$/,
+  );
+  await expect(page.getByText(/^Sort by:/)).toBeVisible();
 });
